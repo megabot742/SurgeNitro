@@ -3,13 +3,13 @@ using UnityEngine.Events;
 
 public class ArcadeCarController : CarControllerBase
 {
-    [SerializeField, Min(0f)] private float _maxForwardSpeedKPH = 120f;
-    [SerializeField, Min(0f)] private float _maxBackwardSpeedKPH = 40f;
-    [SerializeField, Min(0f)] private float _maxMotorTorque = 300f;
-    [SerializeField, Min(0f)] private float _minMotorFrictionTorque = 15f;
-    [SerializeField, Min(0f)] private float _maxMotorFrictionTorque = 75f;
-    [SerializeField, Min(0.001f)] private float _motorInertia = 0.3f;
-    [SerializeField, Min(0f)] private float _finalGearRatio = 8f;
+    [SerializeField, Min(0f)] private float maxForwardSpeedKPH = 120f;
+    [SerializeField, Min(0f)] private float maxBackwardSpeedKPH = 40f;
+    [SerializeField, Min(0f)] private float maxMotorTorque = 300f;
+    [SerializeField, Min(0f)] private float minMotorFrictionTorque = 15f;
+    [SerializeField, Min(0f)] private float maxMotorFrictionTorque = 75f;
+    [SerializeField, Min(0.001f)] private float motorInertia = 0.3f;
+    [SerializeField, Min(0f)] private float finalGearRatio = 8f;
 
     [Header("Boots System")]
     [SerializeField] Turbocharger _turbocharger;
@@ -82,7 +82,7 @@ public class ArcadeCarController : CarControllerBase
         }
     }
 
-    public override float MaxSpeedKPH => Mathf.Max(_maxForwardSpeedKPH, _maxBackwardSpeedKPH);
+    public override float MaxSpeedKPH => Mathf.Max(maxForwardSpeedKPH, maxBackwardSpeedKPH);
 
     // public override CarReplayData CarData
     // {
@@ -119,8 +119,8 @@ public class ArcadeCarController : CarControllerBase
     {
         base.Awake();
 
-        _maxMotorForwardRPM = CalcMotorRPMFromSpeedKPH(_maxForwardSpeedKPH);
-        _maxMotorBackwardRPM = CalcMotorRPMFromSpeedKPH(_maxBackwardSpeedKPH);
+        _maxMotorForwardRPM = CalcMotorRPMFromSpeedKPH(maxForwardSpeedKPH);
+        _maxMotorBackwardRPM = CalcMotorRPMFromSpeedKPH(maxBackwardSpeedKPH);
 
         _nos.Init();
     }
@@ -152,8 +152,8 @@ public class ArcadeCarController : CarControllerBase
             // NEW: Nhân hệ số từ Turbo và Nitro vào motorTorque
             motorTorque *= _turbocharger.EngineTorqueCoef * _nos.EngineTorqueCoef;
 
-            var driveTorque = motorTorque * _finalGearRatio;
-            var friTorque = motorFriTorque * _finalGearRatio;
+            var driveTorque = motorTorque * finalGearRatio;
+            var friTorque = motorFriTorque * finalGearRatio;
 
             AddDriveTorque(driveTorque);
             AddBrakeTorque(friTorque);
@@ -168,12 +168,12 @@ public class ArcadeCarController : CarControllerBase
 
             var totalBrakeTorque = MaxBrakeTorque * BrakeInput * Wheels.Length;
 
-            var driveTorque = motorTorque * _finalGearRatio;
-            var drivetrainI = _finalGearRatio * _finalGearRatio * _motorInertia;
+            var driveTorque = motorTorque * finalGearRatio;
+            var drivetrainI = finalGearRatio * finalGearRatio * motorInertia;
 
-            var friTorque = motorFiTorque * _finalGearRatio;
+            var friTorque = motorFiTorque * finalGearRatio;
 
-            var brakeTorque = totalBrakeTorque * _finalGearRatio;
+            var brakeTorque = totalBrakeTorque * finalGearRatio;
 
             _motorRPM += (driveTorque / drivetrainI) * Time.fixedDeltaTime * CarMath.RPSToRPM;
             DecelerateMotor(friTorque, drivetrainI);
@@ -205,7 +205,7 @@ public class ArcadeCarController : CarControllerBase
 
     public float CalcMotorRPMFromSpeedKPH(float speedKPH)
     {
-        return CarMath.SpeedKPHToEngineRPM(speedKPH, 1f, _finalGearRatio, wheelRadius);
+        return CarMath.SpeedKPHToEngineRPM(speedKPH, 1f, finalGearRatio, wheelRadius);
     }
 
     private float GetMotorTorque(float motorRPM)
@@ -226,12 +226,12 @@ public class ArcadeCarController : CarControllerBase
 
         var sign = _reverse ? -1f : 1f;
 
-        return sign * _maxMotorTorque * coef;
+        return sign * maxMotorTorque * coef;
     }
 
     private float GetMotorFrictionTorque(float motorRPM)
     {
-        return Mathf.Lerp(_minMotorFrictionTorque, _maxMotorFrictionTorque, motorRPM * motorRPM);
+        return Mathf.Lerp(minMotorFrictionTorque, maxMotorFrictionTorque, motorRPM * motorRPM);
     }
 
     private void DecelerateMotor(float torque, float inertia)

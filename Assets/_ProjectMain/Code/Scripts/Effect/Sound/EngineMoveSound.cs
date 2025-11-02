@@ -11,7 +11,7 @@ public class EngineMoveSound : BaseSound
         if (audioSource == null || car == null) return;
 
         bool isMoving = car.MotorRevolutionRate > 0.01f;
-        Debug.Log(car.MotorRevolutionRate);
+        //Debug.Log(car.MotorRevolutionRate);
         if (isMoving)
         {
             StopFade();
