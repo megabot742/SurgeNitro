@@ -29,6 +29,12 @@ public class InputCarController : DriverBase
     [SerializeField] bool handbrakeInputAction;
     [SerializeField] float turnNitro;
 
+    CarLightController carLightController;
+    void Start()
+    {
+        carLightController = GetComponentInChildren<CarLightController>();
+    }
+
     public bool SteerLimitByFriction
     {
         get => _steerLimitByFriction;
@@ -227,7 +233,15 @@ public class InputCarController : DriverBase
         // _carController.HandbrakeInput = handbrakeInput;
         //Input Action
         carController.HandbrakeInput = handbrakeInputAction;
-
+        carLightController.ToggleRearLights(handbrakeInputAction);
+        // if(handbrakeInputAction == true)
+        // {
+        //     carLightController.TurnOnBrakeLights();   
+        // }
+        // else
+        // {
+        //     carLightController.TurnOffBrakeLights();   
+        // }
 
     }
     //ENGINE CAR
