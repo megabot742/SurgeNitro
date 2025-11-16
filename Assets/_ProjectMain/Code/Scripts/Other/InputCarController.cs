@@ -29,10 +29,15 @@ public class InputCarController : DriverBase
     [SerializeField] bool handbrakeInputAction;
     [SerializeField] float turnNitro;
 
-    CarLightController carLightController;
+    [Header("Connect script")]
+    [SerializeField, ReadOnly] private CarLightController carLightController;
+    [SerializeField, ReadOnly] private CameraCarController cameraController;
+
     void Start()
     {
+        
         carLightController = GetComponentInChildren<CarLightController>();
+        cameraController = GetComponentInChildren<CameraCarController>();
     }
 
     public bool SteerLimitByFriction
@@ -53,18 +58,22 @@ public class InputCarController : DriverBase
         set => _enableVirtualPad = value;
     }
     //New Input System
-    void OnMove(InputValue inputValue)
+    private void OnMove(InputValue inputValue)
     {
         moveInput = inputValue.Get<Vector2>();
     }
-    void OnNitro()
+    private void OnNitro()
     {
         turnNitro++;
     }
-    void OnHandbrake(InputValue inputValue)
+    private void OnHandbrake(InputValue inputValue)
     {
         handbrakeInputAction = inputValue.isPressed;
     }
+    private void OnSwitchCamera()
+    {
+        cameraController?.SwitchCamera(); //Check true for switch camera
+    } 
     protected override void Drive()
     {
         UpdateSteerInput();
@@ -299,4 +308,7 @@ public class InputCarController : DriverBase
             }
         }
     }
+
+    
 }
+

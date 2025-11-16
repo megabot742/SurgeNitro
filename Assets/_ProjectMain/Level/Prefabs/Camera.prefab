@@ -27,8 +27,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 114244916378274716}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.039714392, y: -0.000000005623052, z: 2.234923e-10, w: 0.9992111}
-  m_LocalPosition: {x: 0, y: 2.0593395, z: -5.882098}
+  m_LocalRotation: {x: 0.039762978, y: 0.000000007931146, z: -3.156154e-10, w: 0.99920917}
+  m_LocalPosition: {x: -0.00000009337475, y: 2.0599115, z: -5.8819304}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
-    m_Value: 0
+    Enabled: 1
+    m_Value: 5
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -146,6 +146,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8583354807260110188}
+  - component: {fileID: 939969848575624250}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -173,6 +174,22 @@ Transform:
   - {fileID: 7801783381639391962}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &939969848575624250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 441707816052591419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d74ff69ddfe5894e90f0bd9285f48b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentIndexCameraView: 0
+  activePriority: 15
+  inactivePriority: 0
+  cinemachineCameras: []
 --- !u!1 &2581763935279188933
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
+    Enabled: 1
     m_Value: 0
   OutputChannel: 1
   StandbyUpdate: 2
@@ -329,7 +346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
+    Enabled: 1
     m_Value: 0
   OutputChannel: 1
   StandbyUpdate: 2
@@ -440,7 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
+    Enabled: 1
     m_Value: 0
   OutputChannel: 1
   StandbyUpdate: 2
@@ -678,8 +695,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8636636218624880370}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.10663982, y: -0.0000032753655, z: 0.0000003512875, w: 0.99429774}
-  m_LocalPosition: {x: 0, y: 3.1056466, z: -7.6297355}
+  m_LocalRotation: {x: 0.039762978, y: 0.000000007931146, z: -3.156156e-10, w: 0.99920917}
+  m_LocalPosition: {x: -0.00000009337475, y: 2.0599115, z: -5.8819304}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

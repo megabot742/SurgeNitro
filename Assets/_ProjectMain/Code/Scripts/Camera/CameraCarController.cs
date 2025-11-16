@@ -1,36 +1,62 @@
+using System.Collections.Generic;
+using Unity.Cinemachine;
+using Unity.Collections;
 using UnityEngine;
 
 public class CameraCarController : MonoBehaviour
 {
-    [SerializeField] int currentCameraView = 0;
+    [Header("Setup Camera")]
+    [SerializeField, ReadOnly] private int currentIndexCameraView = 0;
+    [SerializeField] private int activePriority = 15; //Active
+    [SerializeField] private int inactivePriority = 0; //Inactive
 
-    [SerializeField] private GameObject[] cameras; // Assume cameras are in order: cockpit, close, far, locked, wheel
+    [Header("CameraList")]
+    [SerializeField] private List<CinemachineCamera> cinemachineCameras = new();
+    
 
+    void Awake()
+    {
+        CollectCameras();
+    }
     private void Start()
     {
-        SetCameraView(currentCameraView);
+        if (cinemachineCameras.Count > 0)
+        {
+            SetCameraView(currentIndexCameraView);
+        }
     }
-
-    void OnSwitchCamera() //Input System
+    private void CollectCameras()
     {
-        currentCameraView = (currentCameraView + 1) % cameras.Length;
-        SetCameraView(currentCameraView);
+        cinemachineCameras.Clear();
+        var allCameras = GetComponentsInChildren<CinemachineCamera>(true); //check and get all cameras
+        cinemachineCameras.AddRange(allCameras); //add camera to list
+    }
+    private void SetTarget(CarControllerBase playerCar) //call in ManagerRace for tracking only player
+    {
+        foreach (CinemachineCamera camera in cinemachineCameras)
+        {
+            camera.Follow = playerCar.transform; //tracking player
+        }
+    }
+    public void SwitchCamera() //Call in Input System
+    {
+        Debug.Log("Hello");
+        if (cinemachineCameras.Count == 0) return;//check list
+        
+        currentIndexCameraView = (currentIndexCameraView + 1) % cinemachineCameras.Count;
+        SetCameraView(currentIndexCameraView);
     }
 
     private void SetCameraView(int index)
     {
-        if (cameras.Length == 0 || index < 0 || index >= cameras.Length) return;
-        for (int i = 0; i < cameras.Length; i++)
+        if (cinemachineCameras.Count == 0) return;
+        if (index < 0 || index >= cinemachineCameras.Count) index = 0;
+
+        for (int i = 0; i < cinemachineCameras.Count; i++)
         {
-            if (cameras != null)
-            {
-                cameras[i].SetActive(false);
-            }
+            cinemachineCameras[i].Priority = (i == index) ? activePriority : inactivePriority;
         }
-        GameObject activeCamera = cameras[index];
-        if (activeCamera != null)
-        {
-            activeCamera.gameObject.SetActive(true);
-        }
+
+        currentIndexCameraView = index; //Update value
     }
 }
