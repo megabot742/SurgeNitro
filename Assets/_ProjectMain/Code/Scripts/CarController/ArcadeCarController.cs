@@ -25,8 +25,9 @@ public class ArcadeCarController : CarControllerBase
     private float _remainMixtureUnbalanceTime;
     private UnityEvent _onAfterFire = new UnityEvent();
     public UnityEvent OnAfterFire => _onAfterFire;
-    
-    
+
+    [Header("Top Speed Fix")]
+    [SerializeField] private AnimationCurve torqueCurve = AnimationCurve.EaseInOut(0, 1f, 1f, 0.7f);  // Torque giữ cao đến 100% rev
 
     private float _maxMotorForwardRPM;
     private float _maxMotorBackwardRPM;
@@ -60,8 +61,8 @@ public class ArcadeCarController : CarControllerBase
             }
         }
     }
-    
-    
+
+
     public override float MotorRevolutionRate
     {
         get => _motorRPM / Mathf.Max(_maxMotorForwardRPM, _maxMotorBackwardRPM);
@@ -146,6 +147,11 @@ public class ArcadeCarController : CarControllerBase
         if (IsGrounded())
         {
             _motorRPM = CalcMotorRPMFromSpeedKPH(SpeedKPH);
+            float currentSpeedPercent = SpeedKPH / maxForwardSpeedKPH;
+            if (currentSpeedPercent > 0.98f)  // Gần max → giảm throttle tự động (realistic)
+            {
+                throttleInput *= 0.1f;  // Giữ RPM ổn định, không exceed
+            }
             var motorTorque = GetMotorTorque(_motorRPM) * throttleInput;
             var motorFriTorque = GetMotorFrictionTorque(_motorRPM) * (1f - throttleInput);
 
@@ -208,24 +214,34 @@ public class ArcadeCarController : CarControllerBase
         return CarMath.SpeedKPHToEngineRPM(speedKPH, 1f, finalGearRatio, wheelRadius);
     }
 
+    // private float GetMotorTorque(float motorRPM)
+    // {
+    //     if (IsExceedMaxMotorRPM)
+    //     {
+    //         return 0f;
+    //     }
+
+    //     var revRate = Mathf.Clamp01(MotorRevolutionRate);
+
+    //     var coef = 1f;
+    //     if (revRate >= 0.5f)
+    //     {
+    //         coef = (1f - revRate) * 2f;
+    //         coef *= coef;
+    //     }
+
+    //     var sign = _reverse ? -1f : 1f;
+
+    //     return sign * maxMotorTorque * coef;
+    // }
     private float GetMotorTorque(float motorRPM)
     {
-        if (IsExceedMaxMotorRPM)
-        {
-            return 0f;
-        }
+        if (IsExceedMaxMotorRPM) return 0f;
 
         var revRate = Mathf.Clamp01(MotorRevolutionRate);
-
-        var coef = 1f;
-        if (revRate >= 0.5f)
-        {
-            coef = (1f - revRate) * 2f;
-            coef *= coef;
-        }
+        float coef = torqueCurve.Evaluate(revRate);  // Smooth curve, không drop vuông
 
         var sign = _reverse ? -1f : 1f;
-
         return sign * maxMotorTorque * coef;
     }
 

@@ -199,11 +199,7 @@ public abstract class CarControllerBase : MonoBehaviour
 
     public Wheel[] Wheels => carWheels;
 
-    //public CarLightManager LightManager => _lightManager;
-
     public bool Replay => replayPlaying;
-
-    //public abstract CarReplayData CarData { get; set; }
 
     public abstract float MotorRevolutionRate { get; }
 
@@ -212,8 +208,6 @@ public abstract class CarControllerBase : MonoBehaviour
         carRB = GetComponent<Rigidbody>();
         carCollider = GetComponentInChildren<Collider>();
         carWheels = GetComponentsInChildren<Wheel>();
-
-        //_lightManager = GetComponentInChildren<CarLightManager>();
 
         CalcWheelbase();
 
