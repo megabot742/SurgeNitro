@@ -35,9 +35,14 @@ public class InputCarController : DriverBase
 
     void Start()
     {
-        
-        carLightController = GetComponentInChildren<CarLightController>();
-        cameraController = GetComponentInChildren<CameraCarController>();
+        if(carLightController == null)
+        {
+            carLightController = GetComponentInChildren<CarLightController>();
+        }
+        if(cameraController == null && RaceManager.HasInstance)
+        {
+            cameraController = RaceManager.Instance.cameraCarController;
+        }
     }
 
     public bool SteerLimitByFriction

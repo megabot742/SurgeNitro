@@ -16,10 +16,10 @@ public class DynamicLensController : MonoBehaviour
     [SerializeField, Range(1f, 25f)] private float maxSlipAngleDegrees = 20f;  // SlipAngle check
 
     [Header("Lerp Speed")]
-    [SerializeField, Range(1f, 20f)] private float fovLerpSpeed = 8f;  //Speed Lerp FOV (high = fast, low = smooth)
+    [SerializeField, Range(1f, 20f)] private float fovLerpSpeed = 2f;  //Speed Lerp FOV (high = fast, low = smooth)
 
     [Header("Car Reference")]
-    [SerializeField] private CarControllerBase carController;
+    [SerializeField] private CarStatsProvider carStatsProvider;
     private CinemachineCamera cinemachineCamera;
     private float targetFOV;
 
@@ -34,13 +34,13 @@ public class DynamicLensController : MonoBehaviour
             return;
         }
 
-        //CarControllerBase
-        if (carController == null)
+        //CarStatsProvider
+        if (carStatsProvider == null)
         {
-            carController = GetComponentInParent<CarControllerBase>();
-            if (carController != null)
+            carStatsProvider = GetComponentInParent<CarStatsProvider>();
+            if (carStatsProvider != null)
             {
-                Debug.Log("CarController: " + carController.name);
+                Debug.Log("CarController: " + carStatsProvider.name);
             }
             else
             {
@@ -52,22 +52,21 @@ public class DynamicLensController : MonoBehaviour
         //Set targetFOV = minFOV
         targetFOV = minFieldOfView;
     }
-
+    
     private void LateUpdate()
     {
-        if (cinemachineCamera == null || carController == null) return;
+        if (cinemachineCamera == null || carStatsProvider == null) return;
 
-        //Calculate forwardSpeed KPH (forwardSpeed trong CarControllerBase là m/s → *3.6f = KPH)
-        float forwardSpeedKPH = carController.ForwardSpeed * 3.6f;
-        Debug.Log(forwardSpeedKPH);
-        float maxSpeedKPH = carController.MaxSpeedKPH;
+        //Get forwardSpeed KPH
+        float forwardSpeedKPH = carStatsProvider.ForwardSpeedKPH;
+        //Debug.Log(forwardSpeedKPH);
 
-        //value % (speed/max sppeed), clamp for only use forwardSpeed >0, to avoid backward
-        float speedPercent = Mathf.Clamp01(forwardSpeedKPH / maxSpeedKPH);
+        //value % (speed/max sppeed)
+        float speedPercent = carStatsProvider.ForwardSpeedPercent;
         float dynamicMaxSlip = Mathf.Lerp(maxSlipAngleDegrees, minSlipAngleDegrees, speedPercent);  // Speed fast = slip small
 
         // Check "run straight" with forwardSpeed and slipAngle 
-        bool isDrivingStraight = (speedPercent >= speedThresholdPercent) && Mathf.Abs(carController.SlipAngle) <= dynamicMaxSlip;
+        bool isDrivingStraight = (speedPercent >= speedThresholdPercent) && Mathf.Abs(carStatsProvider.SlipAngle) <= dynamicMaxSlip;
 
         if (isDrivingStraight)
         {

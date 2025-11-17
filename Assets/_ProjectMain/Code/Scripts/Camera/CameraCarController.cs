@@ -11,7 +11,7 @@ public class CameraCarController : MonoBehaviour
     [SerializeField] private int inactivePriority = 0; //Inactive
 
     [Header("CameraList")]
-    [SerializeField] private List<CinemachineCamera> cinemachineCameras = new();
+    [SerializeField, ReadOnly] private List<CinemachineCamera> cinemachineCameras = new();
     
 
     void Awake()
@@ -22,6 +22,7 @@ public class CameraCarController : MonoBehaviour
     {
         if (cinemachineCameras.Count > 0)
         {
+            SetTarget();
             SetCameraView(currentIndexCameraView);
         }
     }
@@ -31,16 +32,18 @@ public class CameraCarController : MonoBehaviour
         var allCameras = GetComponentsInChildren<CinemachineCamera>(true); //check and get all cameras
         cinemachineCameras.AddRange(allCameras); //add camera to list
     }
-    private void SetTarget(CarControllerBase playerCar) //call in ManagerRace for tracking only player
+    private void SetTarget() //call in ManagerRace for tracking only player
     {
         foreach (CinemachineCamera camera in cinemachineCameras)
         {
-            camera.Follow = playerCar.transform; //tracking player
+            if(RaceManager.HasInstance)
+            {
+                camera.Follow = RaceManager.Instance.playerCar.transform; //tracking player
+            }
         }
     }
     public void SwitchCamera() //Call in Input System
     {
-        Debug.Log("Hello");
         if (cinemachineCameras.Count == 0) return;//check list
         
         currentIndexCameraView = (currentIndexCameraView + 1) % cinemachineCameras.Count;
