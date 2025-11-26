@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6871215866253951656}
   - component: {fileID: 5453150292860141344}
   m_Layer: 0
-  m_Name: LeftTrail
+  m_Name: Contrails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

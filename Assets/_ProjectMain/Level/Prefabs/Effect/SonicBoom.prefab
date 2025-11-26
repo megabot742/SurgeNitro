@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 731829183342628909}
   - component: {fileID: 1901175574130810445}
   - component: {fileID: 3058892588798907457}
-  - component: {fileID: 6461928541176797579}
+  - component: {fileID: 6348382755856120661}
   m_Layer: 0
   m_Name: SonicBoom
   m_TagString: Untagged
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4120195327532888133}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0.65, z: 0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4835,7 +4835,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &6461928541176797579
+--- !u!114 &6348382755856120661
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4844,8 +4844,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4120195327532888133}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2aabb75f29056442ba97091418b461d, type: 3}
+  m_Script: {fileID: 11500000, guid: adda368cbedaf6b4c93349954aac6bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minDuration: 0.05
-  _maxDuration: 0.1
+  type: 0
+  particle: {fileID: 0}
+  sound: {fileID: 0}

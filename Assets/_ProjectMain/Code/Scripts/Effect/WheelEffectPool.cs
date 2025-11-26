@@ -16,6 +16,11 @@ public class WheelEffectPool : MonoBehaviour
 
     public void InitializePools()
     {
+        GameObject roadMaterial = GameObject.FindWithTag("RoadMaterialList");
+        if (roadMaterial != null)
+        {
+            roadMaterialList = roadMaterial.GetComponent<RoadMaterialList>();
+        }
         if (roadMaterialList == null)
         {
             Debug.LogError("RoadMaterialList not assigned in WheelEffectPool!");

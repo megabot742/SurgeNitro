@@ -51,7 +51,7 @@ public class CarSetupWizard : ScriptableWizard
     [SerializeField] private GameObject enginePosition;
     
     [Header("AfterFire")]
-    [SerializeField] private AfterFire afterFirePrefab;
+    [SerializeField] private AfterFireEffect afterFirePrefab;
     [SerializeField] private GameObject[] afterFirePositions;
 
     [Header("Light")]
@@ -389,7 +389,7 @@ public class CarSetupWizard : ScriptableWizard
 
         physicsMaterial = AssetDatabase.LoadAssetAtPath<PhysicsMaterial>("Assets/UshiSoft/ArcadeCarPhysics/PhysicsMaterials/Car.physicMaterial");
         engineSoundPrefab = AssetDatabase.LoadAssetAtPath<EngineSound>("Assets/UshiSoft/ArcadeCarPhysics/Prefabs/Effect/EngineSound.prefab");
-        afterFirePrefab = AssetDatabase.LoadAssetAtPath<AfterFire>("Assets/UshiSoft/ArcadeCarPhysics/Prefabs/Effect/AfterFire.prefab");
+        afterFirePrefab = AssetDatabase.LoadAssetAtPath<AfterFireEffect>("Assets/UshiSoft/ArcadeCarPhysics/Prefabs/Effect/AfterFire.prefab");
         wheelSmokePrefab = AssetDatabase.LoadAssetAtPath<WheelSmoke>("Assets/UshiSoft/ArcadeCarPhysics/Prefabs/Effect/SmokeAsphalt.prefab");
         skidmarkPrefab = AssetDatabase.LoadAssetAtPath<Skidmark>("Assets/UshiSoft/ArcadeCarPhysics/Prefabs/Effect/SkidmarkAsphalt.prefab");
         skidSoundPrefab = AssetDatabase.LoadAssetAtPath<SkidSound>("Assets/UshiSoft/ArcadeCarPhysics/Prefabs/Effect/SkidSoundAsphalt.prefab");
