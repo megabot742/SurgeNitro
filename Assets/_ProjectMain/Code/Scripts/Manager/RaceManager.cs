@@ -10,7 +10,7 @@ public class RaceManager : BaseManager<RaceManager>
     protected override void Awake()
     {
         base.Awake();
-        FindScreenShaderFeature();
+        //FindScreenShaderFeature();
     }
     void Start()
     {

@@ -3,31 +3,31 @@ using UnityEngine.InputSystem;
 
 public class InputCarController : DriverBase
 {
-    [SerializeField, Min(0.001f)] private float _steerTime = 0.1f;
-    [SerializeField, Min(0.001f)] private float _steerReleaseTime = 0.1f;
+    [SerializeField, Min(0.001f)] private float steerTime = 0.1f; //default 0.1
+    [SerializeField, Min(0.001f)] private float steerReleaseTime = 0.1f; //default 0.1
 
-    [SerializeField, Min(0.001f)] private float _throttleTime = 0.1f;
-    [SerializeField, Min(0.001f)] private float _throttleReleaseTime = 0.1f;
+    [SerializeField, Min(0.001f)] private float throttleTime = 0.1f;
+    [SerializeField, Min(0.001f)] private float throttleReleaseTime = 0.1f;
 
-    [SerializeField, Min(0.001f)] private float _brakeTime = 0.1f;
-    [SerializeField, Min(0.001f)] private float _brakeReleaseTime = 0.1f;
+    [SerializeField, Min(0.001f)] private float brakeTime = 0.1f;
+    [SerializeField, Min(0.001f)] private float brakeReleaseTime = 0.1f;
 
-    [SerializeField] private bool _steerLimitByFriction = false;
-    [SerializeField, Min(0f)] private float _steerMu = 2f;
+    [SerializeField] private bool steerLimitByFriction = false;
+    [SerializeField, Min(0f)] private float steerMu = 2f;
 
-    [SerializeField] private bool _autoShiftToReverse = true;
-    [SerializeField, Min(0f)] private float _switchToReverseSpeedKPH = 1f;
+    [SerializeField] private bool autoShiftToReverse = true;
+    [SerializeField, Min(0f)] private float switchToReverseSpeedKPH = 1f;
 
-    [SerializeField] private VirtualPadButton _leftSteerButton;
-    [SerializeField] private VirtualPadButton _rightSteerButton;
-    [SerializeField] private VirtualPadButton _throttleButton;
-    [SerializeField] private VirtualPadButton _brakeButton;
+    [Header("Virtual Button Setup")]
+    [SerializeField] private VirtualPadButton leftSteerButton;
+    [SerializeField] private VirtualPadButton rightSteerButton;
+    [SerializeField] private VirtualPadButton throttleButton;
+    [SerializeField] private VirtualPadButton brakeButton;
+    [SerializeField] private bool enableVirtualPad = true;
 
-    [SerializeField] private bool _enableVirtualPad = true;
-
-    [SerializeField] Vector2 moveInput;
-    [SerializeField] bool handbrakeInputAction;
-    [SerializeField] float turnNitro;
+    [SerializeField, ReadOnly] Vector2 moveInput;
+    [SerializeField, ReadOnly] bool handbrakeInputAction;
+    [SerializeField, ReadOnly] float turnNitro;
 
     [Header("Connect script")]
     [SerializeField, ReadOnly] private CarLightController carLightController;
@@ -47,22 +47,22 @@ public class InputCarController : DriverBase
 
     public bool SteerLimitByFriction
     {
-        get => _steerLimitByFriction;
-        set => _steerLimitByFriction = value;
+        get => steerLimitByFriction;
+        set => steerLimitByFriction = value;
     }
 
     public bool AutoSwitchToReverse
     {
-        get => _autoShiftToReverse;
-        set => _autoShiftToReverse = value;
+        get => autoShiftToReverse;
+        set => autoShiftToReverse = value;
     }
 
     public bool EnableVirtualPad
     {
-        get => _enableVirtualPad;
-        set => _enableVirtualPad = value;
+        get => enableVirtualPad;
+        set => enableVirtualPad = value;
     }
-    //New Input System
+    #region Input System
     private void OnMove(InputValue inputValue)
     {
         moveInput = inputValue.Get<Vector2>();
@@ -78,21 +78,16 @@ public class InputCarController : DriverBase
     private void OnSwitchCamera()
     {
         cameraController?.SwitchCamera(); //Check true for switch camera
-    } 
+    }
+    #endregion
     protected override void Drive()
     {
         UpdateSteerInput();
         UpdateThrottleAndBrakeInput();
-
         ShiftChange();
-
         UpdateClutchInput();
         UpdateNOSInput();
     }
-    // void Update()
-    // {
-    //     Debug.Log(handbrakeInput);     
-    // }
     protected override void Stop()
     {
         carController.BrakeInput = 1f;
@@ -105,50 +100,48 @@ public class InputCarController : DriverBase
 
         var throttleInput = GetRawThrottleInput();
 
-        var throttleTime = throttleInput != 0f ? _throttleTime : _throttleReleaseTime;
+        var throttleTime = throttleInput != 0f ? this.throttleTime : throttleReleaseTime;
         carController.ThrottleInput = Mathf.MoveTowards(carController.ThrottleInput, throttleInput, Time.deltaTime / throttleTime);
     }
 
     private float GetRawSteerInput()
     {
-        if (_enableVirtualPad && _leftSteerButton != null && _rightSteerButton != null)
+        if (enableVirtualPad && leftSteerButton != null && rightSteerButton != null)
         {
-            if (_leftSteerButton.Pressed)
+            if (leftSteerButton.Pressed)
             {
                 return -1f;
             }
-            if (_rightSteerButton.Pressed)
+            if (rightSteerButton.Pressed)
             {
                 return 1f;
             }
         }
-
-        //if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-        if (moveInput.x < 0)
+        //Steer Left
+        if (moveInput.x < 0 || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) //Combine Input System & Input Manager
         {
             return -1f;
         }
-        //if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-        if (moveInput.x > 0)
+        //Steer Right
+        if (moveInput.x > 0 || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) //Combine Input System & Input Manager
         {
             return 1f;
         }
 
         return 0f;
     }
-
+ 
     private float GetRawThrottleInput()
     {
-        if (_enableVirtualPad && _throttleButton != null)
+        if (enableVirtualPad && throttleButton != null)
         {
-            if (_throttleButton.Pressed)
+            if (throttleButton.Pressed)
             {
                 return 1f;
             }
         }
-
-        //if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.C))
-        if (moveInput.y > 0)
+        //Throttle
+        if (moveInput.y > 0 || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) //Combine Input System & Input Manager
         {
             return 1f;
         }
@@ -158,30 +151,29 @@ public class InputCarController : DriverBase
 
     private float GetRawBrakeInput()
     {
-        if (_enableVirtualPad && _brakeButton != null)
+        if (enableVirtualPad && brakeButton != null)
         {
-            if (_brakeButton.Pressed)
+            if (brakeButton.Pressed)
             {
                 return 1f;
             }
         }
-
-        //if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.X))
-        if (moveInput.y < 0)
+        //Brake (not Handbrake)
+        if (moveInput.y < 0 || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) //Combine Input System & Input Manager
         {
             return 1f;
         }
 
         return 0f;
     }
-
+    #region Steer
     private void UpdateSteerInput()
     {
         var maxSteerInput = 1f;
-        if (_steerLimitByFriction)
+        if (steerLimitByFriction)
         {
             var speed = carController.Speed;
-            var minTurnR = (speed * speed) / (_steerMu * UnityEngine.Physics.gravity.magnitude);
+            var minTurnR = (speed * speed) / (steerMu * UnityEngine.Physics.gravity.magnitude);
             if (minTurnR > 0f)
             {
                 var optimalSteerAngle = Mathf.Asin(carController.Wheelbase / minTurnR) * Mathf.Rad2Deg;
@@ -193,7 +185,7 @@ public class InputCarController : DriverBase
 
         steerInput = Mathf.Clamp(steerInput, -maxSteerInput, maxSteerInput);
 
-        var steerTime = steerInput != 0f ? _steerTime : _steerReleaseTime;
+        var steerTime = steerInput != 0f ? this.steerTime : steerReleaseTime;
 
         if (steerInput != 0f && Mathf.Sign(steerInput) != Mathf.Sign(carController.SteerInput))
         {
@@ -202,63 +194,58 @@ public class InputCarController : DriverBase
 
         carController.SteerInput = Mathf.MoveTowards(carController.SteerInput, steerInput, Time.deltaTime / steerTime);
     }
+    #endregion
 
+    #region Throttle & Brake
     private void UpdateThrottleAndBrakeInput()
     {
         var throttleInput = GetRawThrottleInput();
 
         var brakeInput = GetRawBrakeInput();
 
-        if (_autoShiftToReverse)
+        if (autoShiftToReverse)
         {
             if (carController.IsGrounded())
             {
                 var speedKPH = carController.ForwardSpeed * CarMath.MPSToKPH;
                 if (carController.Reverse)
                 {
-                    if (throttleInput > 0f && speedKPH > -_switchToReverseSpeedKPH)
+                    if (throttleInput > 0f && speedKPH > -switchToReverseSpeedKPH)
                     {
                         carController.Reverse = false;
                     }
                 }
                 else
                 {
-                    if (brakeInput > 0f && speedKPH < _switchToReverseSpeedKPH)
+                    if (brakeInput > 0f && speedKPH < switchToReverseSpeedKPH)
                     {
                         carController.Reverse = true;
                     }
                 }
             }
-
             if (carController.Reverse)
             {
                 (throttleInput, brakeInput) = (brakeInput, throttleInput);
             }
         }
 
-        var throttleTime = throttleInput != 0f ? _throttleTime : _throttleReleaseTime;
+        var throttleTime = throttleInput != 0f ? this.throttleTime : throttleReleaseTime;
         carController.ThrottleInput = Mathf.MoveTowards(carController.ThrottleInput, throttleInput, Time.deltaTime / throttleTime);
 
-        var brakeTime = brakeInput != 0f ? _brakeTime : _brakeReleaseTime;
+        var brakeTime = brakeInput != 0f ? this.brakeTime : brakeReleaseTime;
         carController.BrakeInput = Mathf.MoveTowards(carController.BrakeInput, brakeInput, Time.deltaTime / brakeTime);
 
+        //Handbrake
         //Input Manager
-        // var handbrakeInput = Input.GetKey(KeyCode.LeftShift);
-        // _carController.HandbrakeInput = handbrakeInput;
-        //Input Action
-        carController.HandbrakeInput = handbrakeInputAction;
-        carLightController.ToggleRearLights(handbrakeInputAction);
-        // if(handbrakeInputAction == true)
-        // {
-        //     carLightController.TurnOnBrakeLights();   
-        // }
-        // else
-        // {
-        //     carLightController.TurnOffBrakeLights();   
-        // }
+        bool handbrakeInput = handbrakeInputAction || Input.GetKey(KeyCode.LeftShift); //Combine Input System & Input Manager
+        carController.HandbrakeInput = handbrakeInput;
 
+        //Eneble Light handbrake
+        carLightController.ToggleRearLights(handbrakeInput);
     }
-    //ENGINE CAR
+    #endregion
+
+    #region Engine Car (R&D)
     private void ShiftChange()
     {
         var engineCar = carController as RealisticCarController;
@@ -274,8 +261,8 @@ public class InputCarController : DriverBase
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (!_autoShiftToReverse
-                || (_autoShiftToReverse && engineCar.Transmission.Gear != Transmission.ReverseGear))
+            if (!autoShiftToReverse
+                || (autoShiftToReverse && engineCar.Transmission.Gear != Transmission.ReverseGear))
             {
                 engineCar.Transmission.ShiftDonw();
             }
@@ -296,13 +283,14 @@ public class InputCarController : DriverBase
 
         engineCar.ClutchInput = Input.GetKey(KeyCode.Z);
     }
-
+    #endregion
+    
+    #region NITRO
     private void UpdateNOSInput()
     {
-        var car = carController;  // Sử dụng base CarControllerBase
-        if (car != null)
+        CarControllerBase car = carController;
+        if (car != null) //Check
         {
-            // NEW: Set NOSInput cho bất kỳ controller nào có property này (sử dụng reflection hoặc kiểm tra type)
             if (car is RealisticCarController realistic)
             {
                 realistic.NOSInput = Input.GetKey(KeyCode.Space);  // Hoặc từ Input System
@@ -313,6 +301,7 @@ public class InputCarController : DriverBase
             }
         }
     }
+    #endregion
 
     
 }

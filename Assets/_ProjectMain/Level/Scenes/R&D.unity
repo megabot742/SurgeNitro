@@ -6053,7 +6053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCar: {fileID: 684080980}
   cameraCarController: {fileID: 1156016294}
-  screenFeature: {fileID: 0}
+  screenFeature: {fileID: -8931175852207171204, guid: f288ae1f4751b564a96ac7587541f7a2, type: 2}
 --- !u!1 &779164524
 GameObject:
   m_ObjectHideFlags: 0
@@ -16817,17 +16817,33 @@ PrefabInstance:
       value: PlayerCar
       objectReference: {fileID: 0}
     - target: {fileID: 3445188537393072318, guid: 76bd503f2d2824d4b8a208b2eca370c5, type: 3}
+      propertyPath: brakeButton
+      value: 
+      objectReference: {fileID: 569492524}
+    - target: {fileID: 3445188537393072318, guid: 76bd503f2d2824d4b8a208b2eca370c5, type: 3}
       propertyPath: _brakeButton
       value: 
       objectReference: {fileID: 569492524}
+    - target: {fileID: 3445188537393072318, guid: 76bd503f2d2824d4b8a208b2eca370c5, type: 3}
+      propertyPath: throttleButton
+      value: 
+      objectReference: {fileID: 1986816894}
     - target: {fileID: 3445188537393072318, guid: 76bd503f2d2824d4b8a208b2eca370c5, type: 3}
       propertyPath: _throttleButton
       value: 
       objectReference: {fileID: 1986816894}
     - target: {fileID: 3445188537393072318, guid: 76bd503f2d2824d4b8a208b2eca370c5, type: 3}
+      propertyPath: leftSteerButton
+      value: 
+      objectReference: {fileID: 760365426}
+    - target: {fileID: 3445188537393072318, guid: 76bd503f2d2824d4b8a208b2eca370c5, type: 3}
       propertyPath: _leftSteerButton
       value: 
       objectReference: {fileID: 760365426}
+    - target: {fileID: 3445188537393072318, guid: 76bd503f2d2824d4b8a208b2eca370c5, type: 3}
+      propertyPath: rightSteerButton
+      value: 
+      objectReference: {fileID: 1641621729}
     - target: {fileID: 3445188537393072318, guid: 76bd503f2d2824d4b8a208b2eca370c5, type: 3}
       propertyPath: _rightSteerButton
       value: 
