@@ -354,7 +354,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3333465162699792237}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -372,9 +372,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
-  m_DefaultActionMap: CarSurgeNitro
+  m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!54 &4854724921045644422
@@ -495,24 +495,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeba20ee186fa0842a1f3036324d92f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _steerTime: 0.1
-  _steerReleaseTime: 0.1
-  _throttleTime: 0.1
-  _throttleReleaseTime: 0.1
-  _brakeTime: 0.1
-  _brakeReleaseTime: 0.1
-  _steerLimitByFriction: 0
-  _steerMu: 2
-  _autoShiftToReverse: 1
-  _switchToReverseSpeedKPH: 1
-  _leftSteerButton: {fileID: 0}
-  _rightSteerButton: {fileID: 0}
-  _throttleButton: {fileID: 0}
-  _brakeButton: {fileID: 0}
-  _enableVirtualPad: 0
+  steerTime: 0.1
+  steerReleaseTime: 0.1
+  throttleTime: 0.1
+  throttleReleaseTime: 0.1
+  brakeTime: 0.1
+  brakeReleaseTime: 0.1
+  steerLimitByFriction: 0
+  steerMu: 2
+  autoShiftToReverse: 1
+  switchToReverseSpeedKPH: 1
+  leftSteerButton: {fileID: 0}
+  rightSteerButton: {fileID: 0}
+  throttleButton: {fileID: 0}
+  brakeButton: {fileID: 0}
+  enableVirtualPad: 1
+  aIMode: 0
+  isAICar: 0
+  isAvoidingCars: 0
+  skillLevel: 1
+  avoidanceDistance: 12
+  avoidanceStrength: 1.3
+  wayPointName: Waypoint
+  currentWaypoint: {fileID: 0}
+  previousWaypoint: {fileID: 0}
+  allWayPoints: []
   moveInput: {x: 0, y: 0}
   handbrakeInputAction: 0
-  turnNitro: 0
+  nitroInputAction: 0
+  resetCooldown: 3
   carLightController: {fileID: 0}
   cameraController: {fileID: 0}
 --- !u!114 &916654889783044314

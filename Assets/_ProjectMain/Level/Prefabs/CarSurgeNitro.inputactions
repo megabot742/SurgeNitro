@@ -26,12 +26,12 @@
                 },
                 {
                     "name": "Nitro",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "acd041bd-4497-4605-bad8-f50b96727ff5",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Look",
@@ -79,7 +79,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Restart",
+                    "name": "BackOnTrack",
                     "type": "Button",
                     "id": "68452def-eccd-47ff-be22-82ebc4082d28",
                     "expectedControlType": "",
@@ -294,7 +294,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Restart",
+                    "action": "BackOnTrack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

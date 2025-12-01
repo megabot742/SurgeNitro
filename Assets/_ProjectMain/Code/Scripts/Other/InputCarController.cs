@@ -25,51 +25,114 @@ public class InputCarController : DriverBase
     [SerializeField] private VirtualPadButton brakeButton;
     [SerializeField] private bool enableVirtualPad = true;
 
+    [Header("AI Setup")]
+    [SerializeField] public AIMode aIMode;
+    [SerializeField] public bool isAICar = true;
+    [SerializeField] private bool isAvoidingCars = true;
+    [SerializeField, Range(0.3f, 1f)] private float skillLevel = 1f;
+    [SerializeField] private float avoidanceDistance = 12f;
+    [SerializeField] private float avoidanceStrength = 1.3f;
+    private Vector3 avoidanceVectorLerped = Vector3.zero;
+    private BoxCollider detectionCollider;
+
+    [Header("Waypoint")]
+    [SerializeField] private string wayPointName = "Waypoint"; //default "Waypoint"
+    [SerializeField, ReadOnly] public WaypointNode currentWaypoint;
+    [SerializeField, ReadOnly] public WaypointNode previousWaypoint;
+    [SerializeField, ReadOnly] private WaypointNode[] allWayPoints;
+    private Vector3 currentTargetPos = Vector3.zero;
+    private Vector3 avoidanceDirectionLerped = Vector3.zero;
+
+    [Header("Input System Param")]
     [SerializeField, ReadOnly] Vector2 moveInput;
     [SerializeField, ReadOnly] bool handbrakeInputAction;
-    [SerializeField, ReadOnly] float turnNitro;
+    [SerializeField, ReadOnly] bool nitroInputAction;
+
+    [Header("Reset to track")]
+    [SerializeField] private float resetCooldown = 3f;
+    //[SerializeField] private float resetHeightOffset = 2f; // để xe không chìm dưới đất
+    private float resetTimer;
 
     [Header("Connect script")]
     [SerializeField, ReadOnly] private CarLightController carLightController;
     [SerializeField, ReadOnly] private CameraCarController cameraController;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        //AICar
+        var playerInput = GetComponent<PlayerInput>();
+        if (playerInput != null)
+        {
+            playerInput.enabled = !isAICar; // AI → false, Player → true
+        }
+
+        if (isAICar)
+        {
+            InitializeAI();
+        }
+    }
+    private void InitializeAI()
+    {
+        //Replace by sort with LINQ
+        allWayPoints = FindObjectsByType<WaypointNode>(FindObjectsSortMode.None);
+
+        //Manual sorting for simple and run 1 time 
+        if (allWayPoints.Length > 1)
+        {
+            System.Array.Sort(allWayPoints, (a, b) =>
+            {
+                if (a.name == wayPointName) return -1;
+                if (b.name == wayPointName) return 1;
+
+                string aName = a.name.Replace(wayPointName, "").Replace("(", "").Replace(")", "");
+                string bName = b.name.Replace(wayPointName, "").Replace("(", "").Replace(")", "");
+
+                if (int.TryParse(aName, out int indexA) && int.TryParse(bName, out int indexB))
+                    return indexA.CompareTo(indexB);
+
+                return string.Compare(a.name, b.name, System.StringComparison.Ordinal);
+            });
+        }
+    }
     void Start()
     {
-        if(carLightController == null)
-        {
-            carLightController = GetComponentInChildren<CarLightController>();
-        }
-        if(cameraController == null && RaceManager.HasInstance)
+        //Camera
+        if (cameraController == null && RaceManager.HasInstance)
         {
             cameraController = RaceManager.Instance.cameraCarController;
         }
+        //Light
+        if (carLightController == null)
+        {
+            carLightController = GetComponentInChildren<CarLightController>();
+        }
+        //Collider
+        detectionCollider = GetComponentInChildren<BoxCollider>();
     }
-
     public bool SteerLimitByFriction
     {
         get => steerLimitByFriction;
         set => steerLimitByFriction = value;
     }
-
     public bool AutoSwitchToReverse
     {
         get => autoShiftToReverse;
         set => autoShiftToReverse = value;
     }
-
     public bool EnableVirtualPad
     {
         get => enableVirtualPad;
         set => enableVirtualPad = value;
     }
     #region Input System
-    private void OnMove(InputValue inputValue)
+    private void OnMove(InputValue inputValue) //4 directions
     {
         moveInput = inputValue.Get<Vector2>();
     }
-    private void OnNitro()
+    private void OnNitro(InputValue inputValue)
     {
-        turnNitro++;
+        nitroInputAction = inputValue.isPressed;
     }
     private void OnHandbrake(InputValue inputValue)
     {
@@ -79,8 +142,34 @@ public class InputCarController : DriverBase
     {
         cameraController?.SwitchCamera(); //Check true for switch camera
     }
+    private void OnBackOnTrack()
+    {
+        if (isAICar) return; // AI không được reset bằng nút (trừ khi bạn muốn)
+
+        if (resetTimer > 0f) return;
+
+        ResetCarToTrack();
+        resetTimer = resetCooldown;
+    }
     #endregion
     protected override void Drive()
+    {
+        if (resetTimer > 0f)
+        {
+            resetTimer -= Time.unscaledDeltaTime;
+        }
+
+        if (isAICar)
+        {
+            AIInputDrive(); // Chạy AI với random waypoint
+        }
+        else
+        {
+            PlayerInputDrive();
+        }
+
+    }
+    private void PlayerInputDrive()
     {
         UpdateSteerInput();
         UpdateThrottleAndBrakeInput();
@@ -88,6 +177,140 @@ public class InputCarController : DriverBase
         UpdateClutchInput();
         UpdateNOSInput();
     }
+    #region AI Car
+    private void AIInputDrive()
+    {
+        if (currentWaypoint == null)
+        {
+            currentWaypoint = FindClosestWaypoint();
+            if (currentWaypoint == null) return;
+        }
+
+        UpdateWaypointTarget();
+
+        // <<<< ÁP DỤNG TỐC ĐỘ TỪ WAYPOINT (phần quan trọng nhất)
+        float targetSpeedMultiplier = currentWaypoint.maxSpeedMultiplier > 0f ? currentWaypoint.maxSpeedMultiplier : 1f; // Fallback nếu =0
+        float maxSpeedMPS = carController.MaxSpeedKPH / 3.6f; // Chuyển km/h sang m/s (tương đương CarMath.KPHToMPS)
+        float currentMaxSpeed = maxSpeedMPS * targetSpeedMultiplier;
+
+        // Giới hạn tốc độ hiện tại (rất mượt, không giật)
+        if (carController.ForwardSpeed > currentMaxSpeed + 5f) // +5f để có độ trễ tự nhiên
+        {
+            carController.BrakeInput = Mathf.MoveTowards(carController.BrakeInput, 0.8f, Time.deltaTime * 3f);
+        }
+        else
+        {
+            carController.BrakeInput = Mathf.MoveTowards(carController.BrakeInput, 0f, Time.deltaTime * 5f);
+        }
+
+        Vector3 toTarget = (currentTargetPos - transform.position);
+        float distanceToTarget = toTarget.magnitude;
+        if (distanceToTarget < 0.5f) return;
+
+        Vector3 dirToTarget = toTarget.normalized;
+
+        // === TRÁNH XE ===
+        if (isAvoidingCars && carController.ForwardSpeed > 8f)
+            AvoidCars(ref dirToTarget);
+
+        // === TÍNH GÓC LÁI ===
+        Vector3 flatForward = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
+        Vector3 flatTarget = Vector3.ProjectOnPlane(dirToTarget, Vector3.up);
+        float angle = Vector3.SignedAngle(flatForward, flatTarget, Vector3.up);
+        float steerInput = Mathf.Clamp(angle / 45f, -1f, 1f);
+
+        // === GA & PHANH ===
+        // float speedNorm = carController.ForwardSpeed / 50f;
+        // float throttle = 1f - (Mathf.Abs(steerInput) * 0.8f * (1f - skillLevel)) - speedNorm * 0.15f;
+        // throttle = Mathf.Clamp01(throttle);
+
+        // Tự động giảm ga khi vào cua (kết hợp với brake ở trên)
+        float baseThrottle = 1f;
+        float corneringReduction = Mathf.Abs(steerInput) * 0.7f * (1f - skillLevel);
+        float speedReduction = Mathf.Clamp01((carController.ForwardSpeed - currentMaxSpeed) / 30f);
+        float throttle = baseThrottle - corneringReduction - speedReduction;
+        throttle = Mathf.Clamp01(throttle);
+
+        // Áp dụng mượt như player
+        carController.SteerInput = Mathf.MoveTowards(carController.SteerInput, steerInput,
+            Time.deltaTime / (steerInput != 0f ? steerTime : steerReleaseTime));
+
+        carController.ThrottleInput = Mathf.MoveTowards(carController.ThrottleInput, throttle,
+            Time.deltaTime / throttleTime);
+
+        carController.BrakeInput = Mathf.MoveTowards(carController.BrakeInput, 0f,
+            Time.deltaTime / brakeReleaseTime);
+
+
+
+        // Handbrake khi cua quá gắt (drift nhẹ cho đẹp)
+        bool hardDrift = Mathf.Abs(steerInput) > 0.85f && carController.ForwardSpeed > 30f && targetSpeedMultiplier < 0.7f;
+        carController.HandbrakeInput = hardDrift && Random.value < 0.3f;
+
+        carLightController.ToggleRearLights(carController.HandbrakeInput);
+    }
+    private void UpdateWaypointTarget()
+    {
+        currentTargetPos = currentWaypoint.transform.position;
+
+        float dist = Vector3.Distance(transform.position, currentTargetPos);
+        if (dist > 30f && previousWaypoint != null)
+        {
+            Vector3 nearest = NearestPointOnLine(previousWaypoint.transform.position, currentWaypoint.transform.position, transform.position);
+            currentTargetPos = Vector3.Lerp(currentTargetPos, nearest, 0.6f);
+        }
+
+        if (dist < currentWaypoint.minDistanceToReachWaypoint)
+        {
+            previousWaypoint = currentWaypoint;
+            var nexts = currentWaypoint.nextWaypointNode;
+            currentWaypoint = nexts != null && nexts.Length > 0
+                ? nexts[Random.Range(0, nexts.Length)]
+                : FindClosestWaypoint() ?? currentWaypoint;
+        }
+    }
+
+    private void AvoidCars(ref Vector3 dirToTarget)
+    {
+        Vector3 origin = transform.position + transform.forward * 1f;
+        if (Physics.SphereCast(origin, 2.2f, transform.forward, out RaycastHit hit, avoidanceDistance, LayerMask.GetMask("Car")))
+        {
+            if (hit.collider.transform != transform && hit.rigidbody != carController.Rigidbody)
+            {
+                Vector3 reflectDir = Vector3.Reflect((hit.point - transform.position).normalized, hit.collider.transform.right);
+                avoidanceDirectionLerped = Vector3.Lerp(avoidanceDirectionLerped, reflectDir, Time.deltaTime * 6f);
+
+                float influence = avoidanceStrength * (1f - hit.distance / avoidanceDistance);
+                dirToTarget = Vector3.Lerp(dirToTarget, avoidanceDirectionLerped, influence).normalized;
+            }
+        }
+    }
+
+    private WaypointNode FindClosestWaypoint()
+    {
+        WaypointNode best = null;
+        float bestDist = float.MaxValue;
+        foreach (var wp in allWayPoints)
+        {
+            if (wp == null) continue;
+            float d = Vector3.Distance(transform.position, wp.transform.position);
+            if (d < bestDist) { bestDist = d; best = wp; }
+        }
+        return best;
+    }
+
+    private Vector3 NearestPointOnLine(Vector3 a, Vector3 b, Vector3 p)
+    {
+        Vector3 heading = b - a;
+        float mag = heading.magnitude;
+        if (mag < 0.001f) return a;
+        heading.Normalize();
+        float dot = Mathf.Clamp(Vector3.Dot(p - a, heading), 0f, mag);
+        return a + heading * dot;
+    }
+    #endregion
+
+    #region Player Car
     protected override void Stop()
     {
         carController.BrakeInput = 1f;
@@ -130,7 +353,7 @@ public class InputCarController : DriverBase
 
         return 0f;
     }
- 
+
     private float GetRawThrottleInput()
     {
         if (enableVirtualPad && throttleButton != null)
@@ -284,25 +507,58 @@ public class InputCarController : DriverBase
         engineCar.ClutchInput = Input.GetKey(KeyCode.Z);
     }
     #endregion
-    
+
     #region NITRO
     private void UpdateNOSInput()
     {
         CarControllerBase car = carController;
-        if (car != null) //Check
+        bool nitroInput = nitroInputAction || Input.GetKey(KeyCode.Space); //Combine Input System & Input Manager
+        if (car != null)
         {
-            if (car is RealisticCarController realistic)
+            if (car is ArcadeCarController electric)
             {
-                realistic.NOSInput = Input.GetKey(KeyCode.Space);  // Hoặc từ Input System
+                electric.NOSInput = nitroInput;
             }
-            else if (car is ArcadeCarController arcade)
+            else if (car is RealisticCarController realistic)
             {
-                arcade.NOSInput = Input.GetKey(KeyCode.Space);  // Hoặc từ Input System
+                realistic.NOSInput = nitroInput;
             }
         }
     }
     #endregion
+    #endregion
+    private void ResetCarToTrack()
+    {
+        // if (RaceController.Instance == null || RaceController.Instance.allCheckPoints == null || RaceController.Instance.allCheckPoints.Length == 0)
+        // {
+        //     Debug.LogWarning("[InputCarController] Không tìm thấy checkpoint để reset!");
+        //     return;
+        // }
 
-    
+        // // Lấy checkpoint cuối cùng xe đã đi qua
+        // int targetCheckpointIndex = carController.nextCheckPoint - 1;
+        // if (targetCheckpointIndex < 0)
+        //     targetCheckpointIndex = RaceController.Instance.allCheckPoints.Length - 1;
+
+        // Transform checkpoint = RaceController.Instance.allCheckPoints[targetCheckpointIndex];
+
+        // // Reset vị trí + hướng
+        // transform.position = checkpoint.position + Vector3.up * resetHeightOffset;
+        // transform.rotation = checkpoint.rotation;
+
+        // // Dừng hoàn toàn xe
+        // Rigidbody rb = carController.Rigidbody;
+        // if (rb != null)
+        // {
+        //     rb.linearVelocity = Vector3.zero;
+        //     rb.angularVelocity = Vector3.zero;
+        // }
+
+        // // Reset thêm một số trạng thái nếu cần (tùy car controller bạn dùng)
+        // carController.ThrottleInput = 0f;
+        // carController.BrakeInput = 0f;
+        // carController.SteerInput = 0f;
+        // carController.HandbrakeInput = false;
+    }
 }
 
