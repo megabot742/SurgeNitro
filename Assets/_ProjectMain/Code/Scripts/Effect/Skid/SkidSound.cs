@@ -6,6 +6,7 @@ public class SkidSound : WheelEffectBase
     [SerializeField] private AudioClip audioClip;
     [SerializeField] private AudioMixerGroup audioMixerGroup;
     [SerializeField, Range(0f, 1f)] private float maxVolume = 0.5f;
+    [SerializeField, Range(0f, 1f)] private float spatialBlend;
 
     private AudioSource audioSource;
 
@@ -44,7 +45,7 @@ public class SkidSound : WheelEffectBase
         audioSource.outputAudioMixerGroup = audioMixerGroup;
         audioSource.loop = true;
         audioSource.volume = 0f;
-        audioSource.spatialBlend = 0.5f;
+        audioSource.spatialBlend = spatialBlend;
         audioSource.Play();
     }
 }

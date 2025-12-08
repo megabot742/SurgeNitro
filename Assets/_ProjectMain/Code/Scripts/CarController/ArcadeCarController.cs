@@ -26,8 +26,11 @@ public class ArcadeCarController : CarControllerBase
     private UnityEvent _onAfterFire = new UnityEvent();
     public UnityEvent OnAfterFire => _onAfterFire;
 
-    [Header("Top Speed Fix")]
+    [Header("Top Speed Curve")]
     [SerializeField] private AnimationCurve torqueCurve = AnimationCurve.EaseInOut(0, 1f, 1f, 0.7f);  // Torque giữ cao đến 100% rev
+    
+    [Header("Class Car")]
+    [SerializeField] public CarClass MyCarClass  = CarClass.defaullt;
 
     private float _maxMotorForwardRPM;
     private float _maxMotorBackwardRPM;

@@ -7,7 +7,7 @@ public class SpeedUpShader : MonoBehaviour
     [Header("Car Reference")]
     [SerializeField, ReadOnly] private CarStatsProvider carStatsProvider;
     [Header("CheckPlayer")]
-    [SerializeField] private bool isPlayerCar = false;
+    
 
     [Header("Shader Settings")]
     [SerializeField] private Material targetMaterial;  // Material của Screen Shader (kéo vào Inspector)
@@ -29,13 +29,16 @@ public class SpeedUpShader : MonoBehaviour
     
     [SerializeField, ReadOnly] private FullScreenPassRendererFeature screenFeature;  // RenderFeature của Screen Shader
 
+    InputCarController inputCarController;
+
     private float targetAlpha = 0f;
     private float currentAlpha = 0f;
     private bool featureCached = false;
 
     private void Awake()
     {
-        if(!isPlayerCar)
+        inputCarController = GetComponent<InputCarController>();
+        if(inputCarController.isAICar) //true
         {
             enabled = false;
             return;

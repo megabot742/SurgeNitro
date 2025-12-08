@@ -4,30 +4,30 @@ using UnityEngine.UI;
 
 public class VirtualPadButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
-    [SerializeField] private Color _normalColor = Color.white;
-        [SerializeField] private Color _pressedColor = Color.red;
+    [SerializeField] private Color normalColor = Color.white;
+    [SerializeField] private Color pressedColor = Color.red;
 
-        private Image _image;
+    private Image image;
 
-        protected bool _pressed;
+    protected bool pressed;
 
-        public bool Pressed => _pressed;
+    public bool Pressed => pressed;
 
-        private void Awake()
-        {
-            _image = GetComponent<Image>();
-            _image.color = _normalColor;
-        }
+    private void Awake()
+    {
+        image = GetComponent<Image>();
+        image.color = normalColor;
+    }
 
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            _pressed = true;
-            _image.color = _pressedColor;
-        }
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        pressed = true;
+        image.color = pressedColor;
+    }
 
-        public void OnPointerUp(PointerEventData eventData)
-        {
-            _pressed = false;
-            _image.color = _normalColor;
-        }
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        pressed = false;
+        image.color = normalColor;
+    }
 }

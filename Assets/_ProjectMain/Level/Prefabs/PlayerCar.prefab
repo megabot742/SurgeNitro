@@ -374,7 +374,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: CarSurgeNitro
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!54 &4854724921045644422
@@ -505,11 +505,7 @@ MonoBehaviour:
   steerMu: 2
   autoShiftToReverse: 1
   switchToReverseSpeedKPH: 1
-  leftSteerButton: {fileID: 0}
-  rightSteerButton: {fileID: 0}
-  throttleButton: {fileID: 0}
-  brakeButton: {fileID: 0}
-  enableVirtualPad: 1
+  useVirtualPad: 0
   aIMode: 0
   isAICar: 0
   isAvoidingCars: 0
@@ -564,7 +560,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carStatsProvider: {fileID: 0}
-  isPlayerCar: 1
   targetMaterial: {fileID: 2100000, guid: 4af37f4619685dd44b1a79e217238fe2, type: 2}
   alphaPropertyName: _Alpha
   minApha: 0
@@ -871,7 +866,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1643,7 +1638,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 92f62b6a62305a84b84fc9ebc260482c, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0

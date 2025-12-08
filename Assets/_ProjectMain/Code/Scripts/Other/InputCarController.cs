@@ -19,11 +19,7 @@ public class InputCarController : DriverBase
     [SerializeField, Min(0f)] private float switchToReverseSpeedKPH = 1f;
 
     [Header("Virtual Button Setup")]
-    [SerializeField] private VirtualPadButton leftSteerButton;
-    [SerializeField] private VirtualPadButton rightSteerButton;
-    [SerializeField] private VirtualPadButton throttleButton;
-    [SerializeField] private VirtualPadButton brakeButton;
-    [SerializeField] private bool enableVirtualPad = true;
+    [SerializeField] private bool useVirtualPad = true;
 
     [Header("AI Setup")]
     [SerializeField] public AIMode aIMode;
@@ -66,15 +62,15 @@ public class InputCarController : DriverBase
         {
             playerInput.enabled = !isAICar; // AI → false, Player → true
         }
-
         if (isAICar)
         {
+            useVirtualPad = false;
             InitializeAI();
         }
     }
     private void InitializeAI()
     {
-        //Replace by sort with LINQ
+        //Find Object
         allWayPoints = FindObjectsByType<WaypointNode>(FindObjectsSortMode.None);
 
         //Manual sorting for simple and run 1 time 
@@ -122,8 +118,8 @@ public class InputCarController : DriverBase
     }
     public bool EnableVirtualPad
     {
-        get => enableVirtualPad;
-        set => enableVirtualPad = value;
+        get => useVirtualPad;
+        set => useVirtualPad = value;
     }
     #region Input System
     private void OnMove(InputValue inputValue) //4 directions
@@ -189,14 +185,24 @@ public class InputCarController : DriverBase
         UpdateWaypointTarget();
 
         // <<<< ÁP DỤNG TỐC ĐỘ TỪ WAYPOINT (phần quan trọng nhất)
-        float targetSpeedMultiplier = currentWaypoint.maxSpeedMultiplier > 0f ? currentWaypoint.maxSpeedMultiplier : 1f; // Fallback nếu =0
+        float targetSpeedMultiplier = 1f; // mặc định full speed
+
+        if (currentWaypoint != null && carController is ArcadeCarController arcade)
+        {
+            CarClass thisCarClass = arcade.MyCarClass;
+            Debug.Log(thisCarClass);
+            targetSpeedMultiplier = currentWaypoint.GetMaxSpeedMultiplierForClass(thisCarClass);
+            Debug.Log(targetSpeedMultiplier);
+        }
+
+
         float maxSpeedMPS = carController.MaxSpeedKPH / 3.6f; // Chuyển km/h sang m/s (tương đương CarMath.KPHToMPS)
         float currentMaxSpeed = maxSpeedMPS * targetSpeedMultiplier;
 
         // Giới hạn tốc độ hiện tại (rất mượt, không giật)
         if (carController.ForwardSpeed > currentMaxSpeed + 5f) // +5f để có độ trễ tự nhiên
         {
-            carController.BrakeInput = Mathf.MoveTowards(carController.BrakeInput, 0.8f, Time.deltaTime * 3f);
+            carController.BrakeInput = Mathf.MoveTowards(carController.BrakeInput, 1f, Time.deltaTime * 3f);
         }
         else
         {
@@ -329,24 +335,26 @@ public class InputCarController : DriverBase
 
     private float GetRawSteerInput()
     {
-        if (enableVirtualPad && leftSteerButton != null && rightSteerButton != null)
+        //VirtualPad (Mobile - Future feature) 
+        if (useVirtualPad && VirtualPadController.Instance != null)
         {
-            if (leftSteerButton.Pressed)
+            if (VirtualPadController.Instance.LeftSteerPressed)
             {
                 return -1f;
             }
-            if (rightSteerButton.Pressed)
+            else if (VirtualPadController.Instance.RightSteerPressed)
             {
                 return 1f;
             }
         }
+        //Keyboard (PC)
         //Steer Left
         if (moveInput.x < 0 || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) //Combine Input System & Input Manager
         {
             return -1f;
         }
         //Steer Right
-        if (moveInput.x > 0 || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) //Combine Input System & Input Manager
+        else if (moveInput.x > 0 || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) //Combine Input System & Input Manager
         {
             return 1f;
         }
@@ -356,15 +364,13 @@ public class InputCarController : DriverBase
 
     private float GetRawThrottleInput()
     {
-        if (enableVirtualPad && throttleButton != null)
+        //VirtualPad (Mobile - Future feature)
+        if (useVirtualPad && VirtualPadController.Instance != null && VirtualPadController.Instance.ThrottlePressed)
         {
-            if (throttleButton.Pressed)
-            {
-                return 1f;
-            }
+            return 1f;
         }
-        //Throttle
-        if (moveInput.y > 0 || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) //Combine Input System & Input Manager
+        //Keyboard (PC)
+        else if (moveInput.y > 0 || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) //Combine Input System & Input Manager
         {
             return 1f;
         }
@@ -372,21 +378,18 @@ public class InputCarController : DriverBase
         return 0f;
     }
 
-    private float GetRawBrakeInput()
+    private float GetRawBrakeInput() //Brake (not Handbrake)
     {
-        if (enableVirtualPad && brakeButton != null)
-        {
-            if (brakeButton.Pressed)
-            {
-                return 1f;
-            }
-        }
-        //Brake (not Handbrake)
-        if (moveInput.y < 0 || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) //Combine Input System & Input Manager
+        //VirtualPad (Mobile - Future feature)
+        if (useVirtualPad && VirtualPadController.Instance != null && VirtualPadController.Instance.BrakePressed)
         {
             return 1f;
         }
-
+        //Keyboard (PC)
+        else if (moveInput.y < 0 || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) //Combine Input System & Input Manager
+        {
+            return 1f;
+        }
         return 0f;
     }
     #region Steer

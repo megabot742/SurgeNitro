@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1757fb876e17774e8249a4bef023bf8, type: 3}
   m_Name: CarDatabase
   m_EditorClassIdentifier: 
-  carsSO: []
+  classContainersList:
+  - {fileID: 11400000, guid: 7c8452fe6119e7e4b9bf4e639708664e, type: 2}
+  - {fileID: 11400000, guid: 54f56409d5c9e02438ddb8ec1c8fe3eb, type: 2}
+  - {fileID: 11400000, guid: 475307a2a3108c24ebfc6a5cf47c3857, type: 2}
+  - {fileID: 11400000, guid: 646f6385a52752e4dac374ab8789be81, type: 2}
+  - {fileID: 11400000, guid: 849bb661a4583b748b8887c69734c119, type: 2}

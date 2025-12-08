@@ -50,4 +50,5 @@ MonoBehaviour:
   _maxSpeed: 9999
   audioClip: {fileID: 8300000, guid: aee102e2e359a6e438d6a21c4be10184, type: 3}
   audioMixerGroup: {fileID: -4038737276081986722, guid: cb3ee4e1c4ddb8848a0c47c3f5d56da3, type: 2}
-  maxVolume: 0.8
+  maxVolume: 1
+  spatialBlend: 1
