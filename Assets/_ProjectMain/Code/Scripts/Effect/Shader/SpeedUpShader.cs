@@ -60,7 +60,7 @@ public class SpeedUpShader : MonoBehaviour
 
     private void CacheRenderFeature()
     {
-        if(RaceManager.HasInstance)
+        if(RaceManager.Instance)
         {
             screenFeature = RaceManager.Instance.screenFeature;
         }

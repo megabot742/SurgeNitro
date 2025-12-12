@@ -2,61 +2,72 @@ using UnityEngine;
 [System.Serializable]
 public class Nitro
 {
-    [SerializeField] private bool _install = false;
+    [SerializeField] private bool install = false;
 
-        [SerializeField, Min(1f)] private float _engineTorqueCoef = 1.5f;
+    [SerializeField, Min(1f)] private float _engineTorqueCoef = 1.5f;
 
-        [SerializeField, Min(0f)] private float _maxTankCapacity = 30f;
+    [SerializeField, Min(0f)] private float _maxTankCapacity = 30f;
 
-        private float _remainTankCapacity;
-        private bool _injection;
+    private float remainTankCapacity;
+    private bool injection;
 
-        public bool Install
+    public bool Install
+    {
+        get => install;
+        set => install = value;
+    }
+
+    public bool Injection
+    {
+        get => injection;
+        set => injection = value;
+    }
+
+    public float EngineTorqueCoef => injection ? _engineTorqueCoef : 1f;
+
+    public float RemainTankCapacity
+    {
+        get => remainTankCapacity;
+        set => remainTankCapacity = value;
+    }
+
+    public void Init()
+    {
+        if (!install)
         {
-            get => _install;
-            set => _install = value;
+            return;
         }
 
-        public bool Injection
+        remainTankCapacity = _maxTankCapacity;
+    }
+
+    public void Update(bool nosInput)
+    {   
+;        if (!install)
         {
-            get => _injection;
-            set => _injection = value;
+            injection = false;
+            return;
         }
 
-        public float EngineTorqueCoef => _injection ? _engineTorqueCoef : 1f;
-
-        public float RemainTankCapacity
+        if (nosInput)
         {
-            get => _remainTankCapacity;
-            set => _remainTankCapacity = value;
+            remainTankCapacity = Mathf.Max(remainTankCapacity - Time.deltaTime, 0f);
+            injection = remainTankCapacity > 0f;
+            
         }
-
-        public void Init()
+        else
         {
-            if (!_install)
-            {
-                return;
-            }
-
-            _remainTankCapacity = _maxTankCapacity;
+            injection = false;
         }
-
-        public void Update(bool nosInput)
+        DisplayNitro();
+    }
+    private void DisplayNitro()
+    {
+        if(UIManager.HasInstance)
         {
-            if (!_install)
-            {
-                _injection = false;
-                return;
-            }
+            UIManager.Instance.hUDPanel.nitroSlider.maxValue = _maxTankCapacity;
+            UIManager.Instance.hUDPanel.nitroSlider.value = remainTankCapacity;
 
-            if (nosInput)
-            {
-                _remainTankCapacity = Mathf.Max(_remainTankCapacity - Time.deltaTime, 0f);
-                _injection = _remainTankCapacity > 0f;
-            }
-            else
-            {
-                _injection = false;
-            }
         }
+    }
 }

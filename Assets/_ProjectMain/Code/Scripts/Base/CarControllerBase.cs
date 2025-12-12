@@ -29,6 +29,7 @@ public abstract class CarControllerBase : MonoBehaviour
 
     [SerializeField, Range(0f, 1f)] protected float airResistanceReduction = 0f;
     #endregion
+
     #region Suspension
     [SerializeField] protected bool autoAdjustSuspension = true; //Auto Suspension - Bật/tắt tự động Hệ thống treo
     [SerializeField, Min(0.001f)] protected float suspensionStroke = 0.1f;
@@ -37,38 +38,140 @@ public abstract class CarControllerBase : MonoBehaviour
     #endregion
     [SerializeField] protected float addForceOffset = -0.1f;
 
+    #region RaceTracking
+    [SerializeField, ReadOnly] private InputCarController inputCarController;
+    [SerializeField] public int currentLap = 1; //default = 1
+    [SerializeField] public float lapTime;
+    [SerializeField] public float bestLapTime;
+    [SerializeField] public int nextCheckPoint;
+    public void CheckPointHit(int checkPointNumber)
+    {
+        if (checkPointNumber == nextCheckPoint)
+        {
+            nextCheckPoint++;
+
+            if (nextCheckPoint == RaceManager.Instance.allCheckPoints.Length)
+            {
+                nextCheckPoint = 0;
+                LapCompleted();
+            }
+
+        }
+    }
+    void LapCompleted()
+    {
+        currentLap++; //When completed lap
+        if (lapTime < bestLapTime || bestLapTime == 0f)
+        {
+            bestLapTime = lapTime;
+        }
+
+        if (currentLap <= RaceManager.Instance.totalLaps)
+        {
+            lapTime = 0f; //Reset value for new lap
+            //Show best lap time
+            if (inputCarController != null && !inputCarController.isAICar)
+            {
+                var bestTime = System.TimeSpan.FromSeconds(bestLapTime);
+                if (UIManager.HasInstance)
+                {
+                    //DisplayBestTime
+                    UIManager.Instance.hUDPanel.bestLapTimeTxt.text = string.Format("{0:00}:{1:00}.{2:00}", bestTime.Minutes, bestTime.Seconds, bestTime.Milliseconds);
+                    //UIManager.Instance.resultPanel.bestTimeTxt.text = string.Format("{0:00}:{1:00}.{2:00}", bestTime.Minutes, bestTime.Seconds, bestTime.Milliseconds);
+                }
+                //Show current lap
+                DisplayLap();
+            }
+        }
+        else
+        {
+            // If player completes the race
+            if (!inputCarController.isAICar)
+            {
+                bestLapTime = lapTime; //Update laterTime
+                var bestTime = System.TimeSpan.FromSeconds(bestLapTime);
+                inputCarController.isAICar = true; // Stop updating Pos, Time, Lap
+                if (UIManager.HasInstance)
+                {
+                    UIManager.Instance.StopCountdown(); // Stop countdown if running
+                    UIManager.Instance.resultPanel.bestTimeTxt.text = string.Format("{0:00}:{1:00}.{2:00}", bestTime.Minutes, bestTime.Seconds, bestTime.Milliseconds);
+                }
+                RaceManager.Instance.FinishRace();
+
+            }
+            // If AI completes the race
+            else
+            {
+                if (UIManager.HasInstance && !UIManager.Instance.isCountingDown && !RaceManager.Instance.raceCompleted)//Check countDown, raceCompleted
+                {
+                    UIManager.Instance.SetEndCountDown(UIManager.Instance.timeIfNotFinish); // Start countdown
+                }
+            }
+        }
+    }
+    private void DisplayLap()
+    {
+        if (UIManager.HasInstance)
+        {
+            UIManager.Instance.hUDPanel.lapTxt.text = currentLap + "/" + RaceManager.Instance.totalLaps;
+        }
+    }
+    private void DisplayTime()
+    {
+        var time = System.TimeSpan.FromSeconds(lapTime);
+        if (UIManager.HasInstance)
+        {
+            UIManager.Instance.hUDPanel.lapTimeTxt.text = string.Format("{0:00}:{1:00}.{2:00}", time.Minutes, time.Seconds, time.Milliseconds);
+        }
+    }
+    private void DisplaySpeed()
+    {
+        if(UIManager.HasInstance)
+        {
+            UIManager.Instance.hUDPanel.speedDometerText.text = Mathf.RoundToInt(SpeedKPH).ToString();
+        }
+    }
+    public void AISetup(bool isAI) //This use for spawn car
+    {
+        if (inputCarController != null)
+        {
+            inputCarController.isAICar = isAI;
+        }
+    }
+    #endregion
+
+    #region Variable
+    //---Physics---
     protected Rigidbody carRB;
     protected Collider carCollider;
+    //---Wheell---
     protected Wheel[] carWheels;
-
-    //protected CarLightManager _lightManager;
-
     protected float wheelbase;
-
+    //---Input Handler---
     protected float steerInput;
     protected float throttleInput;
     protected float brakeInput;
     protected bool handbrakeInput;
-
+    //---Angular Velocity---
     protected float angularVelocity;
-
+    //---Ground Dection---
     protected Vector3 groundNormal;
     protected Vector3 groundForward;
     protected Vector3 groundSideways;
-    #region Speed
+    //---Speed---
     protected float forwardSpeed; 
     protected float sidewaysSpeed;
     protected float speed;
-    #endregion
-    #region Force
+    //---Force---
     protected float normalForce;
     protected Vector3 addForcePosition;
     protected Vector3 totalForce;
-    #endregion
+    //---Angle---
     protected float slipAngle;
     protected float tiltAngle;
 
     protected bool replayPlaying;
+    #endregion
 
     public abstract float MaxSpeedKPH { get; }
 
@@ -93,6 +196,7 @@ public abstract class CarControllerBase : MonoBehaviour
     public float Wheelbase => wheelbase;
 
     public float SlipAngle => slipAngle;
+
     #region Input
     public float SteerInput
     {
@@ -142,7 +246,7 @@ public abstract class CarControllerBase : MonoBehaviour
         }
     }
     #endregion
-
+    #region ParamCar
     public abstract bool Reverse { get; set; }
 
     public float ForwardSpeed => Vector3.Dot(carRB.linearVelocity, transform.forward);
@@ -202,7 +306,8 @@ public abstract class CarControllerBase : MonoBehaviour
     public bool Replay => replayPlaying;
 
     public abstract float MotorRevolutionRate { get; }
-
+    #endregion
+    #region Awake
     protected virtual void Awake()
     {
         carRB = GetComponent<Rigidbody>();
@@ -218,6 +323,38 @@ public abstract class CarControllerBase : MonoBehaviour
             AdjustSuspension();
         }
     }
+    #endregion
+    #region Start
+    protected virtual void Start()
+    {
+        inputCarController = GetComponent<InputCarController>();
+        if(inputCarController.isAICar == false)
+        {
+            DisplayLap();
+            DisplayTime();
+            DisplaySpeed();
+        }
+    }
+    #endregion
+    #region Update
+    protected virtual void Update()
+    {
+        if (!RaceManager.Instance.isCountdown)
+        {
+            lapTime += Time.deltaTime;
+            if (!inputCarController.isAICar)
+            {
+                DisplayTime();
+                DisplaySpeed();
+                if (UIManager.HasInstance && UIManager.Instance.isCountingDown && UIManager.Instance.GetEndCountDown() <= 0.1f)//When end time, just finishRace
+                {
+                    inputCarController.isAICar = true;
+                    RaceManager.Instance.FinishRace();    
+                }
+            }
+        }
+    }
+    #endregion
     #region Fixupdate
     protected virtual void FixedUpdate()
     {

@@ -57,6 +57,7 @@ public class InputCarController : DriverBase
     {
         base.Awake();
         //AICar
+        InitializeWaypoint();
         var playerInput = GetComponent<PlayerInput>();
         if (playerInput != null)
         {
@@ -65,10 +66,9 @@ public class InputCarController : DriverBase
         if (isAICar)
         {
             useVirtualPad = false;
-            InitializeAI();
         }
     }
-    private void InitializeAI()
+    private void InitializeWaypoint()
     {
         //Find Object
         allWayPoints = FindObjectsByType<WaypointNode>(FindObjectsSortMode.None);
@@ -94,7 +94,7 @@ public class InputCarController : DriverBase
     void Start()
     {
         //Camera
-        if (cameraController == null && RaceManager.HasInstance)
+        if (cameraController == null && RaceManager.Instance)
         {
             cameraController = RaceManager.Instance.cameraCarController;
         }
@@ -140,7 +140,7 @@ public class InputCarController : DriverBase
     }
     private void OnBackOnTrack()
     {
-        if (isAICar) return; // AI không được reset bằng nút (trừ khi bạn muốn)
+        if (isAICar) return; // AI can't reset to track by button
 
         if (resetTimer > 0f) return;
 
@@ -150,18 +150,27 @@ public class InputCarController : DriverBase
     #endregion
     protected override void Drive()
     {
+        if (RaceManager.Instance.isCountdown == false) //Player + AI need for end countDown before race
+        {
+            if (currentWaypoint == null)
+            {
+                currentWaypoint = FindClosestWaypoint();
+                if (currentWaypoint == null) return;
+            }
+            UpdateWaypointTarget();
+            if (isAICar)
+            {
+                AIInputDrive(); // Chạy AI với random waypoint
+            }
+            else
+            {
+                PlayerInputDrive();
+            }
+        }
+
         if (resetTimer > 0f)
         {
             resetTimer -= Time.unscaledDeltaTime;
-        }
-
-        if (isAICar)
-        {
-            AIInputDrive(); // Chạy AI với random waypoint
-        }
-        else
-        {
-            PlayerInputDrive();
         }
 
     }
@@ -176,13 +185,13 @@ public class InputCarController : DriverBase
     #region AI Car
     private void AIInputDrive()
     {
-        if (currentWaypoint == null)
-        {
-            currentWaypoint = FindClosestWaypoint();
-            if (currentWaypoint == null) return;
-        }
+        // if (currentWaypoint == null)
+        // {
+        //     currentWaypoint = FindClosestWaypoint();
+        //     if (currentWaypoint == null) return;
+        // }
 
-        UpdateWaypointTarget();
+        //UpdateWaypointTarget();
 
         // <<<< ÁP DỤNG TỐC ĐỘ TỪ WAYPOINT (phần quan trọng nhất)
         float targetSpeedMultiplier = 1f; // mặc định full speed
@@ -190,9 +199,9 @@ public class InputCarController : DriverBase
         if (currentWaypoint != null && carController is ArcadeCarController arcade)
         {
             CarClass thisCarClass = arcade.MyCarClass;
-            Debug.Log(thisCarClass);
+            //Debug.Log(thisCarClass);
             targetSpeedMultiplier = currentWaypoint.GetMaxSpeedMultiplierForClass(thisCarClass);
-            Debug.Log(targetSpeedMultiplier);
+            //Debug.Log(targetSpeedMultiplier);
         }
 
 

@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIManager : BaseManager<UIManager>
 {
@@ -11,6 +12,13 @@ public class UIManager : BaseManager<UIManager>
     public PausePanel pausePanel;
     public ResultPanel resultPanel;
 
+    [Header("EndingRaceTime")]
+    public float timeIfNotFinish = 10f; //default 10s
+    public bool isCountingDown; //false
+    private float endCountDown;
+
+    [Header("Scene Name")]
+    public string currentSceneName;
     protected override void Awake()
     {
         base.Awake();
@@ -21,7 +29,55 @@ public class UIManager : BaseManager<UIManager>
     }
     void Update()
     {
-        
+        if (isCountingDown && endCountDown > 0)
+        {
+            endCountDown -= Time.deltaTime;
+            if (endCountDown <= 0)
+            {
+                isCountingDown = false;
+            }
+        }
+    }
+    public void SetEndCountDown(float value) //reset value
+    {
+        if (value >= 0)
+        {
+            endCountDown = value;
+            isCountingDown = true;
+        }
+    }
+
+    public float GetEndCountDown()
+    {
+        return endCountDown;
+    }
+
+    public void StopCountdown()
+    {
+        isCountingDown = false;
+    }
+    public void ReloadCurrentScene()
+    {
+        //check currentSceneName
+        if (!string.IsNullOrEmpty(currentSceneName))
+        {
+            SwitchToScene(currentSceneName);
+        }
+    }
+    public void SwitchToScene(string sceneName)
+    {
+        // Load the new scene
+        SceneManager.LoadScene(sceneName);
+        currentSceneName = sceneName;
+
+        // Update UI based on the loaded scene
+        UpdateUIForScene(sceneName);
+
+        // if (BackgroundMusic.HasInstance)
+        // {
+        //     // Cập nhật nhạc nền cho scene mới
+        //     BackgroundMusic.Instance.UpdateMusicForScene(sceneName);
+        // }
     }
     public void ChangeUIGameObject(GameObject currentObject = null, GameObject activeObject = null)
     {
@@ -31,7 +87,7 @@ public class UIManager : BaseManager<UIManager>
         }
         if(activeObject != null)
         {
-            activeObject.SetActive(false);
+            activeObject.SetActive(true);
         }
     }
     private void UpdateUIForScene(string sceneName)
@@ -48,6 +104,7 @@ public class UIManager : BaseManager<UIManager>
             case "Garage":
                 ChangeUIGameObject(null, homeMenuPanel.gameObject);
                 break;
+            case "R&D":
             case "Track1":
             case "Track2":
             case "Track3":

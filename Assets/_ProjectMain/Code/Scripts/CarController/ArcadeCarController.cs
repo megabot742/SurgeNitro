@@ -128,7 +128,6 @@ public class ArcadeCarController : CarControllerBase
 
         _nos.Init();
     }
-
     protected override void FixedUpdate()
     {
         base.FixedUpdate();

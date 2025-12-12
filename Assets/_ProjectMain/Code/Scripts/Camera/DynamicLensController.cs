@@ -35,30 +35,33 @@ public class DynamicLensController : MonoBehaviour
         }
 
         //CarStatsProvider
-        if (carStatsProvider == null)
-        {
-            carStatsProvider = GetComponentInParent<CarStatsProvider>();
-            if (carStatsProvider != null)
-            {
-                Debug.Log("CarController: " + carStatsProvider.name);
-            }
-            else
-            {
-                Debug.LogError("Can't find CarController");
-                enabled = false;
-                return;
-            }
-        }
+        // if (carStatsProvider == null)
+        // {
+        //     carStatsProvider = RaceManager.Instance.playerStats;
+        //     if (carStatsProvider != null)
+        //     {
+        //         Debug.Log("CarController: " + carStatsProvider.name);
+        //     }
+        //     else
+        //     {
+        //         Debug.LogError("Can't find CarController");
+        //         enabled = false;
+        //         return;
+        //     }
+        // }
         //Set targetFOV = minFOV
+    }
+    void Start()
+    {
+        carStatsProvider = RaceManager.Instance.playerStats;
         targetFOV = minFieldOfView;
     }
-    
     private void LateUpdate()
     {
         if (cinemachineCamera == null || carStatsProvider == null) return;
 
         //Get forwardSpeed KPH
-        float forwardSpeedKPH = carStatsProvider.ForwardSpeedKPH;
+        //float forwardSpeedKPH = carStatsProvider.ForwardSpeedKPH;
         //Debug.Log(forwardSpeedKPH);
 
         //value % (speed/max sppeed)

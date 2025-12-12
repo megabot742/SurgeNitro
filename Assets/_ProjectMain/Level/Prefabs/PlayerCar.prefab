@@ -322,6 +322,7 @@ GameObject:
   - component: {fileID: 8636513068491450096}
   - component: {fileID: 4295228259685500007}
   - component: {fileID: 380707464928964824}
+  - component: {fileID: 6981655563595887091}
   m_Layer: 0
   m_Name: PlayerCar
   m_TagString: Untagged
@@ -437,6 +438,11 @@ MonoBehaviour:
   suspensionNaturalFrequency: 2
   suspensionDampingRatio: 0.35
   addForceOffset: -0.1
+  inputCarController: {fileID: 0}
+  currentLap: 1
+  lapTime: 0
+  bestLapTime: 0
+  nextCheckPoint: 0
   maxForwardSpeedKPH: 180
   maxBackwardSpeedKPH: 40
   maxMotorTorque: 1500
@@ -453,7 +459,7 @@ MonoBehaviour:
     _turbineAccelerationTime: 0.3
     _turbineDecelerationTime: 0.1
   _nos:
-    _install: 1
+    install: 1
     _engineTorqueCoef: 1.5
     _maxTankCapacity: 30
   _mixtureUnbalanceTime: 0.25
@@ -483,6 +489,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  MyCarClass: 1
 --- !u!114 &3445188537393072318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -584,6 +591,19 @@ MonoBehaviour:
   _minDuration: 0.05
   _maxDuration: 0.1
   effects: []
+--- !u!114 &6981655563595887091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3333465162699792237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78998ae429c2c6243b48e5c4213956a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CarController: {fileID: 0}
 --- !u!1 &3359502263994334935
 GameObject:
   m_ObjectHideFlags: 0

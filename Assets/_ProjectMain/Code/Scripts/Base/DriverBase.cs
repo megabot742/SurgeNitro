@@ -20,7 +20,7 @@ public class DriverBase : MonoBehaviour
         carController = GetComponent<CarControllerBase>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (stopping)
         {

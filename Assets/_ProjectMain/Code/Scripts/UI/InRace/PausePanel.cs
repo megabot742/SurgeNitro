@@ -13,4 +13,33 @@ public class PausePanel : MonoBehaviour
     {
         
     }
+    public void OnClickResume()
+    {
+        if (UIEventManager.HasInstance)
+        {
+            UIEventManager.Instance.PauseGame();
+        }
+    }
+    public void OnClickRestart()
+    {
+        if (UIEventManager.HasInstance && UIManager.HasInstance)
+        {
+            UIManager.Instance.ChangeUIGameObject(this.gameObject);
+            UIEventManager.Instance.RestartGame();
+        }
+    }
+    public void OnClickMenu()
+    {
+        if (UIEventManager.HasInstance)
+        {
+            UIEventManager.Instance.BackMenu(); //Return scene Menu
+        }
+    }
+    public void OnClickClose()
+    {
+        if (UIEventManager.HasInstance)
+        {
+            UIEventManager.Instance.PauseGame();
+        }
+    }
 }

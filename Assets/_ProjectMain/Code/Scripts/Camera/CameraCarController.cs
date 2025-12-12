@@ -36,7 +36,7 @@ public class CameraCarController : MonoBehaviour
     {
         foreach (CinemachineCamera camera in cinemachineCameras)
         {
-            if(RaceManager.HasInstance)
+            if(RaceManager.Instance)
             {
                 camera.Follow = RaceManager.Instance.playerCar.transform; //tracking player
             }
