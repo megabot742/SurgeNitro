@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 417131553807152273}
   - component: {fileID: 1421675452676704180}
   m_Layer: 0
-  m_Name: AITestCar (1)
+  m_Name: TestBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -285,8 +285,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2926000677153914549}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.071136855, z: -0, w: 0.99746656}
-  m_LocalPosition: {x: 145.27, y: 100.15, z: -38.87}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -294,7 +294,7 @@ Transform:
   - {fileID: 6884519768378542297}
   - {fileID: 305363218721363893}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -8.159, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5457562513430580708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,6 +385,7 @@ MonoBehaviour:
   suspensionNaturalFrequency: 2
   suspensionDampingRatio: 0.35
   addForceOffset: -0.1
+  inputCarController: {fileID: 0}
   currentLap: 1
   lapTime: 0
   bestLapTime: 0
@@ -460,7 +461,7 @@ MonoBehaviour:
   switchToReverseSpeedKPH: 1
   useVirtualPad: 0
   aIMode: 0
-  isAICar: 1
+  isAICar: 0
   isAvoidingCars: 0
   skillLevel: 1
   avoidanceDistance: 12
@@ -10494,7 +10495,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8717d257f117dab42b822658c521ead1, type: 2}
+  - {fileID: 2100000, guid: 0a5fa0e3de53444488e88fe9ce77ebee, type: 2}
   - {fileID: 2100000, guid: 33369fea361b12c48acb7ddcc9032afa, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
