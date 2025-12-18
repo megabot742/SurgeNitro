@@ -38,7 +38,7 @@ public class CameraCarController : MonoBehaviour
         {
             if(RaceManager.Instance)
             {
-                camera.Follow = RaceManager.Instance.playerCar.transform; //tracking player
+                camera.Follow = RaceManager.Instance.playerCarController.transform; //tracking player
             }
         }
     }

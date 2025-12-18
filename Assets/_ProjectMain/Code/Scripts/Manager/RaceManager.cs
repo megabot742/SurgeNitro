@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.Rendering.Universal;
 
 public class RaceManager : MonoBehaviour
@@ -10,7 +11,8 @@ public class RaceManager : MonoBehaviour
 
     [Header("RaceSetup")]
     [SerializeField] public CheckPoint[] allCheckPoints;
-    [SerializeField] public CarControllerBase playerCar;
+    [SerializeField] public GameObject playerCarObject;
+    [SerializeField] public CarControllerBase playerCarController;
     [SerializeField] public CarStatsProvider playerStats;
     [SerializeField] public List<CarControllerBase> allAICars = new List<CarControllerBase>();
     [SerializeField] public int totalLaps;
@@ -36,6 +38,8 @@ public class RaceManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        playerCarController = playerCarObject.GetComponent<CarControllerBase>();
+        playerStats = playerCarObject.GetComponent<CarStatsProvider>();
     }
 
     void Start()
@@ -93,18 +97,18 @@ public class RaceManager : MonoBehaviour
             foreach (CarControllerBase aiCar in allAICars)
             {
                 float aiDistance = Vector3.Distance(aiCar.transform.position, allCheckPoints[aiCar.nextCheckPoint].transform.position);
-                float playerDistance = Vector3.Distance(playerCar.transform.position, allCheckPoints[playerCar.nextCheckPoint].transform.position);
-                if (aiCar.currentLap > playerCar.currentLap) // Greater than Lap
+                float playerDistance = Vector3.Distance(playerCarController.transform.position, allCheckPoints[playerCarController.nextCheckPoint].transform.position);
+                if (aiCar.currentLap > playerCarController.currentLap) // Greater than Lap
                 {
                     playerPos++;
                 }
-                else if (aiCar.currentLap == playerCar.currentLap) //Same lap, but greater than Checkpoint
+                else if (aiCar.currentLap == playerCarController.currentLap) //Same lap, but greater than Checkpoint
                 {
-                    if (aiCar.nextCheckPoint > playerCar.nextCheckPoint)
+                    if (aiCar.nextCheckPoint > playerCarController.nextCheckPoint)
                     {
                         playerPos++;
                     }
-                    else if (aiCar.nextCheckPoint == playerCar.nextCheckPoint)
+                    else if (aiCar.nextCheckPoint == playerCarController.nextCheckPoint)
                     {
                         if (aiDistance < playerDistance) //Same lap, same check point, lessthan Distance
                         {
@@ -136,12 +140,12 @@ public class RaceManager : MonoBehaviour
         //Get player Start Position
         playerStartPosition = Random.Range(0, aiNumberToSpawn + 1); //plus 1 because with Int Random.Range not include max value, only min value
         //Get info player car and spawn
-        playerCar = Instantiate(playerCar, startPoints[playerStartPosition].position, startPoints[playerStartPosition].rotation, spawnCarParent);
-        playerCar.AISetup(false);
+        playerCarController = Instantiate(playerCarController, startPoints[playerStartPosition].position, startPoints[playerStartPosition].rotation, spawnCarParent);
+        playerCarController.AISetup(false);
         //Remove AI same car with Player, Set up from the bottom to avoid the influence of the top element
         for (int i = carsToSpawn.Count - 1; i >= 0; i--)
         {
-            if (carsToSpawn[i] == playerCar)
+            if (carsToSpawn[i] == playerCarController)
             {
                 Debug.Log(carsToSpawn[i]);
                 carsToSpawn.RemoveAt(i);

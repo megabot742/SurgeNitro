@@ -1,5 +1,9 @@
 using UnityEngine;
-
+[RequireComponent(typeof(WheelEffectPool))]
+[RequireComponent(typeof(WheelSmokeManager))]
+[RequireComponent(typeof(RoadMaterialDetector))]
+[RequireComponent(typeof(SkidmarkManager))]
+[RequireComponent(typeof(SkidSoundManager))]
 public class Wheel : MonoBehaviour
 {
     public enum HitDetectionType
