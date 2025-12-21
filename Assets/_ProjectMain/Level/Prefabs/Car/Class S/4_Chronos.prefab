@@ -243,7 +243,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.39
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 3729552862929658795}
@@ -541,7 +541,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.39
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 8713607794068769927}
@@ -979,7 +979,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.39
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 4715265512174496439}
@@ -1191,7 +1191,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.39
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 5486274630066687112}
@@ -1203,6 +1203,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 562050043808524343, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648072824635246349, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648072824635246349, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648072824635246349, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.2
+      objectReference: {fileID: 0}
     - target: {fileID: 1787751377441476100, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
       propertyPath: wheelRadius
       value: 0.39
@@ -1218,6 +1234,10 @@ PrefabInstance:
     - target: {fileID: 4538211067934482877, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
       propertyPath: m_Name
       value: 4_Chronos
+      objectReference: {fileID: 0}
+    - target: {fileID: 5000256811224521687, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 6333666593906824638, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1258,6 +1278,18 @@ PrefabInstance:
     - target: {fileID: 6333666593906824638, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547927959099191019, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547927959099191019, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547927959099191019, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

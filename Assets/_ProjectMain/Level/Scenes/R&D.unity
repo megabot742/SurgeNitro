@@ -16700,8 +16700,9 @@ MonoBehaviour:
   - {fileID: 43790881}
   - {fileID: 727450921}
   - {fileID: 575055125}
-  playerCarObject: {fileID: 6204919463886204087, guid: a4606d98906301345878ab19ef3caa90, type: 3}
+  playerCarObject: {fileID: 4528110837461989515, guid: 6c0dd3c300df785478cc5b0b7c07d25d, type: 3}
   playerCarController: {fileID: 0}
+  inputCarController: {fileID: 0}
   playerStats: {fileID: 0}
   allAICars: []
   totalLaps: 1
@@ -16731,6 +16732,8 @@ MonoBehaviour:
   - {fileID: 1057948511500882188, guid: 1d29f2ae975a7ea408ef729b3f614d54, type: 3}
   - {fileID: 1057948511500882188, guid: 1d29f2ae975a7ea408ef729b3f614d54, type: 3}
   - {fileID: 1057948511500882188, guid: 1d29f2ae975a7ea408ef729b3f614d54, type: 3}
+  carDatabase: {fileID: 11400000, guid: 6d5abefec635b5248832b8075d02180e, type: 2}
+  allowDuplicateWithPlayer: 1
   raceCompleted: 0
 --- !u!1 &785783009
 GameObject:
@@ -28783,11 +28786,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1746604765659785078, guid: 776aee953c1a439499784eaa92cf3e3b, type: 3}
       propertyPath: FollowOffset.y
-      value: 1.1
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 1746604765659785078, guid: 776aee953c1a439499784eaa92cf3e3b, type: 3}
       propertyPath: FollowOffset.z
-      value: 0.8
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 1904447629608586531, guid: 776aee953c1a439499784eaa92cf3e3b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -47730,6 +47733,10 @@ PrefabInstance:
     - target: {fileID: 3053625869262348715, guid: 15dc42d6366c9f44fba0604b5912df02, type: 3}
       propertyPath: m_fontSizeBase
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3392565839022644667, guid: 15dc42d6366c9f44fba0604b5912df02, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3593396954950329466, guid: 15dc42d6366c9f44fba0604b5912df02, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size

@@ -4,6 +4,9 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public abstract class CarControllerBase : MonoBehaviour
 {
+    #region Car Param
+    [SerializeField] public CarClass CarClass  = CarClass.defaullt;
+    #endregion
     #region Setting Car
     [SerializeField] Wheel[] steerableWheels; //Wheel list
 
@@ -37,7 +40,7 @@ public abstract class CarControllerBase : MonoBehaviour
     [SerializeField, Range(0f, 1f)] protected float suspensionDampingRatio = 0.35f; //Damping - Hệ số giảm chấn
     #endregion
     [SerializeField] protected float addForceOffset = -0.1f;
-
+    
     #region RaceTracking
     [SerializeField, ReadOnly] private InputCarController inputCarController;
     [SerializeField] public int currentLap = 1; //default = 1

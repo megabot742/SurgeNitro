@@ -58,11 +58,6 @@ public class InputCarController : DriverBase
         base.Awake();
         //AICar
         InitializeWaypoint();
-        var playerInput = GetComponent<PlayerInput>();
-        if (playerInput != null)
-        {
-            playerInput.enabled = !isAICar; // AI → false, Player → true
-        }
         if (isAICar)
         {
             useVirtualPad = false;
@@ -89,6 +84,38 @@ public class InputCarController : DriverBase
 
                 return string.Compare(a.name, b.name, System.StringComparison.Ordinal);
             });
+        }
+    }
+    public void SetupPlayerInput(bool isPlayer)
+    {
+        if (isPlayer)
+        {
+            // Nếu là player → add PlayerInput nếu chưa có
+            if (GetComponent<PlayerInput>() == null)
+            {
+                var playerInput = gameObject.AddComponent<PlayerInput>();
+                // Config cơ bản (bạn cần set Action Map, Default Map, v.v. ở đây hoặc prefab gốc)
+                // Ví dụ:
+                // playerInput.actions = YourInputActionsAsset;  // Kéo Input Action Asset vào Inspector nếu có
+                // playerInput.defaultMap = "Player";
+                // playerInput.defaultControlScheme = "Keyboard&Mouse"; // Hoặc "Gamepad"
+                playerInput.enabled = true;
+                Debug.Log($"Added PlayerInput for player car: {gameObject.name}");
+            }
+            isAICar = false;
+            useVirtualPad = true;
+        }
+        else
+        {
+            // Nếu là AI → remove PlayerInput nếu có (sau race hoặc spawn AI)
+            var playerInput = GetComponent<PlayerInput>();
+            if (playerInput != null)
+            {
+                Destroy(playerInput);
+                Debug.Log($"Removed PlayerInput for AI car: {gameObject.name}");
+            }
+            isAICar = true;
+            useVirtualPad = false;
         }
     }
     void Start()
@@ -198,7 +225,7 @@ public class InputCarController : DriverBase
 
         if (currentWaypoint != null && carController is ArcadeCarController arcade)
         {
-            CarClass thisCarClass = arcade.MyCarClass;
+            CarClass thisCarClass = arcade.CarClass;
             //Debug.Log(thisCarClass);
             targetSpeedMultiplier = currentWaypoint.GetMaxSpeedMultiplierForClass(thisCarClass);
             //Debug.Log(targetSpeedMultiplier);

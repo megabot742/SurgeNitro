@@ -122,7 +122,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.33
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 1222643771006953908}
@@ -334,7 +334,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.33
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 8004749407484167831}
@@ -495,7 +495,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.33
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 2142412414659186571}
@@ -1019,7 +1019,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.33
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 2609952130536122811}
@@ -1203,6 +1203,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 53736945199568901, guid: 7801a0b281811714fb6a34f54df3141f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 53736945199568901, guid: 7801a0b281811714fb6a34f54df3141f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1057948511500882188, guid: 7801a0b281811714fb6a34f54df3141f, type: 3}
+      propertyPath: CarClass
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1057948511500882188, guid: 7801a0b281811714fb6a34f54df3141f, type: 3}
       propertyPath: MyCarClass
       value: 4
@@ -1262,6 +1274,14 @@ PrefabInstance:
     - target: {fileID: 4721035485179775670, guid: 7801a0b281811714fb6a34f54df3141f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5530175419036217827, guid: 7801a0b281811714fb6a34f54df3141f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5530175419036217827, guid: 7801a0b281811714fb6a34f54df3141f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

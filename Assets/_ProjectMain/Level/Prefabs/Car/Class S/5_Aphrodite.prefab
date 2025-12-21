@@ -279,7 +279,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.36
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 5993380919634624158}
@@ -405,7 +405,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.36
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 2414265440681719682}
@@ -703,7 +703,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.36
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 3228488389787816381}
@@ -864,7 +864,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.36
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 1730007602237084082}
@@ -1116,6 +1116,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 562050043808524343, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648072824635246349, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648072824635246349, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648072824635246349, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.4
+      objectReference: {fileID: 0}
     - target: {fileID: 1787751377441476100, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
       propertyPath: wheelRadius
       value: 0.36
@@ -1131,6 +1147,10 @@ PrefabInstance:
     - target: {fileID: 4538211067934482877, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
       propertyPath: m_Name
       value: 5_Aphrodite
+      objectReference: {fileID: 0}
+    - target: {fileID: 5000256811224521687, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6333666593906824638, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1171,6 +1191,18 @@ PrefabInstance:
     - target: {fileID: 6333666593906824638, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547927959099191019, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547927959099191019, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547927959099191019, guid: 137c2db3501691d4f9b6765dd6a43ee3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

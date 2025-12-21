@@ -122,7 +122,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.37
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 3886168641954866040}
@@ -574,7 +574,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.37
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 5135093530531883620}
@@ -979,7 +979,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.37
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 9133455371271572564}
@@ -1105,7 +1105,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.37
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 5336573069749193819}
@@ -1203,6 +1203,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1057948511500882188, guid: 7801a0b281811714fb6a34f54df3141f, type: 3}
+      propertyPath: CarClass
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1057948511500882188, guid: 7801a0b281811714fb6a34f54df3141f, type: 3}
       propertyPath: MyCarClass
       value: 3

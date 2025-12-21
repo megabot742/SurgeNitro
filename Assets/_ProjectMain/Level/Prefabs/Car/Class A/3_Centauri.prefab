@@ -241,7 +241,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.39
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 6573685210988531872}
@@ -557,7 +557,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.39
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 6911214986750732643}
@@ -683,7 +683,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.37
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 3325784658865109568}
@@ -1019,7 +1019,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.37
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 5108400151684224135}
@@ -1203,6 +1203,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1648072824635246349, guid: ce21c5bfa42cc444ea894d285a79ec6b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.44
+      objectReference: {fileID: 0}
     - target: {fileID: 1787751377441476100, guid: ce21c5bfa42cc444ea894d285a79ec6b, type: 3}
       propertyPath: wheelRadius
       value: 0.39
@@ -1258,6 +1262,14 @@ PrefabInstance:
     - target: {fileID: 6333666593906824638, guid: ce21c5bfa42cc444ea894d285a79ec6b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547927959099191019, guid: ce21c5bfa42cc444ea894d285a79ec6b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547927959099191019, guid: ce21c5bfa42cc444ea894d285a79ec6b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

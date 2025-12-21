@@ -364,6 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d7ad64a6ec25440b2e8009c7622f36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CarClass: 0
   steerableWheels:
   - {fileID: 2188723994675068829}
   - {fileID: 3066158540632013980}
@@ -436,7 +437,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  MyCarClass: 1
 --- !u!114 &7814116205762406198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,13 +515,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carStatsProvider: {fileID: 0}
   targetMaterial: {fileID: 2100000, guid: 4af37f4619685dd44b1a79e217238fe2, type: 2}
-  alphaPropertyName: _Alpha
   minApha: 0
   maxApha: 2
   speedThresholdPercent: 0.6
   minSlipAngleDegrees: 8
   maxSlipAngleDegrees: 20
   fadeSpeed: 2
+  isEffectEnabled: 1
   screenFeature: {fileID: -8931175852207171204, guid: f288ae1f4751b564a96ac7587541f7a2, type: 2}
 --- !u!114 &417131553807152273
 MonoBehaviour:

@@ -13,5 +13,60 @@ MonoBehaviour:
   m_Name: ClassS
   m_EditorClassIdentifier: 
   carClass: 5
-  classDisplayName: Class D
-  cars: []
+  cars:
+  - carClass: 5
+    carRank: 0
+    carName: 
+    carPrefab: {fileID: 6204919463886204087, guid: 1db52d5f794ce2349b8d3df099bed753, type: 3}
+    topSpeed: 0
+    acceleration: 0
+    handling: 0
+    nitro: 0
+  - carClass: 5
+    carRank: 0
+    carName: 
+    carPrefab: {fileID: 6204919463886204087, guid: 94397a0bafb2ba741b1e91463ff30a06, type: 3}
+    topSpeed: 0
+    acceleration: 0
+    handling: 0
+    nitro: 0
+  - carClass: 5
+    carRank: 0
+    carName: 
+    carPrefab: {fileID: 6204919463886204087, guid: 33f33f46d71bc0040b700c0935e575f7, type: 3}
+    topSpeed: 0
+    acceleration: 0
+    handling: 0
+    nitro: 0
+  - carClass: 5
+    carRank: 0
+    carName: 
+    carPrefab: {fileID: 6204919463886204087, guid: dc2f5ea8a44c08140ad899726446b3de, type: 3}
+    topSpeed: 0
+    acceleration: 0
+    handling: 0
+    nitro: 0
+  - carClass: 5
+    carRank: 0
+    carName: 
+    carPrefab: {fileID: 6204919463886204087, guid: 32b7b785ce56c044ea05b9c3219d5e0c, type: 3}
+    topSpeed: 0
+    acceleration: 0
+    handling: 0
+    nitro: 0
+  - carClass: 5
+    carRank: 0
+    carName: 
+    carPrefab: {fileID: 6204919463886204087, guid: e473c9e9a5ae14549b8e5af5859d1d56, type: 3}
+    topSpeed: 0
+    acceleration: 0
+    handling: 0
+    nitro: 0
+  - carClass: 5
+    carRank: 0
+    carName: 
+    carPrefab: {fileID: 6204919463886204087, guid: a4606d98906301345878ab19ef3caa90, type: 3}
+    topSpeed: 0
+    acceleration: 0
+    handling: 0
+    nitro: 0

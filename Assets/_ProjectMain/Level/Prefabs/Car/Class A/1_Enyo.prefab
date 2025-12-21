@@ -8,9 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 867305437946272470, guid: ce21c5bfa42cc444ea894d285a79ec6b, type: 3}
+      propertyPath: _width
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2801052443880880063, guid: ce21c5bfa42cc444ea894d285a79ec6b, type: 3}
+      propertyPath: _width
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2969942952874779526, guid: ce21c5bfa42cc444ea894d285a79ec6b, type: 3}
+      propertyPath: _width
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 4538211067934482877, guid: ce21c5bfa42cc444ea894d285a79ec6b, type: 3}
       propertyPath: m_Name
-      value: Base A
+      value: 1_Enyo
       objectReference: {fileID: 0}
     - target: {fileID: 6333666593906824638, guid: ce21c5bfa42cc444ea894d285a79ec6b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51,6 +63,10 @@ PrefabInstance:
     - target: {fileID: 6333666593906824638, guid: ce21c5bfa42cc444ea894d285a79ec6b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7149581384961323856, guid: ce21c5bfa42cc444ea894d285a79ec6b, type: 3}
+      propertyPath: _width
+      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

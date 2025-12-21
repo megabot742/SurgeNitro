@@ -122,7 +122,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.36
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 4945824947844229130}
@@ -455,7 +455,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.36
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 3197618199779378893}
@@ -615,7 +615,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.36
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 6750374812798391790}
@@ -774,7 +774,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.36
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 6448552784710102061}
@@ -997,6 +997,7 @@ GameObject:
   - component: {fileID: 3321711828252178840}
   - component: {fileID: 1252488413992210212}
   - component: {fileID: 4273792078078599239}
+  - component: {fileID: 2944359443947256588}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -1094,6 +1095,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.9716372, y: 1.2116444, z: 4.6685295}
   m_Center: {x: 0, y: 0.79294086, z: 0.030870795}
+--- !u!114 &2944359443947256588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8558618234908720218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1ecca4aee4952144bdd8530074badba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightMaterial: {fileID: 2100000, guid: 33369fea361b12c48acb7ddcc9032afa, type: 2}
+  intensityValue: 5
 --- !u!1 &8844237214563587732
 GameObject:
   m_ObjectHideFlags: 0
@@ -1188,6 +1203,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1648072824635246349, guid: ce21c5bfa42cc444ea894d285a79ec6b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648072824635246349, guid: ce21c5bfa42cc444ea894d285a79ec6b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.37
+      objectReference: {fileID: 0}
     - target: {fileID: 1787751377441476100, guid: ce21c5bfa42cc444ea894d285a79ec6b, type: 3}
       propertyPath: wheelRadius
       value: 0.36
@@ -1243,6 +1266,14 @@ PrefabInstance:
     - target: {fileID: 6333666593906824638, guid: ce21c5bfa42cc444ea894d285a79ec6b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547927959099191019, guid: ce21c5bfa42cc444ea894d285a79ec6b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547927959099191019, guid: ce21c5bfa42cc444ea894d285a79ec6b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.37
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

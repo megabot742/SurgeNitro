@@ -17,7 +17,7 @@ MonoBehaviour:
   - carClass: 4
     carRank: 0
     carName: 
-    carPrefab: {fileID: 0}
+    carPrefab: {fileID: 7140071411443544031, guid: 66314de948e7dcf48953cdb68a1c11be, type: 3}
     topSpeed: 0
     acceleration: 0
     handling: 0
@@ -25,7 +25,47 @@ MonoBehaviour:
   - carClass: 4
     carRank: 0
     carName: 
-    carPrefab: {fileID: 0}
+    carPrefab: {fileID: 7140071411443544031, guid: cc487e6dbc096d3479722d66389888d4, type: 3}
+    topSpeed: 0
+    acceleration: 0
+    handling: 0
+    nitro: 0
+  - carClass: 4
+    carRank: 0
+    carName: 
+    carPrefab: {fileID: 7140071411443544031, guid: 9294ec0241816004181d51e1bc258637, type: 3}
+    topSpeed: 0
+    acceleration: 0
+    handling: 0
+    nitro: 0
+  - carClass: 4
+    carRank: 0
+    carName: 
+    carPrefab: {fileID: 7140071411443544031, guid: 6a67e103f96c8234d808e68078102169, type: 3}
+    topSpeed: 0
+    acceleration: 0
+    handling: 0
+    nitro: 0
+  - carClass: 4
+    carRank: 0
+    carName: 
+    carPrefab: {fileID: 7140071411443544031, guid: a335f3a16f2a84041b26f66b3060d903, type: 3}
+    topSpeed: 0
+    acceleration: 0
+    handling: 0
+    nitro: 0
+  - carClass: 4
+    carRank: 0
+    carName: 
+    carPrefab: {fileID: 7140071411443544031, guid: 0c71d984d7060dd4c991a07684cd0919, type: 3}
+    topSpeed: 0
+    acceleration: 0
+    handling: 0
+    nitro: 0
+  - carClass: 4
+    carRank: 0
+    carName: 
+    carPrefab: {fileID: 7140071411443544031, guid: 94b9c6e53215ae74abd4c027c6f8b223, type: 3}
     topSpeed: 0
     acceleration: 0
     handling: 0

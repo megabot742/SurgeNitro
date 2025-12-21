@@ -234,7 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a90f9c9bbada441bad66b9898f67ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitDetectionType: 0
+  _hitDetectionType: 1
   _layerMask:
     serializedVersion: 2
     m_Bits: 243
@@ -243,7 +243,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.34
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 4085602955127916528}
@@ -479,7 +479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a90f9c9bbada441bad66b9898f67ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitDetectionType: 0
+  _hitDetectionType: 1
   _layerMask:
     serializedVersion: 2
     m_Bits: 243
@@ -488,7 +488,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.34
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 3770641450185415602}
@@ -987,7 +987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a90f9c9bbada441bad66b9898f67ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitDetectionType: 0
+  _hitDetectionType: 1
   _layerMask:
     serializedVersion: 2
     m_Bits: 243
@@ -996,7 +996,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.34
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 4525518537593631045}
@@ -1113,7 +1113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a90f9c9bbada441bad66b9898f67ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitDetectionType: 0
+  _hitDetectionType: 1
   _layerMask:
     serializedVersion: 2
     m_Bits: 243
@@ -1122,7 +1122,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.34
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 1718561769613578406}
@@ -1203,6 +1203,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1648072824635246349, guid: c9fda7464c1e866468f1744f6166d329, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648072824635246349, guid: c9fda7464c1e866468f1744f6166d329, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648072824635246349, guid: c9fda7464c1e866468f1744f6166d329, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.1
+      objectReference: {fileID: 0}
     - target: {fileID: 1787751377441476100, guid: c9fda7464c1e866468f1744f6166d329, type: 3}
       propertyPath: wheelRadius
       value: 0.34
@@ -1210,7 +1222,7 @@ PrefabInstance:
     - target: {fileID: 1787751377441476100, guid: c9fda7464c1e866468f1744f6166d329, type: 3}
       propertyPath: 'steerableWheels.Array.data[0]'
       value: 
-      objectReference: {fileID: 9103849815576842890}
+      objectReference: {fileID: 2613868587792347610}
     - target: {fileID: 1787751377441476100, guid: c9fda7464c1e866468f1744f6166d329, type: 3}
       propertyPath: 'steerableWheels.Array.data[1]'
       value: 
@@ -1258,6 +1270,18 @@ PrefabInstance:
     - target: {fileID: 6333666593906824638, guid: c9fda7464c1e866468f1744f6166d329, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547927959099191019, guid: c9fda7464c1e866468f1744f6166d329, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547927959099191019, guid: c9fda7464c1e866468f1744f6166d329, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547927959099191019, guid: c9fda7464c1e866468f1744f6166d329, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

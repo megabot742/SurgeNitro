@@ -1117,6 +1117,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1057948511500882188, guid: 7801a0b281811714fb6a34f54df3141f, type: 3}
+      propertyPath: CarClass
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1057948511500882188, guid: 7801a0b281811714fb6a34f54df3141f, type: 3}
       propertyPath: MyCarClass
       value: 5
       objectReference: {fileID: 0}

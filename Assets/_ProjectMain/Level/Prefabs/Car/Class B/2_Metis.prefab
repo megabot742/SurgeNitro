@@ -122,7 +122,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.36
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 1171915356467547192}
@@ -646,7 +646,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.36
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 547408216111715460}
@@ -772,7 +772,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.36
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 1443577335118876357}
@@ -898,7 +898,7 @@ MonoBehaviour:
   _suspensionSpring: 40000
   _suspensionDamper: 2000
   _radius: 0.36
-  _width: 0.2
+  _width: 0.25
   _camberAngle: 0
   _groundOffset: 0
   _model: {fileID: 1893215943945703587}
@@ -1203,6 +1203,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1648072824635246349, guid: c9fda7464c1e866468f1744f6166d329, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648072824635246349, guid: c9fda7464c1e866468f1744f6166d329, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 1648072824635246349, guid: c9fda7464c1e866468f1744f6166d329, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.2
+      objectReference: {fileID: 0}
     - target: {fileID: 1787751377441476100, guid: c9fda7464c1e866468f1744f6166d329, type: 3}
       propertyPath: 'steerableWheels.Array.data[0]'
       value: 
@@ -1254,6 +1266,18 @@ PrefabInstance:
     - target: {fileID: 6333666593906824638, guid: c9fda7464c1e866468f1744f6166d329, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547927959099191019, guid: c9fda7464c1e866468f1744f6166d329, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547927959099191019, guid: c9fda7464c1e866468f1744f6166d329, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 6547927959099191019, guid: c9fda7464c1e866468f1744f6166d329, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

@@ -1117,8 +1117,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1057948511500882188, guid: 7801a0b281811714fb6a34f54df3141f, type: 3}
+      propertyPath: CarClass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1057948511500882188, guid: 7801a0b281811714fb6a34f54df3141f, type: 3}
       propertyPath: wheelRadius
-      value: 0.35
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1057948511500882188, guid: 7801a0b281811714fb6a34f54df3141f, type: 3}
       propertyPath: 'steerableWheels.Array.data[0]'
