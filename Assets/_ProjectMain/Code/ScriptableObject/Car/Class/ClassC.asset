@@ -16,56 +16,63 @@ MonoBehaviour:
   cars:
   - carClass: 2
     carRank: 0
-    carName: 
+    carName: Elara
     carPrefab: {fileID: 5530049109844808183, guid: aa026f753f3cd64428dd2ec3d208e8f6, type: 3}
+    carSprite: {fileID: 21300000, guid: 406b23ae35dc28f40b8be31571ca5ca4, type: 3}
     topSpeed: 0
     acceleration: 0
     handling: 0
     nitro: 0
   - carClass: 2
     carRank: 0
-    carName: 
+    carName: Juno
     carPrefab: {fileID: 5530049109844808183, guid: bd07e22c19b405b4e97be0ffdf5487b7, type: 3}
+    carSprite: {fileID: 21300000, guid: e9801add246f3ad46a9c71a1653cb29a, type: 3}
     topSpeed: 0
     acceleration: 0
     handling: 0
     nitro: 0
   - carClass: 2
     carRank: 0
-    carName: 
+    carName: Pysche
     carPrefab: {fileID: 5530049109844808183, guid: 4838d4ec65b37de4cae4c89205619588, type: 3}
+    carSprite: {fileID: 21300000, guid: eb3abe49014ee5f4a9fdc35b34499728, type: 3}
     topSpeed: 0
     acceleration: 0
     handling: 0
     nitro: 0
   - carClass: 2
     carRank: 0
-    carName: 
+    carName: Callisto
     carPrefab: {fileID: 5530049109844808183, guid: 3663a1ac74c4be544b2b5e2bc4ce3ab0, type: 3}
+    carSprite: {fileID: 21300000, guid: 2a720d8983c235340bb454a542396246, type: 3}
     topSpeed: 0
     acceleration: 0
     handling: 0
     nitro: 0
   - carClass: 2
     carRank: 0
-    carName: 
+    carName: Rhea
     carPrefab: {fileID: 5530049109844808183, guid: f4c01dd01e6fa0f468b76c26008bef62, type: 3}
+    carSprite: {fileID: 21300000, guid: cfbeff1ebe76e6e4e8e8d79cec75a04b, type: 3}
     topSpeed: 0
     acceleration: 0
     handling: 0
     nitro: 0
   - carClass: 2
     carRank: 0
-    carName: 
+    carName: Mercurio
     carPrefab: {fileID: 5530049109844808183, guid: 7f6578f375578204d9b840c2e8735a7f, type: 3}
+    carSprite: {fileID: 21300000, guid: 2a714d07b4f441145b5702e19e0adcf2, type: 3}
     topSpeed: 0
     acceleration: 0
     handling: 0
     nitro: 0
   - carClass: 2
     carRank: 0
-    carName: 
+    carName: Frostbite
     carPrefab: {fileID: 5530049109844808183, guid: 4507a949b00fe8545a25f62e70aa8ab6, type: 3}
+    carSprite: {fileID: 21300000, guid: e633274cf3919bb4288143f6c467e804, type: 3}
     topSpeed: 0
     acceleration: 0
     handling: 0

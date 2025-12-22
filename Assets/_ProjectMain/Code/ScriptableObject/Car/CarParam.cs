@@ -8,6 +8,7 @@ public class CarParam
     public int carRank;
     public string carName;
     public GameObject carPrefab;
+    public Sprite carSprite;
 
     [Header("Car Parameter")]
     public float topSpeed; //KPH
