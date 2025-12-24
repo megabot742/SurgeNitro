@@ -4,10 +4,15 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : BaseManager<UIManager>
 {
-    [Header("InMenu")]
+    [Header("UIMenu")]
     public HomeMenuPanel homeMenuPanel;
 
-    [Header("InRace")]
+    [Header("UICar")]
+    public CarInfoPanel carInfoPanel;
+    public CarUpgradePanel carUpgradePanel;
+    public CarViewPanel carViewPanel;
+
+    [Header("UIRace")]
     public HUDPanel hUDPanel;
     public PausePanel pausePanel;
     public ResultPanel resultPanel;

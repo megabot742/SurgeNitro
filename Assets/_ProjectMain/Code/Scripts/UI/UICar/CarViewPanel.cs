@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HomeMenuPanel : MonoBehaviour
+public class CarViewPanel : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -13,11 +13,9 @@ public class HomeMenuPanel : MonoBehaviour
     {
         
     }
-    #region Button
-    public void OnClickCarInfo()
+    #region 
+    public void OnClickGoBack()
     {
-
-        Debug.Log("Change");
         if (UIManager.HasInstance)
         {
             UIManager.Instance.ChangeUIGameObject(this.gameObject, UIManager.Instance.carInfoPanel.gameObject);
