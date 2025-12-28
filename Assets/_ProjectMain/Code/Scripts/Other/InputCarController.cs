@@ -51,17 +51,15 @@ public class InputCarController : DriverBase
 
     [Header("Connect script")]
     [SerializeField, ReadOnly] private CarLightController carLightController;
-    [SerializeField, ReadOnly] private CameraCarController cameraController;
+
 
     protected override void Awake()
     {
         base.Awake();
         //AICar
         InitializeWaypoint();
-        if (isAICar)
-        {
-            useVirtualPad = false;
-        }
+        //SetupPlayerInput(!isAICar);
+
     }
     private void InitializeWaypoint()
     {
@@ -90,41 +88,35 @@ public class InputCarController : DriverBase
     {
         if (isPlayer)
         {
-            // Nếu là player → add PlayerInput nếu chưa có
-            if (GetComponent<PlayerInput>() == null)
+            PlayerInput playerInput = GetComponent<PlayerInput>();
+            if (playerInput == null && RaceManager.HasInstance)
             {
-                var playerInput = gameObject.AddComponent<PlayerInput>();
-                // Config cơ bản (bạn cần set Action Map, Default Map, v.v. ở đây hoặc prefab gốc)
-                // Ví dụ:
-                // playerInput.actions = YourInputActionsAsset;  // Kéo Input Action Asset vào Inspector nếu có
-                // playerInput.defaultMap = "Player";
-                // playerInput.defaultControlScheme = "Keyboard&Mouse"; // Hoặc "Gamepad"
+                playerInput = gameObject.AddComponent<PlayerInput>();
+                //Setup PlayerInput
+                playerInput.actions = RaceManager.Instance.inputActions;
+                playerInput.defaultControlScheme = "Any";
+                playerInput.defaultActionMap = "CarSurgeNitro";
+                playerInput.notificationBehavior = PlayerNotifications.SendMessages;             
+                Debug.Log($"Added and configured PlayerInput for car: {gameObject.name}");
+            }
+            // Set flags luôn (bất kể isPlayer)
+            isAICar = !isPlayer;
+            useVirtualPad = isPlayer;
+
+            // Enable/disable with player tag
+            if (gameObject.CompareTag("Player") && !isAICar)
+            {
                 playerInput.enabled = true;
-                Debug.Log($"Added PlayerInput for player car: {gameObject.name}");
             }
-            isAICar = false;
-            useVirtualPad = true;
-        }
-        else
-        {
-            // Nếu là AI → remove PlayerInput nếu có (sau race hoặc spawn AI)
-            var playerInput = GetComponent<PlayerInput>();
-            if (playerInput != null)
+            else
             {
-                Destroy(playerInput);
-                Debug.Log($"Removed PlayerInput for AI car: {gameObject.name}");
+                playerInput.enabled = false;
             }
-            isAICar = true;
-            useVirtualPad = false;
+            Debug.Log($"SetupPlayerInput for {gameObject.name}: isPlayer={isPlayer}, enabled={playerInput.enabled}");
         }
     }
     void Start()
     {
-        //Camera
-        if (cameraController == null && RaceManager.Instance)
-        {
-            cameraController = RaceManager.Instance.cameraCarController;
-        }
         //Light
         if (carLightController == null)
         {
@@ -132,6 +124,8 @@ public class InputCarController : DriverBase
         }
         //Collider
         detectionCollider = GetComponentInChildren<BoxCollider>();
+        // Set Player Input after instantiate
+        SetupPlayerInput(!isAICar);
     }
     public bool SteerLimitByFriction
     {
@@ -163,7 +157,10 @@ public class InputCarController : DriverBase
     }
     private void OnSwitchCamera()
     {
-        cameraController?.SwitchCamera(); //Check true for switch camera
+        if (CameraManager.HasInstance)
+        {
+            CameraManager.Instance?.SwitchRaceCamera(); //Check true for switch camera
+        }
     }
     private void OnBackOnTrack()
     {

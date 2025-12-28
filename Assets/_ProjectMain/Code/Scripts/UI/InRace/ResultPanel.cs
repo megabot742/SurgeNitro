@@ -17,6 +17,7 @@ public class ResultPanel : MonoBehaviour
     {
         
     }
+    #region 
     public void OnClickRestart()
     {
         if (UIEventManager.HasInstance && UIManager.HasInstance)
@@ -25,4 +26,12 @@ public class ResultPanel : MonoBehaviour
             UIEventManager.Instance.RestartGame();
         }
     }
+    public void OnClickGarage()
+    {
+        if(UIEventManager.HasInstance)
+        {
+            UIEventManager.Instance.BackGarage();
+        }
+    }
+    #endregion
 }

@@ -16,9 +16,9 @@ public class CarViewPanel : MonoBehaviour
     #region 
     public void OnClickGoBack()
     {
-        if (UIManager.HasInstance)
+        if(UIEventManager.HasInstance)
         {
-            UIManager.Instance.ChangeUIGameObject(this.gameObject, UIManager.Instance.carInfoPanel.gameObject);
+            UIEventManager.Instance.GoBackPanel(); //Back CarInfo Panel
         }
     }
     #endregion

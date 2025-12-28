@@ -1,17 +1,26 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Playables;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
-public class RaceManager : MonoBehaviour
+public class RaceManager : BaseManager<RaceManager>
 {
-    public static RaceManager Instance;
-    public CameraCarController cameraCarController;
+    public CameraManager cameraManager;
+    public InputActionAsset inputActions;
     public FullScreenPassRendererFeature screenFeature;
+    [Header("GetParam")] //All of the variables below are not fixed. When the map is loaded, it will be updated according to the map
+    [SerializeField] public CheckPoint[] allCheckPoints;
+    [SerializeField] Transform[] startPoints;
+    [SerializeField] GameObject spawnCarParent;
+    private const string CHECK_POINT_PARENT = "CheckPointParent";
+    private const string CHECK_POINT = "CheckPoint";
+    private const string START_POINT_PARENT = "StartPointParent";
+    private const string START_POINT = "StartPoint";
+    private const string SPAWN_POINT_PARENT = "SpawnPointParent";
 
     [Header("RaceSetup")]
-    [SerializeField] public CheckPoint[] allCheckPoints;
-    [SerializeField] public GameObject playerCarObject;
+    [SerializeField] public GameObject playerCarPrefab;
     [SerializeField] public CarControllerBase playerCarController;
     [SerializeField] public InputCarController inputCarController;
     [SerializeField] public CarStatsProvider playerStats;
@@ -30,25 +39,65 @@ public class RaceManager : MonoBehaviour
     [Header("StartPosition")]
     [SerializeField] int playerStartPosition;
     [SerializeField] int aiNumberToSpawn;
-    [SerializeField] Transform[] startPoints;
-    [SerializeField] Transform spawnCarParent;
-    [SerializeField] List<CarControllerBase> carsToSpawn = new List<CarControllerBase>();
 
     [Header("Car Database Integration")]
     [SerializeField] private CarDatabaseSO carDatabase;  //CarDatabaseS Param
-    [SerializeField] private bool allowDuplicateWithPlayer = true;  //True: AI can be like a player; False: AI must be different from player (but AI can be the same)
+    [SerializeField] private bool allowCarResemblePlayer = true;  //True: AI can be like a player; False: AI must be different from player (but AI can be the same)
 
     [SerializeField] public bool raceCompleted;
 
-    void Awake()
+    protected override void Awake()
     {
-        Instance = this;
-        playerCarController = playerCarObject.GetComponent<CarControllerBase>();
-        playerStats = playerCarObject.GetComponent<CarStatsProvider>();
-        inputCarController = playerCarObject.GetComponent<InputCarController>()
- ;   }
-    void Start()
+        base.Awake();
+    }
+    private void OnEnable()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (!IsRaceScene(scene.name))
+        {
+            Debug.Log("[RaceManager] Not in a race scene, skip init.");
+            ClearRaceReferences();
+            return;
+        }
+        ResetRaceState();
+
+        InitRace();
+    }
+    private bool IsRaceScene(string sceneName)
+    {
+        return sceneName == "R&D" || sceneName.StartsWith("Track");
+    }
+    private void ResetRaceState()
+    {
+        // Reset countdown to default
+        isCountdown = false;  
+        countDownCurrent = 3f;  // Reset về 3 (default)
+        timeCountdown = timeBetweenStartCount;  // Reset về 1f (default)
+
+        // Reset các vars khác nếu cần (dựa trên code bạn)
+        allAICars.Clear();  // Clear list AI cũ để tránh duplicate khi respawn
+        raceCompleted = false;  // Reset race end
+        playerPos = 0;  // Reset position
+        positionCheckCounter = 0;  // Reset counter
+
+        // Nếu có vars khác bị giữ state (ví dụ totalLaps nếu dynamic), reset ở đây
+        // totalLaps = defaultValue; 
+
+        Debug.Log("[RaceManager] Reset race state for new/reloaded scene.");
+    }
+    void InitRace()
+    {
+        FindCheckPoint();
+        FindStartPoint();
+        spawnCarParent = GameObject.FindGameObjectWithTag(SPAWN_POINT_PARENT);
+
         //Loop all checkpoint, add checkPointNumber
         for (int i = 0; i < allCheckPoints.Length; i++)
         {
@@ -58,12 +107,105 @@ public class RaceManager : MonoBehaviour
         isCountdown = true;
         timeCountdown = timeBetweenStartCount;
 
-        SpawnCarWithStartPoint(); //Spawn Car, include Player and AI
+        SpawnCarWithStartPoint(); //Spawn Car, Include Player and AI
         TrackPlayerPosition(); //Track Pos when star game
         DisplayCountDown(); //Show Countdown
     }
+    void FindCheckPoint()
+    {
+        //Find CheckPointParent
+        GameObject checkPointParent = GameObject.Find(CHECK_POINT_PARENT);
+        if (checkPointParent == null)
+        {
+            //Debug.LogError("GameObject 'AllCheckPoint' was not found in the scene");
+            allCheckPoints = new CheckPoint[0];
+            return;
+        }
+        //Get all child in CheckPointParent (not include Parent)
+        CheckPoint[] checkPoint = checkPointParent.GetComponentsInChildren<CheckPoint>(true); // true = include inactive
+        //Sort array
+        System.Array.Sort(checkPoint, (a, b) =>
+        {
+            // Extract number form name, EX: CheckPoint (5) -> 5
+            int indexA = ExtractIndexFromName(a.gameObject.name);
+            int indexB = ExtractIndexFromName(b.gameObject.name);
+            return indexA.CompareTo(indexB);
+        });
+        allCheckPoints = checkPoint; //Add to array
+    }
+    void FindStartPoint()
+    {
+        //Find StartPointParent
+        GameObject startPointParent = GameObject.Find(START_POINT_PARENT);
+        if (startPointParent == null)
+        {
+            //Debug.LogError("GameObject 'AllStartPoint' was not found in the scene");
+            startPoints = new Transform[0];
+            return;
+        }
+        //Get all child in StarPointParent (not include Parent)
+        Transform[] children = startPointParent.GetComponentsInChildren<Transform>(true);
+        List<Transform> validPoints = new List<Transform>();
+        foreach (Transform child in children)
+        {
+            if (child != startPointParent.transform)
+            {
+                validPoints.Add(child); //Only child
+            }
+        }
+        //Sort name
+        validPoints.Sort((a, b) =>
+        {
+            // Extract number form name, EX: StartPoint (2) -> 2
+            int indexA = ExtractIndexFromName(a.gameObject.name);
+            int indexB = ExtractIndexFromName(b.gameObject.name);
+            return indexA.CompareTo(indexB);
+        });
+        startPoints = validPoints.ToArray(); //Add to array
+    }
+    private int ExtractIndexFromName(string objectName)
+    {
+        //Case: If "StartPoint" or "CheckPoint" ->  index = 0
+        if (objectName == START_POINT || objectName == CHECK_POINT)
+        {
+            return 0;
+        }
+        //Case: If find in ()
+        int startIndex = objectName.IndexOf('(');
+        int endIndex = objectName.IndexOf(')');
+        if (startIndex != -1 && endIndex != -1 && endIndex > startIndex)
+        {
+            string numberStr = objectName.Substring(startIndex + 1, endIndex - startIndex - 1);
+            if (int.TryParse(numberStr, out int index))
+            {
+                return index;
+            }
+        }
+        //If can't parseable -> put last
+        return int.MaxValue;
+    }
+    private void ClearRaceReferences()
+    {
+        allAICars.Clear();  // Clear list AI
+        playerCarController = null;  // Null player refs
+        inputCarController = null;
+        playerStats = null;
+        spawnCarParent = null;  // Null parent nếu cần
+        allCheckPoints = null;  // Clear checkpoints
+        startPoints = null;
+
+        // Reset flags để skip logic
+        isCountdown = false;
+        raceCompleted = true;  // Giả end race để skip Update if cần
+
+        Debug.Log("[RaceManager] Cleared race references for non-race scene.");
+    }
     void Update()
     {
+        if (!IsRaceScene(SceneManager.GetActiveScene().name))
+        {
+            return;
+        }
         if (isCountdown)
         {
             timeCountdown -= Time.deltaTime;
@@ -92,6 +234,10 @@ public class RaceManager : MonoBehaviour
     }
     void TrackPlayerPosition()
     {
+        if (playerCarController == null || allAICars == null)
+        {
+            return;
+        }
         positionCheckCounter -= Time.deltaTime;
         if (positionCheckCounter <= 0)
         {
@@ -140,6 +286,10 @@ public class RaceManager : MonoBehaviour
 
     void SpawnCarWithStartPoint()
     {
+        playerCarController = playerCarPrefab.GetComponent<CarControllerBase>();
+        //playerStats = playerCarPrefab.GetComponent<CarStatsProvider>();
+        // inputCarController = playerCarPrefab.GetComponent<InputCarController>();
+        #region Spawnplayer
         //Check player Car Class 
         CarClass playerClass = playerCarController.CarClass;
         // Get container car class like car class player
@@ -153,89 +303,91 @@ public class RaceManager : MonoBehaviour
         List<CarParam> allCarsInClass = new List<CarParam>(container.cars);  // Copy to not modify origin
 
         //Find the CarParam corresponding to the player car (based on the matching prefab)
-        CarParam playerCarParam = allCarsInClass.Find(car => car.carPrefab == playerCarObject);
+        CarParam playerCarParam = allCarsInClass.Find(car => car.carPrefab == playerCarPrefab);
         if (playerCarParam == null)
         {
-            Debug.LogError($"CarParam not found for player car prefab {playerCarObject.name} in class {playerClass}!");
+            Debug.LogError($"CarParam not found for player car prefab {playerCarPrefab.name} in class {playerClass}!");
         }
-
 
         //Get player Start Position
         playerStartPosition = Random.Range(0, aiNumberToSpawn + 1); //plus 1 because with Int Random.Range not include max value, only min value
+
         //Get info player car and spawn
-        playerCarController = Instantiate(playerCarController, startPoints[playerStartPosition].position, startPoints[playerStartPosition].rotation, spawnCarParent);
-        //playerCarController.AISetup(false); //Set car for player
+        GameObject playerCarSpawn = Instantiate(playerCarPrefab, startPoints[playerStartPosition].position, startPoints[playerStartPosition].rotation, spawnCarParent.transform);
+        playerCarController = playerCarSpawn.GetComponent<CarControllerBase>();
+        inputCarController = playerCarSpawn.GetComponent<InputCarController>();
         inputCarController.isAICar = false;
         inputCarController.SetupPlayerInput(true);
-        
 
+        playerCarSpawn.name = "PlayerCar"; //Add name
+        playerCarSpawn.tag = "Player"; //Add tag
+
+        //Check PlayerInput
+        if (inputCarController != null)
+        {
+            PlayerInput playerInput = inputCarController.GetComponent<PlayerInput>();
+            if (playerInput != null && !playerInput.enabled)
+            {
+                playerInput.enabled = true;
+                Debug.Log("Forced enable PlayerInput for player after spawn.");
+            }
+        }
+        #endregion
+
+        #region SpawnAI
         List<CarParam> availableAICars = new List<CarParam>(allCarsInClass);
-        //Remove AI car like player
-        if (!allowDuplicateWithPlayer && playerCarParam != null)
+        // Remove AI car like player if not allow
+        if (!allowCarResemblePlayer && playerCarParam != null)
         {
             availableAICars.Remove(playerCarParam);
             if (availableAICars.Count == 0)
             {
-                Debug.LogWarning($"Không còn car nào trong class {playerClass} sau khi remove duplicate với player! Cho phép duplicate AI.");
-                availableAICars = new List<CarParam>(allCarsInClass);  // Fallback để tránh empty
+                Debug.LogWarning($"No cars left in class {playerClass} after removing duplicate with player! Allowing resemble as fallback.");
+                availableAICars = new List<CarParam>(allCarsInClass);  // Fallback to avoid empty
             }
         }
         //Random car from availableAICars
-        for (int i = 0; i < aiNumberToSpawn + 1; i++) //example: 5 mean 5 AI to spawn, not 4 AI with 1 player, so plus 1
+        for (int i = 0; i < aiNumberToSpawn + 1; i++) // example: 5 mean 5 AI to spawn, not 4 AI with 1 player, so plus 1
         {
             if (i != playerStartPosition)
             {
                 if (availableAICars.Count == 0)
                 {
-                    Debug.LogError("Không có car nào để spawn AI!");
+                    Debug.LogError("No cars available to spawn AI!");
                     continue;
                 }
 
-                // Random CarParam từ list (cho phép duplicate vì không remove sau random)
+                // Random CarParam from list (allow duplicate AI with each other, but respect allowCarResemblePlayer)
                 int selectedIndex = Random.Range(0, availableAICars.Count);
                 CarParam selectedCarParam = availableAICars[selectedIndex];
 
-                // Instantiate từ carPrefab, get CarControllerBase
-                GameObject aiCarObj = Instantiate(selectedCarParam.carPrefab, startPoints[i].position, startPoints[i].rotation, spawnCarParent);
+                // Instantiate from carPrefab, get CarControllerBase
+                GameObject aiCarObj = Instantiate(selectedCarParam.carPrefab, startPoints[i].position, startPoints[i].rotation, spawnCarParent.transform);
                 CarControllerBase aiController = aiCarObj.GetComponent<CarControllerBase>();
                 if (aiController == null)
                 {
-                    Debug.LogError($"Prefab {selectedCarParam.carPrefab.name} không có CarControllerBase!");
-                    Destroy(aiCarObj);  // Cleanup nếu lỗi
+                    Debug.LogError($"Prefab {selectedCarParam.carPrefab.name} does not have CarControllerBase!");
+                    Destroy(aiCarObj);  // Cleanup if error
                     continue;
                 }
                 InputCarController aiInputController = aiCarObj.GetComponent<InputCarController>();
                 aiInputController.isAICar = true;
-                aiInputController.SetupPlayerInput(false);
-                //aiController.AISetup(true);  // Setup là AI
+                //aiInputController.useVirtualPad = false;
+                aiInputController.SetupPlayerInput(false);  // Setup AI (disable input)
+                aiCarObj.tag = "Untagged"; //default tag
+
+                PlayerInput aiPlayerInput = aiInputController.GetComponent<PlayerInput>();
+                if (aiPlayerInput != null && aiPlayerInput.enabled)
+                {
+                    aiPlayerInput.enabled = false;
+                    Debug.Log("Forced disable PlayerInput for AI car: " + aiCarObj.name);
+                }
+
                 allAICars.Add(aiController);
             }
         }
-        // //Remove AI same car with Player, Set up from the bottom to avoid the influence of the top element
-        // for (int i = carsToSpawn.Count - 1; i >= 0; i--)
-        // {
-        //     if (carsToSpawn[i] == playerCarController)
-        //     {
-        //         Debug.Log(carsToSpawn[i]);
-        //         carsToSpawn.RemoveAt(i);
-        //     }
-        // }
+        #endregion
 
-        // //Spawn AI
-        // for (int i = 0; i < aiNumberToSpawn + 1; i++) //example: 5 mean 5 AI to spawn, not 4 AI with 1 player, so plus 1
-        // {
-        //     if (i != playerStartPosition)
-        //     {
-        //         int selectedCar = Random.Range(0, carsToSpawn.Count);
-
-        //         allAICars.Add(Instantiate(carsToSpawn[selectedCar], startPoints[i].position, startPoints[i].rotation, spawnCarParent));
-
-        //         if (carsToSpawn.Count > aiNumberToSpawn - i)
-        //         {
-        //             carsToSpawn.RemoveAt(selectedCar);
-        //         }
-        //     }
-        // }
     }
     public void FinishRace()
     {

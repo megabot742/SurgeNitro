@@ -475,7 +475,6 @@ MonoBehaviour:
   nitroInputAction: 0
   resetCooldown: 3
   carLightController: {fileID: 0}
-  cameraController: {fileID: 0}
 --- !u!114 &4357078098252592193
 MonoBehaviour:
   m_ObjectHideFlags: 0

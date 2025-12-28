@@ -28,11 +28,11 @@ public class PausePanel : MonoBehaviour
             UIEventManager.Instance.RestartGame();
         }
     }
-    public void OnClickMenu()
+    public void OnClickGarage()
     {
         if (UIEventManager.HasInstance)
         {
-            UIEventManager.Instance.BackMenu(); //Return scene Menu
+            UIEventManager.Instance.BackGarage(); //Return scene Garage
         }
     }
     public void OnClickClose()

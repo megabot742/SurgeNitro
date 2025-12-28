@@ -1,11 +1,20 @@
-using UnityEditor;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class UIManager : BaseManager<UIManager>
-{
+{   
+
+    [Header("Other")]
+    public ScreenLoadingPanel screenLoadingPanel;
+
     [Header("UIMenu")]
+    public ResourcePanel resourcePanel;
     public HomeMenuPanel homeMenuPanel;
+    public GaragePanel garagePanel;
+    public RaceSetupPanel raceSetupPanel;
+    public ShopPanel shopPanel;
+    public SettingPanel settingPanel;
 
     [Header("UICar")]
     public CarInfoPanel carInfoPanel;
@@ -24,13 +33,16 @@ public class UIManager : BaseManager<UIManager>
 
     [Header("Scene Name")]
     public string currentSceneName;
+
+
+
     protected override void Awake()
     {
         base.Awake();
     }
     void Start()
     {
-        
+        SwitchToScene("Garage");
     }
     void Update()
     {
@@ -86,11 +98,11 @@ public class UIManager : BaseManager<UIManager>
     }
     public void ChangeUIGameObject(GameObject currentObject = null, GameObject activeObject = null)
     {
-        if(currentObject != null)
+        if (currentObject != null)
         {
             currentObject.SetActive(false);
         }
-        if(activeObject != null)
+        if (activeObject != null)
         {
             activeObject.SetActive(true);
         }
@@ -98,23 +110,44 @@ public class UIManager : BaseManager<UIManager>
     private void UpdateUIForScene(string sceneName)
     {
         //Disable all panels first
+        //Other
+        ChangeUIGameObject(screenLoadingPanel.gameObject);
+        //Menu
+        ChangeUIGameObject(resourcePanel.gameObject);
         ChangeUIGameObject(homeMenuPanel.gameObject);
-
+        ChangeUIGameObject(garagePanel.gameObject);
+        ChangeUIGameObject(raceSetupPanel.gameObject);
+        ChangeUIGameObject(settingPanel.gameObject);
+        ChangeUIGameObject(shopPanel.gameObject);
+        //CarUpgrade
+        ChangeUIGameObject(carInfoPanel.gameObject);
+        ChangeUIGameObject(carUpgradePanel.gameObject);
+        ChangeUIGameObject(carViewPanel.gameObject);
+        //InRace
         ChangeUIGameObject(hUDPanel.gameObject);
         ChangeUIGameObject(pausePanel.gameObject);
         ChangeUIGameObject(resultPanel.gameObject);
-
-        switch (sceneName)
+        if (CameraManager.HasInstance)
         {
-            case "Garage":
-                ChangeUIGameObject(null, homeMenuPanel.gameObject);
-                break;
-            case "R&D":
-            case "Track1":
-            case "Track2":
-            case "Track3":
-                ChangeUIGameObject(null, hUDPanel.gameObject);
-                break;
+            GameObject initialPanel = null;
+            switch (sceneName)
+            {
+                case "Garage":
+                    ChangeUIGameObject(null, homeMenuPanel.gameObject);
+                    initialPanel = homeMenuPanel.gameObject;
+                    break;
+                case "R&D":
+                case "Track1":
+                case "Track2":
+                case "Track3":
+                    initialPanel = hUDPanel.gameObject;
+                    ChangeUIGameObject(null, hUDPanel.gameObject);
+                    break;
+            }
+            if (UIEventManager.HasInstance && initialPanel != null)
+            {
+                UIEventManager.Instance.SetCurrentActivePanel(initialPanel);
+            }
         }
     }
 }

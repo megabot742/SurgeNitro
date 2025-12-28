@@ -114,7 +114,7 @@ public abstract class CarControllerBase : MonoBehaviour
     }
     private void DisplayLap()
     {
-        if (UIManager.HasInstance)
+        if (UIManager.HasInstance && RaceManager.HasInstance)
         {
             UIManager.Instance.hUDPanel.lapTxt.text = currentLap + "/" + RaceManager.Instance.totalLaps;
         }

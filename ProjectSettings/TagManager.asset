@@ -8,6 +8,9 @@ TagManager:
   - Asphalt
   - Dirt
   - Checkpoint
+  - RaceCamera
+  - DisplayCar
+  - SpawnPointParent
   layers:
   - Default
   - TransparentFX
