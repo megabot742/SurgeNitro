@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class CarControllerBase : MonoBehaviour
 {
     #region Car Param
-    [SerializeField] public CarClass CarClass  = CarClass.defaullt;
+    [SerializeField] public CarClass CarClass = CarClass.defaullt;
     #endregion
     #region Setting Car
     [SerializeField] Wheel[] steerableWheels; //Wheel list
@@ -18,7 +18,7 @@ public abstract class CarControllerBase : MonoBehaviour
     [SerializeField, Min(0f)] protected float peakFrictionSlipAngle = 5f; //The sliding angle at which friction reaches its peak - Góc trước tại đó ma sát đạt tối đa
     [SerializeField, Min(0f)] protected float mu = 2f; //Static friction coefficient (μ) - Hệ số ma sát tĩnh 
 
-    [SerializeField] protected bool useAddTorque = false; 
+    [SerializeField] protected bool useAddTorque = false;
 
     [SerializeField, Min(0.001f)] protected float wheelRadius = 0.3f; //Wheel Radius - Bánh kính bánh xe
 
@@ -40,7 +40,7 @@ public abstract class CarControllerBase : MonoBehaviour
     [SerializeField, Range(0f, 1f)] protected float suspensionDampingRatio = 0.35f; //Damping - Hệ số giảm chấn
     #endregion
     [SerializeField] protected float addForceOffset = -0.1f;
-    
+
     #region RaceTracking
     [SerializeField, ReadOnly] private InputCarController inputCarController;
     [SerializeField] public int currentLap = 1; //default = 1
@@ -79,7 +79,8 @@ public abstract class CarControllerBase : MonoBehaviour
                 if (UIManager.HasInstance)
                 {
                     //DisplayBestTime
-                    UIManager.Instance.hUDPanel.bestLapTimeTxt.text = string.Format("{0:00}:{1:00}.{2:00}", bestTime.Minutes, bestTime.Seconds, bestTime.Milliseconds);
+                    //UIManager.Instance.hUDPanel.bestLapTimeTxt.text = string.Format("{0:00}:{1:00}.{2:00}", bestTime.Minutes, bestTime.Seconds, bestTime.Milliseconds);
+                    DisplayBestTime();
                     //UIManager.Instance.resultPanel.bestTimeTxt.text = string.Format("{0:00}:{1:00}.{2:00}", bestTime.Minutes, bestTime.Seconds, bestTime.Milliseconds);
                 }
                 //Show current lap
@@ -88,7 +89,7 @@ public abstract class CarControllerBase : MonoBehaviour
         }
         else
         {
-            // If player completes the race
+            //If player completes the race
             if (!inputCarController.isAICar)
             {
                 bestLapTime = lapTime; //Update laterTime
@@ -97,7 +98,8 @@ public abstract class CarControllerBase : MonoBehaviour
                 if (UIManager.HasInstance)
                 {
                     UIManager.Instance.StopCountdown(); // Stop countdown if running
-                    UIManager.Instance.resultPanel.bestTimeTxt.text = string.Format("{0:00}:{1:00}.{2:00}", bestTime.Minutes, bestTime.Seconds, bestTime.Milliseconds);
+                    //UIManager.Instance.resultPanel.bestTimeTxt.text = string.Format("{0:00}:{1:00}.{2:00}", bestTime.Minutes, bestTime.Seconds, bestTime.Milliseconds);
+                    DisplayBestTime();
                 }
                 RaceManager.Instance.FinishRace();
 
@@ -116,22 +118,42 @@ public abstract class CarControllerBase : MonoBehaviour
     {
         if (UIManager.HasInstance && RaceManager.HasInstance)
         {
-            UIManager.Instance.hUDPanel.lapTxt.text = currentLap + "/" + RaceManager.Instance.totalLaps;
+            // UIManager.Instance.hUDPanel.lapTxt.text = currentLap + "/" + RaceManager.Instance.totalLaps;
+           GameEvent.ShowLap(currentLap, RaceManager.Instance.totalLaps);
         }
     }
     private void DisplayTime()
     {
-        var time = System.TimeSpan.FromSeconds(lapTime);
-        if (UIManager.HasInstance)
+        // var time = System.TimeSpan.FromSeconds(lapTime);
+        // if (UIManager.HasInstance)
+        // {
+        //     UIManager.Instance.hUDPanel.lapTimeTxt.text = string.Format("{0:00}:{1:00}.{2:00}", time.Minutes, time.Seconds, time.Milliseconds);
+        // }
+        
+        if(UIManager.HasInstance)
         {
-            UIManager.Instance.hUDPanel.lapTimeTxt.text = string.Format("{0:00}:{1:00}.{2:00}", time.Minutes, time.Seconds, time.Milliseconds);
+            GameEvent.ShowTimeLap(lapTime);
+        }
+    }
+    private void DisplayBestTime()
+    {
+        // var time = System.TimeSpan.FromSeconds(lapTime);
+        // if (UIManager.HasInstance)
+        // {
+        //     UIManager.Instance.hUDPanel.lapTimeTxt.text = string.Format("{0:00}:{1:00}.{2:00}", time.Minutes, time.Seconds, time.Milliseconds);
+        // }
+        
+        if(UIManager.HasInstance)
+        {
+            GameEvent.ShowBestTimeLap(bestLapTime);
         }
     }
     private void DisplaySpeed()
     {
-        if(UIManager.HasInstance)
+        if (UIManager.HasInstance)
         {
-            UIManager.Instance.hUDPanel.speedDometerText.text = Mathf.RoundToInt(SpeedKPH).ToString();
+            // UIManager.Instance.hUDPanel.speedDometerText.text = Mathf.RoundToInt(SpeedKPH).ToString();
+            GameEvent.ShowSpeed(SpeedKPH);
         }
     }
     public void AISetup(bool isAI) //This use for spawn car
@@ -162,7 +184,7 @@ public abstract class CarControllerBase : MonoBehaviour
     protected Vector3 groundForward;
     protected Vector3 groundSideways;
     //---Speed---
-    protected float forwardSpeed; 
+    protected float forwardSpeed;
     protected float sidewaysSpeed;
     protected float speed;
     //---Force---
@@ -331,7 +353,7 @@ public abstract class CarControllerBase : MonoBehaviour
     protected virtual void Start()
     {
         inputCarController = GetComponent<InputCarController>();
-        if(inputCarController.isAICar == false)
+        if (inputCarController.isAICar == false)
         {
             DisplayLap();
             DisplayTime();
@@ -352,7 +374,7 @@ public abstract class CarControllerBase : MonoBehaviour
                 if (UIManager.HasInstance && UIManager.Instance.isCountingDown && UIManager.Instance.GetEndCountDown() <= 0.1f)//When end time, just finishRace
                 {
                     inputCarController.isAICar = true;
-                    RaceManager.Instance.FinishRace();    
+                    RaceManager.Instance.FinishRace();
                 }
             }
         }

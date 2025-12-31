@@ -14,12 +14,18 @@ public class CameraManager : BaseManager<CameraManager>
     public int racePriorityActive = 15;   // Cao hơn menu để race luôn override khi cần
     public int inactivePriority = 0;
 
+    [Header("Cinemachine Brain")]
+    [SerializeField] CinemachineBrain cinemachineBrain;
+    [SerializeField] private float menuBlendTime = 1.0f;         // Thời gian blend khi ở menu (Garage)
+    [SerializeField] private float raceBlendTime = 0.1f;
+
     [Header("Menu Cameras")]
-    [SerializeField] private List<GameObject> menuPanels;          
-    [SerializeField] private List<CinemachineCamera> menuCameras;          
+    public CinemachineCamera screenHomeCamera;  // Chỉ 1 camera cho toàn bộ menu/Garage
+    public CinemachineCamera screenCarInfo;
+    public CinemachineCamera screenCarView;
 
     [Header("Race Cameras")]
-    [SerializeField] private List<CinemachineCamera> raceCameras; 
+    [SerializeField] private List<CinemachineCamera> raceCameras;
     private int currentRaceCameraIndex = 0;
     protected override void Awake()
     {
@@ -35,71 +41,102 @@ public class CameraManager : BaseManager<CameraManager>
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        ResetAllStates();
         //SetTarget
         if (scene.name == "Garage") //Menu Scene Name
         {
             GameObject displayCar = GameObject.FindWithTag("DisplayCar");
             if (displayCar != null)
             {
-                //Menu target
-                SetMenuCameraTarget(displayCar.transform);
-                DisableAllRaceCameras();  //Disable Race Camera
+                SetMenuCameraTarget(displayCar.transform);   
             }
             else
             {
                 Debug.LogWarning("DisplayCar tag not found in Garage scene!");
             }
+            UpdateBrainBlendTime(menuBlendTime);
+            SwitchMenuCamera(MenuCameraType.Home);
         }
         else if (scene.name.StartsWith("Track") || scene.name == "R&D") //Race Scene Name
         {
+            GameObject playerCar = GameObject.FindWithTag("Player");
             //Race target
-            if (RaceManager.Instance.playerCarPrefab!= null)
+            if (playerCar != null)
             {
-                SetRaceTarget(RaceManager.Instance.playerCarController.transform);
-                DisableAllMenuCameras(); //Disable Menu Camera
-            }
-        }
-    }
-
-    void Update()
-    {
-        UpdateMenuCameras();
-        if (menuTarget != null)
-        {
-            foreach (var cam in menuCameras)
-            {
-                if (cam != null)
+                if (RaceManager.Instance.playerCarPrefab != null)
                 {
-                    cam.Follow = menuTarget;
+                    //SetRaceTarget(RaceManager.Instance.playerCarController.transform);
+                    SetRaceTarget(playerCar.transform);
                 }
             }
+            UpdateBrainBlendTime(raceBlendTime);
+            //Disable race camera
+            if (screenHomeCamera != null) screenHomeCamera.Priority = inactivePriority;
+            if (screenCarInfo != null) screenCarInfo.Priority = inactivePriority;
+            if (screenCarView != null) screenCarView.Priority = inactivePriority;
         }
+    }
+    private void ResetAllStates()
+    {
+        // Reset priorities và targets
+        menuTarget = null;
+        raceTarget = null;
+        currentRaceCameraIndex = 0;
+
+        if (screenHomeCamera != null) screenHomeCamera.Priority = inactivePriority;
+        DisableAllRaceCameras();
+    }
+    private void UpdateBrainBlendTime(float blendTime)
+    {
+        if (cinemachineBrain == null) return;
+
+        cinemachineBrain.DefaultBlend= new CinemachineBlendDefinition();
+        cinemachineBrain.DefaultBlend.Time = blendTime;
+        // Style giữ Linear hoặc EaseInOut tùy ý, mình recommend Linear cho race
+        cinemachineBrain.DefaultBlend.Style = CinemachineBlendDefinition.Styles.Linear;
     }
     #region MenuCamera
-    private void UpdateMenuCameras()
-    {
-        int count = Mathf.Min(menuPanels.Count, menuCameras.Count);
-
-        for (int i = 0; i < count; i++)
-        {
-            if (menuPanels[i] != null && menuCameras[i] != null)
-            {
-                bool panelActive = menuPanels[i].activeSelf;
-                menuCameras[i].Priority = panelActive ? menuPriorityActive : inactivePriority;
-            }
-        }
-    }
     public void SetMenuCameraTarget(Transform target)
     {
-        menuTarget = target;
-        //Debug.Log("CameraManager: Menu target set to " + (target ? target.name : "null"));
-        // Set target
-        foreach (var cam in menuCameras)
+    menuTarget = target;
+
+    if (screenHomeCamera != null)
+    {
+        screenHomeCamera.Follow = target;
+        screenHomeCamera.Priority = menuPriorityActive;
+    }
+}
+    public void SwitchMenuCamera(MenuCameraType type)
+    {
+        // Set all menu cameras to inactive first
+        if (screenHomeCamera != null) screenHomeCamera.Priority = inactivePriority;
+        if (screenCarInfo != null) screenCarInfo.Priority = inactivePriority;
+        if (screenCarView != null) screenCarView.Priority = inactivePriority;
+
+        // Set active based on type
+        switch (type)
         {
-            if (cam != null)
-            {
-                cam.Follow = menuTarget;
-            }
+            case MenuCameraType.Home:
+                if (screenHomeCamera != null)
+                {
+                    screenHomeCamera.Follow = menuTarget;
+                    screenHomeCamera.Priority = menuPriorityActive;    
+                }
+                break;
+            case MenuCameraType.CarInfo:
+                if (screenCarInfo != null) 
+                {
+                    screenCarInfo.Follow = menuTarget;
+                    screenCarInfo.Priority = menuPriorityActive;
+                }   
+                break;
+            case MenuCameraType.CarView:
+                if (screenCarView != null) 
+                {
+                    screenCarView.Follow = menuTarget;
+                    screenCarView.Priority = menuPriorityActive;
+                }
+                break;
         }
     }
     #endregion
@@ -144,13 +181,7 @@ public class CameraManager : BaseManager<CameraManager>
     #endregion
     #region DisableCam
     // Khi vào race scene: tắt hết menu camera để tránh conflict
-    public void DisableAllMenuCameras()
-    {
-        foreach (var cam in menuCameras)
-        {
-            if (cam != null) cam.Priority = inactivePriority;
-        }
-    }
+
 
     // Khi vào menu scene: tắt hết race camera
     public void DisableAllRaceCameras()

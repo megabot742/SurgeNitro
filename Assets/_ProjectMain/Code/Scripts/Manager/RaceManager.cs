@@ -218,11 +218,11 @@ public class RaceManager : BaseManager<RaceManager>
                 if (countDownCurrent == 0)
                 {
                     isCountdown = false;
-                    if (UIManager.HasInstance)
-                    {
-                        UIManager.Instance.hUDPanel.countDownNum.gameObject.SetActive(false);
-                        UIManager.Instance.hUDPanel.countDownTxt.gameObject.SetActive(true);
-                    }
+                    // if (UIManager.HasInstance)
+                    // {
+                    //     // UIManager.Instance.hUDPanel.countDownNum.gameObject.SetActive(false);
+                    //     // UIManager.Instance.hUDPanel.countDownTxt.gameObject.SetActive(true);
+                    // }
                 }
             }
         }
@@ -271,7 +271,8 @@ public class RaceManager : BaseManager<RaceManager>
         }
         if (UIManager.HasInstance)
         {
-            UIManager.Instance.hUDPanel.posTxt.text = playerPos + "/" + (allAICars.Count + 1);
+            //UIManager.Instance.hUDPanel.posTxt.text = playerPos + "/" + (allAICars.Count + 1);
+            GameEvent.ShowPosition(playerPos, allAICars.Count + 1);
         }
 
     }
@@ -280,7 +281,8 @@ public class RaceManager : BaseManager<RaceManager>
     {
         if (UIManager.HasInstance)
         {
-            UIManager.Instance.hUDPanel.countDownNum.text = countDownCurrent + "!";
+            // UIManager.Instance.hUDPanel.countDownNum.text = countDownCurrent + "!";
+            GameEvent.ShowCountDownTime(countDownCurrent);
         }
     }
 
@@ -397,11 +399,11 @@ public class RaceManager : BaseManager<RaceManager>
             if (UIManager.HasInstance) //RaceInfoManager.HasInstance
             {
                 UIManager.Instance.StopCountdown(); // Stop countdown when race ends
-                UIManager.Instance.resultPanel.gameObject.SetActive(true);
-                string posTxt = GetOrdinalText(playerPos);
-                UIManager.Instance.resultPanel.posNumberTxt.text = posTxt;
-
-
+                //UIManager.Instance.resultPanel.gameObject.SetActive(true);
+                //string posTxt = GetOrdinalText(playerPos);
+                //UIManager.Instance.resultPanel.posNumberTxt.text = posTxt;
+                UIManager.Instance.HideAllScreens();
+                UIManager.Instance.ShowPopup<PopupResult>();
                 inputCarController.SetupPlayerInput(false);
                 //Unlock new track
                 // if (playerPosition < 4 && !string.IsNullOrEmpty(RaceInfoManager.Instance.raceToUnlock))

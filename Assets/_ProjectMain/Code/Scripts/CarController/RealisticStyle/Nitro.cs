@@ -65,8 +65,8 @@ public class Nitro
     {
         if(UIManager.HasInstance)
         {
-            UIManager.Instance.hUDPanel.nitroSlider.maxValue = _maxTankCapacity;
-            UIManager.Instance.hUDPanel.nitroSlider.value = remainTankCapacity;
+            // UIManager.Instance.hUDPanel.nitroSlider.maxValue = _maxTankCapacity;
+            // UIManager.Instance.hUDPanel.nitroSlider.value = remainTankCapacity;
 
         }
     }
