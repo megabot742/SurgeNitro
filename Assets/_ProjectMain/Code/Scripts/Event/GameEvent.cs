@@ -8,7 +8,7 @@ public static class GameEvent
     public static event Action<float> OnTimeLap; //current time in lap
     public static event Action<float> OnBestTimeLap; //best time in lap
     public static event Action<float> OnSpeed; // speedKmH
-    public static event Action<float, float> OnNitro; //minTank, maxTank
+    public static event Action<float, float> OnNitro; //remainTank, maxTank
     public static event Action<float> OnTimeCountDownStartRace; // time countDown for staring race
     public static event Action<float> OnTimeLeftForFinishRace; // time countDown for finish race
 
@@ -32,9 +32,9 @@ public static class GameEvent
     {
         OnSpeed?.Invoke(speedKmH);
     }
-    public static void ShowNitro(float minTank, float maxTank)
+    public static void ShowNitro(float remainTank, float maxTank)
     {
-        OnNitro?.Invoke(minTank, maxTank);
+        OnNitro?.Invoke(remainTank, maxTank);
     }
     public static void ShowCountDownTime(float timeLeft)
     {
@@ -43,6 +43,14 @@ public static class GameEvent
     public static void ShowTimeLeft(int timeLeft)
     {
         OnTimeLeftForFinishRace?.Invoke(timeLeft);
+    }
+    #endregion
+    #region PopupResult
+    public static event Action<int, float> OnRaceFinished;  //Finish position, bestLapTime
+
+    public static void ShowRaceFinished(int position, float bestTime)
+    {
+        OnRaceFinished?.Invoke(position, bestTime);
     }
     #endregion
 }

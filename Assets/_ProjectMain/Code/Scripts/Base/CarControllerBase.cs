@@ -38,10 +38,17 @@ public abstract class CarControllerBase : MonoBehaviour
     [SerializeField, Min(0.001f)] protected float suspensionStroke = 0.1f;
     [SerializeField, Min(0f)] protected float suspensionNaturalFrequency = 2f; //Frequency - Tần số 
     [SerializeField, Range(0f, 1f)] protected float suspensionDampingRatio = 0.35f; //Damping - Hệ số giảm chấn
-    #endregion
     [SerializeField] protected float addForceOffset = -0.1f;
+    #endregion
+
+    [Header("Boost System")]
+    [SerializeField] protected Nitro nitro;
+    [SerializeField] protected Turbocharger turbocharger;
+    public Nitro Nitro => nitro;
+    public Turbocharger Turbocharger => turbocharger;
 
     #region RaceTracking
+    [Header("Race Tracking")]
     [SerializeField, ReadOnly] private InputCarController inputCarController;
     [SerializeField] public int currentLap = 1; //default = 1
     [SerializeField] public float lapTime;
@@ -79,9 +86,7 @@ public abstract class CarControllerBase : MonoBehaviour
                 if (UIManager.HasInstance)
                 {
                     //DisplayBestTime
-                    //UIManager.Instance.hUDPanel.bestLapTimeTxt.text = string.Format("{0:00}:{1:00}.{2:00}", bestTime.Minutes, bestTime.Seconds, bestTime.Milliseconds);
                     DisplayBestTime();
-                    //UIManager.Instance.resultPanel.bestTimeTxt.text = string.Format("{0:00}:{1:00}.{2:00}", bestTime.Minutes, bestTime.Seconds, bestTime.Milliseconds);
                 }
                 //Show current lap
                 DisplayLap();
@@ -98,7 +103,6 @@ public abstract class CarControllerBase : MonoBehaviour
                 if (UIManager.HasInstance)
                 {
                     UIManager.Instance.StopCountdown(); // Stop countdown if running
-                    //UIManager.Instance.resultPanel.bestTimeTxt.text = string.Format("{0:00}:{1:00}.{2:00}", bestTime.Minutes, bestTime.Seconds, bestTime.Milliseconds);
                     DisplayBestTime();
                 }
                 RaceManager.Instance.FinishRace();
@@ -119,31 +123,19 @@ public abstract class CarControllerBase : MonoBehaviour
         if (UIManager.HasInstance && RaceManager.HasInstance)
         {
             // UIManager.Instance.hUDPanel.lapTxt.text = currentLap + "/" + RaceManager.Instance.totalLaps;
-           GameEvent.ShowLap(currentLap, RaceManager.Instance.totalLaps);
+            GameEvent.ShowLap(currentLap, RaceManager.Instance.totalLaps);
         }
     }
     private void DisplayTime()
     {
-        // var time = System.TimeSpan.FromSeconds(lapTime);
-        // if (UIManager.HasInstance)
-        // {
-        //     UIManager.Instance.hUDPanel.lapTimeTxt.text = string.Format("{0:00}:{1:00}.{2:00}", time.Minutes, time.Seconds, time.Milliseconds);
-        // }
-        
-        if(UIManager.HasInstance)
+        if (UIManager.HasInstance)
         {
             GameEvent.ShowTimeLap(lapTime);
         }
     }
     private void DisplayBestTime()
     {
-        // var time = System.TimeSpan.FromSeconds(lapTime);
-        // if (UIManager.HasInstance)
-        // {
-        //     UIManager.Instance.hUDPanel.lapTimeTxt.text = string.Format("{0:00}:{1:00}.{2:00}", time.Minutes, time.Seconds, time.Milliseconds);
-        // }
-        
-        if(UIManager.HasInstance)
+        if (UIManager.HasInstance)
         {
             GameEvent.ShowBestTimeLap(bestLapTime);
         }
@@ -152,15 +144,15 @@ public abstract class CarControllerBase : MonoBehaviour
     {
         if (UIManager.HasInstance)
         {
-            // UIManager.Instance.hUDPanel.speedDometerText.text = Mathf.RoundToInt(SpeedKPH).ToString();
             GameEvent.ShowSpeed(SpeedKPH);
         }
     }
-    public void AISetup(bool isAI) //This use for spawn car
+    private void DisplayNitro()
     {
-        if (inputCarController != null)
+        if (UIManager.HasInstance && nitro != null && nitro.Install)
         {
-            inputCarController.isAICar = isAI;
+
+            GameEvent.ShowNitro(nitro.RemainTankCapacity, nitro.MaxTankCapacity);
         }
     }
     #endregion
@@ -276,6 +268,7 @@ public abstract class CarControllerBase : MonoBehaviour
 
     public float ForwardSpeed => Vector3.Dot(carRB.linearVelocity, transform.forward);
     public float ForwardSpeedKPH => ForwardSpeed * CarMath.MPSToKPH;
+    public float ForwardSpeedPercent => Mathf.Clamp01(ForwardSpeedKPH / Mathf.Max(MaxSpeedKPH, 0.001f));
 
     public float Speed => speed;
     public float SpeedKPH => Speed * CarMath.MPSToKPH;
@@ -347,6 +340,10 @@ public abstract class CarControllerBase : MonoBehaviour
         {
             AdjustSuspension();
         }
+        if (nitro != null)
+        {
+            nitro.Init();
+        }
     }
     #endregion
     #region Start
@@ -358,6 +355,7 @@ public abstract class CarControllerBase : MonoBehaviour
             DisplayLap();
             DisplayTime();
             DisplaySpeed();
+
         }
     }
     #endregion
@@ -367,10 +365,11 @@ public abstract class CarControllerBase : MonoBehaviour
         if (!RaceManager.Instance.isCountdown)
         {
             lapTime += Time.deltaTime;
-            if (!inputCarController.isAICar)
+            if (inputCarController != null && !inputCarController.isAICar)
             {
                 DisplayTime();
                 DisplaySpeed();
+                DisplayNitro();
                 if (UIManager.HasInstance && UIManager.Instance.isCountingDown && UIManager.Instance.GetEndCountDown() <= 0.1f)//When end time, just finishRace
                 {
                     inputCarController.isAICar = true;
@@ -379,6 +378,7 @@ public abstract class CarControllerBase : MonoBehaviour
             }
         }
     }
+    
     #endregion
     #region Fixupdate
     protected virtual void FixedUpdate()

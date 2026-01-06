@@ -1,9 +1,14 @@
+using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CinemachineCamera))]
 public class DynamicLensController : MonoBehaviour
 {
+    [Header("Car Reference")]
+    [SerializeField] private CarControllerBase carControllerBase;
+
     [Header("Lens Settings")]
     [SerializeField, Range(40f, 80f)] private float minFieldOfView = 60f;  // FOV default
     [SerializeField, Range(40f, 100f)] private float maxFieldOfView = 80f;  // FOV max
@@ -18,8 +23,6 @@ public class DynamicLensController : MonoBehaviour
     [Header("Lerp Speed")]
     [SerializeField, Range(1f, 20f)] private float fovLerpSpeed = 2f;  //Speed Lerp FOV (high = fast, low = smooth)
 
-    [Header("Car Reference")]
-    [SerializeField] private CarStatsProvider carStatsProvider;
     private CinemachineCamera cinemachineCamera;
     private float targetFOV;
 
@@ -33,43 +36,60 @@ public class DynamicLensController : MonoBehaviour
             enabled = false;
             return;
         }
-
-        //CarStatsProvider
-        // if (carStatsProvider == null)
-        // {
-        //     carStatsProvider = RaceManager.Instance.playerStats;
-        //     if (carStatsProvider != null)
-        //     {
-        //         Debug.Log("CarController: " + carStatsProvider.name);
-        //     }
-        //     else
-        //     {
-        //         Debug.LogError("Can't find CarController");
-        //         enabled = false;
-        //         return;
-        //     }
-        // }
         //Set targetFOV = minFOV
-    }
-    void Start()
-    {
-        carStatsProvider = RaceManager.Instance.playerStats;
         targetFOV = minFieldOfView;
+    }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded; //Subscribe
+        //OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+    }
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded; //Unsubscribe
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name.StartsWith("Track") || scene.name == "R&D")  // Race scene
+        {
+            if (RaceManager.HasInstance)
+            {
+                enabled = true;  // Enable script in race scenes
+                StartCoroutine(WaitForPlayerCar());  // Wait for spawn
+            }
+        }
+        else  //Disable script in scenes that are not needed
+        {
+            carControllerBase = null;
+            enabled = false;  
+        }
+    }
+    IEnumerator WaitForPlayerCar()
+    {
+        while (carControllerBase == null)
+        {
+            if (RaceManager.HasInstance)
+            {
+                carControllerBase = RaceManager.Instance.playerCarController;
+            }
+            if (carControllerBase != null)
+            {
+                Debug.Log("DynamicLens: Found playerCarController");
+                yield break;
+            }
+            yield return new WaitForSeconds(1f);  // Poll every 0.1s
+        }
     }
     private void LateUpdate()
     {
-        if (cinemachineCamera == null || carStatsProvider == null) return;
-
-        //Get forwardSpeed KPH
-        //float forwardSpeedKPH = carStatsProvider.ForwardSpeedKPH;
-        //Debug.Log(forwardSpeedKPH);
+        if (cinemachineCamera == null || carControllerBase == null) return;
 
         //value % (speed/max sppeed)
-        float speedPercent = carStatsProvider.ForwardSpeedPercent;
+        float speedPercent = carControllerBase.ForwardSpeedPercent;
         float dynamicMaxSlip = Mathf.Lerp(maxSlipAngleDegrees, minSlipAngleDegrees, speedPercent);  // Speed fast = slip small
 
         // Check "run straight" with forwardSpeed and slipAngle 
-        bool isDrivingStraight = (speedPercent >= speedThresholdPercent) && Mathf.Abs(carStatsProvider.SlipAngle) <= dynamicMaxSlip;
+        bool isDrivingStraight = (speedPercent >= speedThresholdPercent) && Mathf.Abs(carControllerBase.SlipAngle) <= dynamicMaxSlip;
 
         if (isDrivingStraight)
         {

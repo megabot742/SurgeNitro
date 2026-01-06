@@ -28,11 +28,13 @@ public class NotifyLoadingGame : BaseNotify
             this.Hide();
             return;
         }
+        Time.timeScale = 0f;           // Dừng physics, countdown, animation,...
+        AudioListener.pause = true;  
 
         // Cập nhật currentSceneName trong UIManager để các chỗ khác dùng (nếu cần)
-        if (UIManager.HasInstance)
+        if (UIEventManager.HasInstance)
         {
-            UIManager.Instance.currentSceneName = targetScene;
+            UIEventManager.Instance.currentSceneName = targetScene;
         }
 
         StartCoroutine(LoadSceneAsync(targetScene));
@@ -76,6 +78,9 @@ public class NotifyLoadingGame : BaseNotify
         sldLoading.value = 1f;
         txtLoading.text = "Loading... 100%";
 
+        Time.timeScale = 1f;
+        AudioListener.pause = false;
+
         asyncOperation.allowSceneActivation = true; // Bây giờ scene mới thực sự chạy
 
         // Chờ scene activate hoàn tất (thường rất nhanh)
@@ -93,6 +98,11 @@ public class NotifyLoadingGame : BaseNotify
         base.Hide();
         // Optional: Stop coroutine nếu đang chạy
         StopAllCoroutines();
+        if (Time.timeScale == 0f) //Option: If player can turn off loading screen
+        {
+            Time.timeScale = 1f;
+            AudioListener.pause = false;
+        }
     }
 
     private void OnDestroy()

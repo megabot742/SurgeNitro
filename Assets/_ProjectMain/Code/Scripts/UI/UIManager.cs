@@ -9,16 +9,9 @@ public class UIManager : BaseManager<UIManager>
     public bool isCountingDown; //false
     private float endCountDown;
 
-    [Header("Scene Name")]
-    public string currentSceneName;
-
     protected override void Awake()
     {
         base.Awake();
-    }
-    void Start()
-    {
-        SwitchToScene("Garage");
     }
     void Update()
     {
@@ -49,38 +42,6 @@ public class UIManager : BaseManager<UIManager>
     {
         isCountingDown = false;
     }
-    public void ReloadCurrentScene()
-    {
-        //check currentSceneName
-        if (!string.IsNullOrEmpty(currentSceneName))
-        {
-            SwitchToScene(currentSceneName);
-        }
-    }
-    public void SwitchToScene(string sceneName)
-    {
-        // Load the new scene
-        SceneManager.LoadScene(sceneName);
-        currentSceneName = sceneName;
-
-        // if (BackgroundMusic.HasInstance)
-        // {
-        //     // Cập nhật nhạc nền cho scene mới
-        //     BackgroundMusic.Instance.UpdateMusicForScene(sceneName);
-        // }
-    }
-    public void ChangeUIGameObject(GameObject currentObject = null, GameObject activeObject = null)
-    {
-        if (currentObject != null)
-        {
-            currentObject.SetActive(false);
-        }
-        if (activeObject != null)
-        {
-            activeObject.SetActive(true);
-        }
-    }
-
     #region References
     [Header("UI Container References")]
 
@@ -128,6 +89,16 @@ public class UIManager : BaseManager<UIManager>
         ob.transform.SetParent(this.cScreen.transform);
         ob.transform.localScale = Vector3.one;
         ob.transform.localPosition = Vector3.zero;
+        //Force set RectTransform để stretch full parent (Canvas)
+        RectTransform rectTransform = ob.GetComponent<RectTransform>();
+        if (rectTransform != null)
+        {
+            rectTransform.anchorMin = new Vector2(0, 0);  // Bottom-left
+            rectTransform.anchorMax = new Vector2(1, 1);  // Top-right
+            rectTransform.pivot = new Vector2(0.5f, 0.5f); // Center pivot (nếu cần, tùy prefab của bạn)
+            rectTransform.anchoredPosition = Vector2.zero; // Position trung tâm
+            rectTransform.sizeDelta = Vector2.zero;       // Size = 0 để stretch full
+        }
 #if UNITY_EDITOR
         ob.name = "SCREEN_" + nameScreen;
 #endif
@@ -238,6 +209,17 @@ public class UIManager : BaseManager<UIManager>
         ob.transform.SetParent(this.cPopup.transform);
         ob.transform.localScale = Vector3.one;
         ob.transform.localPosition = Vector3.zero;
+
+        //Force set RectTransform để stretch full parent (Canvas)
+        RectTransform rectTransform = ob.GetComponent<RectTransform>();
+        if (rectTransform != null)
+        {
+            rectTransform.anchorMin = new Vector2(0, 0);  // Bottom-left
+            rectTransform.anchorMax = new Vector2(1, 1);  // Top-right
+            rectTransform.pivot = new Vector2(0.5f, 0.5f); // Center pivot (nếu cần, tùy prefab của bạn)
+            rectTransform.anchoredPosition = Vector2.zero; // Position trung tâm
+            rectTransform.sizeDelta = Vector2.zero;       // Size = 0 để stretch full
+        }
 #if UNITY_EDITOR
         ob.name = "POPUP_" + namePopup;
 #endif
@@ -347,6 +329,17 @@ public class UIManager : BaseManager<UIManager>
         ob.transform.SetParent(this.cNotify.transform);
         ob.transform.localScale = Vector3.one;
         ob.transform.localPosition = Vector3.zero;
+
+        //Force set RectTransform để stretch full parent (Canvas)
+        RectTransform rectTransform = ob.GetComponent<RectTransform>();
+        if (rectTransform != null)
+        {
+            rectTransform.anchorMin = new Vector2(0, 0);  // Bottom-left
+            rectTransform.anchorMax = new Vector2(1, 1);  // Top-right
+            rectTransform.pivot = new Vector2(0.5f, 0.5f); // Center pivot (nếu cần, tùy prefab của bạn)
+            rectTransform.anchoredPosition = Vector2.zero; // Position trung tâm
+            rectTransform.sizeDelta = Vector2.zero;       // Size = 0 để stretch full
+        }
 #if UNITY_EDITOR
         ob.name = "NOTIFY_" + nameNotify;
 #endif
@@ -456,6 +449,17 @@ public class UIManager : BaseManager<UIManager>
         ob.transform.SetParent(this.cOverlap.transform);
         ob.transform.localScale = Vector3.one;
         ob.transform.localPosition = Vector3.zero;
+
+        //Force set RectTransform để stretch full parent (Canvas)
+        RectTransform rectTransform = ob.GetComponent<RectTransform>();
+        if (rectTransform != null)
+        {
+            rectTransform.anchorMin = new Vector2(0, 0);  // Bottom-left
+            rectTransform.anchorMax = new Vector2(1, 1);  // Top-right
+            rectTransform.pivot = new Vector2(0.5f, 0.5f); // Center pivot (nếu cần, tùy prefab của bạn)
+            rectTransform.anchoredPosition = Vector2.zero; // Position trung tâm
+            rectTransform.sizeDelta = Vector2.zero;       // Size = 0 để stretch full
+        }
 #if UNITY_EDITOR
         ob.name = "OVERLAP_" + nameOverlap;
 #endif
@@ -587,12 +591,8 @@ public class UIManager : BaseManager<UIManager>
 
     #endregion
     #region Other
-    public void LoadSceneWithLoading(string sceneName)
-    {
-        // Show notify loading với data là sceneName
-        ShowNotify<NotifyLoadingGame>(data: sceneName);
-    }
-    
+
+
     #endregion
 }
 

@@ -23,7 +23,6 @@ public class RaceManager : BaseManager<RaceManager>
     [SerializeField] public GameObject playerCarPrefab;
     [SerializeField] public CarControllerBase playerCarController;
     [SerializeField] public InputCarController inputCarController;
-    [SerializeField] public CarStatsProvider playerStats;
     [SerializeField] public List<CarControllerBase> allAICars = new List<CarControllerBase>();
     [SerializeField] public int totalLaps;
     [SerializeField] int playerPos;
@@ -77,7 +76,7 @@ public class RaceManager : BaseManager<RaceManager>
     private void ResetRaceState()
     {
         // Reset countdown to default
-        isCountdown = false;  
+        isCountdown = false;
         countDownCurrent = 3f;  // Reset về 3 (default)
         timeCountdown = timeBetweenStartCount;  // Reset về 1f (default)
 
@@ -186,13 +185,12 @@ public class RaceManager : BaseManager<RaceManager>
     }
     private void ClearRaceReferences()
     {
-        allAICars.Clear();  // Clear list AI
-        playerCarController = null;  // Null player refs
-        inputCarController = null;
-        playerStats = null;
-        spawnCarParent = null;  // Null parent nếu cần
+        allAICars.Clear();  //Clear list AI
+        playerCarController = null;  //Clear player refs
+        inputCarController = null; //Clear input
+        spawnCarParent = null;  //Clear parent
         allCheckPoints = null;  // Clear checkpoints
-        startPoints = null;
+        startPoints = null; //Clear startPoint
 
         // Reset flags để skip logic
         isCountdown = false;
@@ -288,12 +286,9 @@ public class RaceManager : BaseManager<RaceManager>
 
     void SpawnCarWithStartPoint()
     {
-        playerCarController = playerCarPrefab.GetComponent<CarControllerBase>();
-        //playerStats = playerCarPrefab.GetComponent<CarStatsProvider>();
-        // inputCarController = playerCarPrefab.GetComponent<InputCarController>();
         #region Spawnplayer
         //Check player Car Class 
-        CarClass playerClass = playerCarController.CarClass;
+        CarClass playerClass = playerCarPrefab.GetComponent<CarControllerBase>().CarClass;
         // Get container car class like car class player
         CarClassContainerSO container = carDatabase.GetContainer(playerClass);
         if (container == null) //Check
@@ -333,6 +328,13 @@ public class RaceManager : BaseManager<RaceManager>
                 playerInput.enabled = true;
                 Debug.Log("Forced enable PlayerInput for player after spawn.");
             }
+        }
+        //Check SpeedUpShader
+        SpeedUpShader playerShader = playerCarSpawn.GetComponent<SpeedUpShader>();
+        if (playerShader != null)
+        {
+            playerShader.enabled = true;
+            Debug.Log("Enabled SpeedUpShader on " + playerShader.name);
         }
         #endregion
 
@@ -377,20 +379,28 @@ public class RaceManager : BaseManager<RaceManager>
                 //aiInputController.useVirtualPad = false;
                 aiInputController.SetupPlayerInput(false);  // Setup AI (disable input)
                 aiCarObj.tag = "Untagged"; //default tag
-
+                //Disable Input
                 PlayerInput aiPlayerInput = aiInputController.GetComponent<PlayerInput>();
                 if (aiPlayerInput != null && aiPlayerInput.enabled)
                 {
                     aiPlayerInput.enabled = false;
                     Debug.Log("Forced disable PlayerInput for AI car: " + aiCarObj.name);
                 }
-
                 allAICars.Add(aiController);
+                //Disable shader
+                SpeedUpShader aiShader = aiCarObj.GetComponent<SpeedUpShader>();
+                if (aiShader != null)
+                {
+                    aiShader.enabled = false;
+                    Debug.Log("Disabled SpeedUpShader on AI car: " + aiCarObj.name);
+                }
+
             }
         }
         #endregion
 
     }
+    #region Finish Race
     public void FinishRace()
     {
         if (!raceCompleted)
@@ -399,12 +409,14 @@ public class RaceManager : BaseManager<RaceManager>
             if (UIManager.HasInstance) //RaceInfoManager.HasInstance
             {
                 UIManager.Instance.StopCountdown(); // Stop countdown when race ends
-                //UIManager.Instance.resultPanel.gameObject.SetActive(true);
-                //string posTxt = GetOrdinalText(playerPos);
-                //UIManager.Instance.resultPanel.posNumberTxt.text = posTxt;
+                float bestTime = playerCarController?.bestLapTime ?? 0f;
+
                 UIManager.Instance.HideAllScreens();
                 UIManager.Instance.ShowPopup<PopupResult>();
-                inputCarController.SetupPlayerInput(false);
+                GameEvent.ShowRaceFinished(playerPos, bestTime);
+
+                inputCarController.SetupPlayerInput(false); //Change Player in to AI after finish race
+
                 //Unlock new track
                 // if (playerPosition < 4 && !string.IsNullOrEmpty(RaceInfoManager.Instance.raceToUnlock))
                 // {
@@ -420,7 +432,7 @@ public class RaceManager : BaseManager<RaceManager>
 
     }
 
-    string GetOrdinalText(int number)
+    public string GetOrdinalText(int number)
     {
         if (number <= 0) return number.ToString();
 
@@ -444,5 +456,6 @@ public class RaceManager : BaseManager<RaceManager>
                 return number + "th";
         }
     }
+    #endregion
 
 }

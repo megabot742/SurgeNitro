@@ -11,12 +11,6 @@ public class ArcadeCarController : CarControllerBase
     [SerializeField, Min(0.001f)] private float motorInertia = 0.3f;
     [SerializeField, Min(0f)] private float finalGearRatio = 8f;
 
-    [Header("Boots System")]
-    [SerializeField] Turbocharger _turbocharger;
-    [SerializeField] Nitro _nos;
-    public Turbocharger Turbocharger => _turbocharger;
-    public Nitro NOS => _nos;
-
     [Header("AfterFire")]
     [SerializeField, Min(0f)] private float _mixtureUnbalanceTime = 0.25f;
     [SerializeField, Range(0f, 1f)] private float _afterFireProbability = 0.25f;
@@ -32,8 +26,8 @@ public class ArcadeCarController : CarControllerBase
     // [Header("Class Car")]
     // [SerializeField] public CarClass MyCarClass  = CarClass.defaullt;
 
-    private float _maxMotorForwardRPM;
-    private float _maxMotorBackwardRPM;
+    private float maxMotorForwardRPM;
+    private float maxMotorBackwardRPM;
 
     private float _motorRPM;
 
@@ -51,16 +45,16 @@ public class ArcadeCarController : CarControllerBase
         }
     }
     //Nitro
-    private bool _nosInput;
+    private bool nitroInput;
 
     public bool NOSInput
     {
-        get => _nosInput;
+        get => nitroInput;
         set
         {
             if (!replayPlaying)
             {
-                _nosInput = value;
+                nitroInput = value;
             }
         }
     }
@@ -68,7 +62,7 @@ public class ArcadeCarController : CarControllerBase
 
     public override float MotorRevolutionRate
     {
-        get => _motorRPM / Mathf.Max(_maxMotorForwardRPM, _maxMotorBackwardRPM);
+        get => _motorRPM / Mathf.Max(maxMotorForwardRPM, maxMotorBackwardRPM);
     }
 
     public float MotorRPM
@@ -80,14 +74,14 @@ public class ArcadeCarController : CarControllerBase
     {
         get
         {
-            var maxRPM = _reverse ? _maxMotorBackwardRPM : _maxMotorForwardRPM;
+            var maxRPM = _reverse ? maxMotorBackwardRPM : maxMotorForwardRPM;
             var rpm = Mathf.Abs(_motorRPM);
             return rpm > maxRPM;
         }
     }
 
-    public override float MaxSpeedKPH => Mathf.Max(maxForwardSpeedKPH, maxBackwardSpeedKPH);
-
+    // public override float MaxSpeedKPH => Mathf.Max(maxForwardSpeedKPH, maxBackwardSpeedKPH);
+    public override float MaxSpeedKPH => maxForwardSpeedKPH;
     // public override CarReplayData CarData
     // {
     //     get
@@ -123,10 +117,14 @@ public class ArcadeCarController : CarControllerBase
     {
         base.Awake();
 
-        _maxMotorForwardRPM = CalcMotorRPMFromSpeedKPH(maxForwardSpeedKPH);
-        _maxMotorBackwardRPM = CalcMotorRPMFromSpeedKPH(maxBackwardSpeedKPH);
+        maxMotorForwardRPM = CalcMotorRPMFromSpeedKPH(maxForwardSpeedKPH);
+        maxMotorBackwardRPM = CalcMotorRPMFromSpeedKPH(maxBackwardSpeedKPH);
 
-        _nos.Init();
+        nitro.Init();
+    }
+    protected override void Update()
+    {
+        base.Update();
     }
     protected override void FixedUpdate()
     {
@@ -144,8 +142,8 @@ public class ArcadeCarController : CarControllerBase
         }
         UpdateMixture(throttleInput);
         // NEW: Cập nhật Turbo và Nitro trước khi tính torque (dùng _motorRPM thay vì engineRPM)
-        _turbocharger.Update(_motorRPM, throttleInput);
-        _nos.Update(_nosInput);
+        turbocharger.Update(_motorRPM, throttleInput);
+        nitro.Update(nitroInput);
         if (IsGrounded())
         {
             _motorRPM = CalcMotorRPMFromSpeedKPH(SpeedKPH);
@@ -158,7 +156,7 @@ public class ArcadeCarController : CarControllerBase
             var motorFriTorque = GetMotorFrictionTorque(_motorRPM) * (1f - throttleInput);
 
             // NEW: Nhân hệ số từ Turbo và Nitro vào motorTorque
-            motorTorque *= _turbocharger.EngineTorqueCoef * _nos.EngineTorqueCoef;
+            motorTorque *= turbocharger.EngineTorqueCoef * nitro.EngineTorqueCoef;
 
             var driveTorque = motorTorque * finalGearRatio;
             var friTorque = motorFriTorque * finalGearRatio;
@@ -172,7 +170,7 @@ public class ArcadeCarController : CarControllerBase
             var motorFiTorque = GetMotorFrictionTorque(_motorRPM) * (1f - throttleInput);
 
             // NEW: Nhân hệ số từ Turbo và Nitro vào motorTorque (khi inAir, turbo/nitro vẫn ảnh hưởng acceleration)
-            motorTorque *= _turbocharger.EngineTorqueCoef * _nos.EngineTorqueCoef;
+            motorTorque *= turbocharger.EngineTorqueCoef * nitro.EngineTorqueCoef;
 
             var totalBrakeTorque = MaxBrakeTorque * BrakeInput * Wheels.Length;
 
@@ -264,4 +262,5 @@ public class ArcadeCarController : CarControllerBase
             _motorRPM += acc;
         }
     }
+    
 }

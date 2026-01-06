@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2372567954278866901, guid: aebf8fa6ebd4f5a409e928b9fb11d8f6, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: b10405a8ba5caa14da5bc2eed49892aa, type: 2}
+    - target: {fileID: 2372567954278866901, guid: aebf8fa6ebd4f5a409e928b9fb11d8f6, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2753797345813632926, guid: b10405a8ba5caa14da5bc2eed49892aa, type: 2}
     - target: {fileID: 3985973301429289318, guid: aebf8fa6ebd4f5a409e928b9fb11d8f6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -58,11 +66,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5621955157107672383, guid: aebf8fa6ebd4f5a409e928b9fb11d8f6, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 560
       objectReference: {fileID: 0}
     - target: {fileID: 5621955157107672383, guid: aebf8fa6ebd4f5a409e928b9fb11d8f6, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 5621955157107672383, guid: aebf8fa6ebd4f5a409e928b9fb11d8f6, type: 3}
       propertyPath: m_LocalPosition.x

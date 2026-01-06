@@ -342,8 +342,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 300
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: df4b0fd10860ea64994b9d6bb750610c, type: 2}
-  m_sharedMaterial: {fileID: -8161153914253577907, guid: df4b0fd10860ea64994b9d6bb750610c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b10405a8ba5caa14da5bc2eed49892aa, type: 2}
+  m_sharedMaterial: {fileID: 2753797345813632926, guid: b10405a8ba5caa14da5bc2eed49892aa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -553,8 +553,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Top Speed - (Km/h)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: df4b0fd10860ea64994b9d6bb750610c, type: 2}
-  m_sharedMaterial: {fileID: -8161153914253577907, guid: df4b0fd10860ea64994b9d6bb750610c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b10405a8ba5caa14da5bc2eed49892aa, type: 2}
+  m_sharedMaterial: {fileID: 2753797345813632926, guid: b10405a8ba5caa14da5bc2eed49892aa, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -745,4 +745,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9220403888158904061}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ScreenCarInfo, Assembly-CSharp
+        m_MethodName: OnClickToUpgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

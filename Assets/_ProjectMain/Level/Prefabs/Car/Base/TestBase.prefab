@@ -398,7 +398,7 @@ MonoBehaviour:
   maxMotorFrictionTorque: 75
   motorInertia: 0.3
   finalGearRatio: 6
-  _turbocharger:
+  turbocharger:
     _install: 0
     _maxBoostPressure: 1
     _throttleOffBoostPressure: -0.7
@@ -406,10 +406,10 @@ MonoBehaviour:
     _loss: 0.5
     _turbineAccelerationTime: 0.3
     _turbineDecelerationTime: 0.1
-  _nos:
+  nitro:
     install: 1
-    _engineTorqueCoef: 1.5
-    _maxTankCapacity: 30
+    engineTorqueCoef: 1.5
+    maxTankCapacity: 30
   _mixtureUnbalanceTime: 0.25
   _afterFireProbability: 0.25
   _minAfterFireRPM: 3000
@@ -461,8 +461,8 @@ MonoBehaviour:
   switchToReverseSpeedKPH: 1
   useVirtualPad: 0
   aIMode: 0
-  isAICar: 0
-  isAvoidingCars: 0
+  isAICar: 1
+  isAvoidingCars: 1
   skillLevel: 1
   avoidanceDistance: 12
   avoidanceStrength: 1.3
@@ -507,12 +507,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2926000677153914549}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3f638f236dbc75143b53918dc0ee9ab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carStatsProvider: {fileID: 0}
+  carControllerBase: {fileID: 0}
+  isEffectEnabled: 1
+  screenFeature: {fileID: -8931175852207171204, guid: f288ae1f4751b564a96ac7587541f7a2, type: 2}
   targetMaterial: {fileID: 2100000, guid: 4af37f4619685dd44b1a79e217238fe2, type: 2}
   minApha: 0
   maxApha: 2
@@ -520,8 +522,6 @@ MonoBehaviour:
   minSlipAngleDegrees: 8
   maxSlipAngleDegrees: 20
   fadeSpeed: 2
-  isEffectEnabled: 1
-  screenFeature: {fileID: -8931175852207171204, guid: f288ae1f4751b564a96ac7587541f7a2, type: 2}
 --- !u!114 &417131553807152273
 MonoBehaviour:
   m_ObjectHideFlags: 0

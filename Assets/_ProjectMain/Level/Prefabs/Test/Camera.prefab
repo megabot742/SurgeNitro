@@ -52,14 +52,12 @@ MonoBehaviour:
   menuPriorityActive: 10
   racePriorityActive: 15
   inactivePriority: 0
-  menuPanels:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  menuCameras:
-  - {fileID: 6926323688158287910}
-  - {fileID: 2442632630505106836}
-  - {fileID: 3704576749233318208}
+  cinemachineBrain: {fileID: 7458068426883637759}
+  menuBlendTime: 1
+  raceBlendTime: 0
+  screenHomeCamera: {fileID: 6926323688158287910}
+  screenCarInfo: {fileID: 2442632630505106836}
+  screenCarView: {fileID: 3704576749233318208}
   raceCameras:
   - {fileID: 6224004206735262145}
   - {fileID: 4660108883380149447}
@@ -848,7 +846,7 @@ GameObject:
   - component: {fileID: 1718455155392241241}
   - component: {fileID: 8242861892191861813}
   m_Layer: 0
-  m_Name: MenuCamera
+  m_Name: HomeCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1106,7 +1104,7 @@ MonoBehaviour:
     DefaultMode: 2
   DefaultBlend:
     Style: 1
-    Time: 0
+    Time: 1
     CustomCurve:
       serializedVersion: 2
       m_Curve: []

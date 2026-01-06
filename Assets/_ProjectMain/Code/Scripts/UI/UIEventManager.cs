@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -7,12 +8,18 @@ using UnityEngine.SceneManagement;
 
 public class UIEventManager : BaseManager<UIEventManager>
 {
+    [Header("Scene Name")]
+    public string currentSceneName;
+
+    [Header("Pause")]
     public bool isPaused = false;
+
     private Stack<Type> screenHistory = new Stack<Type>();
     private Dictionary<Type, Action<object>> _showScreenMap = new Dictionary<Type, Action<object>>();
     protected override void Awake()
     {
         base.Awake();
+        currentSceneName = "Garage";
 
         _showScreenMap.Add(typeof(ScreenHome), data => UIManager.Instance.ShowScreen<ScreenHome>(data));
         _showScreenMap.Add(typeof(ScreenGarage), data => UIManager.Instance.ShowScreen<ScreenGarage>(data));
@@ -31,9 +38,13 @@ public class UIEventManager : BaseManager<UIEventManager>
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-
+    private void Start()
+    {
+        OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+    }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        currentSceneName = scene.name;
         if (UIManager.HasInstance)
         {
             if (scene.name == "Garage")
@@ -48,6 +59,8 @@ public class UIEventManager : BaseManager<UIEventManager>
             }
         }
     }
+    
+    #region Scene Handler
     public void ShowScreenWithHistory<T>(object data = null) where T : BaseScreen
     {
         if (!UIManager.HasInstance) return;
@@ -115,17 +128,51 @@ public class UIEventManager : BaseManager<UIEventManager>
         }
         return null;
     }
-    private void Start()
+    public void ReloadCurrentScene() //Restart
     {
-
+        //check currentSceneName
+        if (!string.IsNullOrEmpty(currentSceneName))
+        {
+            SwitchToScene(currentSceneName);
+        }
+        else
+        {
+            Debug.LogWarning("No scene name cached");
+        }
     }
-    #region Button
+    public void SwitchToScene(string sceneName) //Change Scene
+    {
+        // Load the new scene
+        SceneManager.LoadScene(sceneName);
+        currentSceneName = sceneName;
+
+        // if (BackgroundMusic.HasInstance)
+        // {
+        //     // Cập nhật nhạc nền cho scene mới
+        //     BackgroundMusic.Instance.UpdateMusicForScene(sceneName);
+        // }
+    }
+     public void LoadSceneWithLoading(string sceneName)
+    {
+        if (UIManager.HasInstance)
+        {
+            // Show notify loading với data là sceneName
+            UIManager.Instance.ShowNotify<NotifyLoadingGame>(data: sceneName);
+        }
+    }
+    #endregion
+    
+    #region Button Handler
     private void Update()
     {
         PauseSetup();
     }
     private void PauseSetup()
     {
+        if (!currentSceneName.StartsWith("Track") && currentSceneName != "R&D")
+        {
+            return;  //Only run garage scene
+        }
         if (UIManager.HasInstance)
         {
             var screenGame = UIManager.Instance.GetExistScreen<ScreenGame>();
@@ -134,6 +181,7 @@ public class UIEventManager : BaseManager<UIEventManager>
                 TogglePause();
             }
         }
+
     }
     public void PlayBtn()
     {
@@ -196,10 +244,8 @@ public class UIEventManager : BaseManager<UIEventManager>
     }
     public void RaceBtn()
     {
-        if (UIManager.HasInstance)
-        {
-            UIManager.Instance.LoadSceneWithLoading("R&D");
-        }
+        LoadSceneWithLoading("R&D");
+
     }
     public void PauseBtn()
     {
@@ -233,7 +279,7 @@ public class UIEventManager : BaseManager<UIEventManager>
             isPaused = false;
             Time.timeScale = 1f;
             AudioListener.pause = false;
-            UIManager.Instance.ReloadCurrentScene();
+            ReloadCurrentScene();
         }
     }
     public void BackGarageBtn()
@@ -244,7 +290,7 @@ public class UIEventManager : BaseManager<UIEventManager>
             isPaused = false;
             AudioListener.pause = false;
             UIManager.Instance.HideAllScreens();
-            UIManager.Instance.LoadSceneWithLoading("Garage");
+            LoadSceneWithLoading("Garage");
         }
     }
     public void QuitGameBtn()

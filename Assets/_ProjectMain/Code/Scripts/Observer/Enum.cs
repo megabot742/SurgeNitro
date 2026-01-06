@@ -6,11 +6,12 @@ public enum UIType
     Notify = 3,
     Overlap = 4
 }
+//CarInfo setting
 public enum CarInfoMode
 {
-    View,      // Luồng 1: Chỉ xem, không bật gì, back về Garage
-    SelectForRace, // Luồng 2: Bật Setup, button Setup chọn xe đua, back về Garage
-    Buy        // Luồng 3: Bật Buy, button Buy mua xe, back về Shop
+    View,      //Only view 
+    SelectForRace, //Enbale setup select race
+    Buy        //Enable setup select buy
 }
 public class CarInfoData
 {
@@ -18,10 +19,16 @@ public class CarInfoData
     public string CarId { get; set; } // Optional: ID xe để load data
     // Thêm nếu cần: Action onConfirm, onBack (nhưng dùng event tốt hơn)
 }
-
+//Camera setting
 public enum MenuCameraType
 {
     Home,
     CarInfo,
     CarView
+}
+//Result race data
+public class ResultData
+{
+    public int position;
+    public float bestTime;
 }

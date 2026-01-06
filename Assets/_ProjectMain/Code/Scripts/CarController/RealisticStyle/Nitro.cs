@@ -4,11 +4,11 @@ public class Nitro
 {
     [SerializeField] private bool install = false;
 
-    [SerializeField, Min(1f)] private float _engineTorqueCoef = 1.5f;
+    [SerializeField, Min(1f)] private float engineTorqueCoef = 1.5f;
 
-    [SerializeField, Min(0f)] private float _maxTankCapacity = 30f;
+    [SerializeField, Min(0f)] private float maxTankCapacity = 30f;
 
-    private float remainTankCapacity;
+    [SerializeField] private float remainTankCapacity;
     private bool injection;
 
     public bool Install
@@ -23,12 +23,16 @@ public class Nitro
         set => injection = value;
     }
 
-    public float EngineTorqueCoef => injection ? _engineTorqueCoef : 1f;
+    public float EngineTorqueCoef => injection ? engineTorqueCoef : 1f;
 
     public float RemainTankCapacity
     {
         get => remainTankCapacity;
         set => remainTankCapacity = value;
+    }
+    public float MaxTankCapacity
+    {
+        get => maxTankCapacity;
     }
 
     public void Init()
@@ -38,7 +42,7 @@ public class Nitro
             return;
         }
 
-        remainTankCapacity = _maxTankCapacity;
+        remainTankCapacity = maxTankCapacity;
     }
 
     public void Update(bool nosInput)
@@ -58,16 +62,6 @@ public class Nitro
         else
         {
             injection = false;
-        }
-        DisplayNitro();
-    }
-    private void DisplayNitro()
-    {
-        if(UIManager.HasInstance)
-        {
-            // UIManager.Instance.hUDPanel.nitroSlider.maxValue = _maxTankCapacity;
-            // UIManager.Instance.hUDPanel.nitroSlider.value = remainTankCapacity;
-
         }
     }
 }

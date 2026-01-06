@@ -34,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5621955157107672383, guid: aebf8fa6ebd4f5a409e928b9fb11d8f6, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 550
+      value: 560
       objectReference: {fileID: 0}
     - target: {fileID: 5621955157107672383, guid: aebf8fa6ebd4f5a409e928b9fb11d8f6, type: 3}
       propertyPath: m_SizeDelta.y
@@ -90,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8755629209118985350, guid: aebf8fa6ebd4f5a409e928b9fb11d8f6, type: 3}
       propertyPath: m_Name
-      value: BaseItemBtn
+      value: SelectItem
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

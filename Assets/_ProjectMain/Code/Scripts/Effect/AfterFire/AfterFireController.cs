@@ -70,7 +70,7 @@ public class AfterFireController : MonoBehaviour
     private bool IsNitroActive()
     {
         if (carController is RealisticCarController r) return r.Engine.NOS.Injection;
-        if (carController is ArcadeCarController a) return a.NOS.Injection;
+        if (carController is CarControllerBase a) return a.Nitro.Injection;
         return false;
     }
 

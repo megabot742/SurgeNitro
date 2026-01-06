@@ -24,7 +24,7 @@ public class ScreenGame : BaseScreen
     public override void Show(object data)
     {
         base.Show(data);
-        // SUBSCRIBE TO EVENTS
+        // Subscribe to events
         GameEvent.OnLap += HandleLap;
         GameEvent.OnPosition += HandlePosition;
 
@@ -41,7 +41,7 @@ public class ScreenGame : BaseScreen
     public override void Hide()
     {
         base.Hide();
-        // UNSUBSCRIBE TO AVOID MEMORY LEAK
+        // Unsubscribe to avoid memory leak
         GameEvent.OnLap -= HandleLap;
         GameEvent.OnPosition -= HandlePosition;
 
@@ -63,7 +63,12 @@ public class ScreenGame : BaseScreen
         if (lapTimeText) lapTimeText.text = "00:00.000";
         if (bestLapTimeText) bestLapTimeText.text = "00:00.000";
         if (speedText) speedText.text = "0";
-        if (nitroSlider) nitroSlider.value = nitroSlider.maxValue; // full default
+        if (nitroSlider) 
+        {
+            nitroSlider.minValue = 0;
+            nitroSlider.maxValue = 30f; // Default max
+            nitroSlider.value = nitroSlider.maxValue;
+        }
         if (countDownNum) countDownNum.gameObject.SetActive(false);
         if (countDownTxt) countDownTxt.gameObject.SetActive(false);
         if (countDownTimeLeft) countDownTimeLeft.gameObject.SetActive(false);
@@ -80,7 +85,7 @@ public class ScreenGame : BaseScreen
             countDownTimeLeft.gameObject.SetActive(false);
         }
     }
-    // ========== SETTERS PUBLIC - Gọi từ ngoài ==========
+    // Event handling function
     private void HandleLap(int currentLap, int totalLaps)
     {
         if (lapText != null)
@@ -116,11 +121,12 @@ public class ScreenGame : BaseScreen
             speedText.text = Mathf.RoundToInt(speedKmH).ToString();
     }
 
-    private void HandleNitro(float minTank, float maxTank)
+    private void HandleNitro(float remainTank, float maxTank)
     {
         if (nitroSlider != null)
         {
-            nitroSlider.minValue = minTank;
+            nitroSlider.minValue = 0; //default 0
+            nitroSlider.value = remainTank;
             nitroSlider.maxValue = maxTank;
         }
 

@@ -2004,10 +2004,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.2
   classDMultiplier: 0.2
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classCMultiplier: 0.2
+  classBMultiplier: 0.2
+  classAMultiplier: 0.2
+  classSMultiplier: 0.2
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 1616278695}
@@ -3737,10 +3737,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.2
   classDMultiplier: 0.2
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classCMultiplier: 0.2
+  classBMultiplier: 0.2
+  classAMultiplier: 0.2
+  classSMultiplier: 0.2
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 1541330506}
@@ -4301,11 +4301,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.8
-  classDMultiplier: 1
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classDMultiplier: 0.8
+  classCMultiplier: 0.8
+  classBMultiplier: 0.8
+  classAMultiplier: 0.8
+  classSMultiplier: 0.8
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 969437558}
@@ -5179,10 +5179,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.3
   classDMultiplier: 0.3
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classCMultiplier: 0.3
+  classBMultiplier: 0.3
+  classAMultiplier: 0.3
+  classSMultiplier: 0.3
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 960876252}
@@ -6186,10 +6186,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.1
   classDMultiplier: 0.1
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classCMultiplier: 0.1
+  classBMultiplier: 0.1
+  classAMultiplier: 0.1
+  classSMultiplier: 0.1
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 106538599}
@@ -6934,10 +6934,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.4
   classDMultiplier: 0.4
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classCMultiplier: 0.4
+  classBMultiplier: 0.4
+  classAMultiplier: 0.4
+  classSMultiplier: 0.4
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 1044675256}
@@ -6987,10 +6987,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.4
   classDMultiplier: 0.4
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classCMultiplier: 0.4
+  classBMultiplier: 0.4
+  classAMultiplier: 0.4
+  classSMultiplier: 0.4
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 1241715373}
@@ -24738,10 +24738,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.1
   classDMultiplier: 0.1
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classCMultiplier: 0.1
+  classBMultiplier: 0.1
+  classAMultiplier: 0.1
+  classSMultiplier: 0.1
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 1419137006}
@@ -24806,10 +24806,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.4
   classDMultiplier: 0.4
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classCMultiplier: 0.4
+  classBMultiplier: 0.4
+  classAMultiplier: 0.4
+  classSMultiplier: 0.4
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 1105260981}
@@ -25930,10 +25930,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.3
   classDMultiplier: 0.3
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classCMultiplier: 0.3
+  classBMultiplier: 0.3
+  classAMultiplier: 0.3
+  classSMultiplier: 0.3
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 293438305}
@@ -27077,10 +27077,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.1
   classDMultiplier: 0.1
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classCMultiplier: 0.1
+  classBMultiplier: 0.1
+  classAMultiplier: 0.1
+  classSMultiplier: 0.1
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 1977453628}
@@ -27913,10 +27913,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.1
   classDMultiplier: 0.1
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classCMultiplier: 0.1
+  classBMultiplier: 0.1
+  classAMultiplier: 0.1
+  classSMultiplier: 0.1
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 142506705}
@@ -29268,11 +29268,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.6
-  classDMultiplier: 1
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classDMultiplier: 0.6
+  classCMultiplier: 0.6
+  classBMultiplier: 0.6
+  classAMultiplier: 0.6
+  classSMultiplier: 0.6
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 1528736195}
@@ -29644,10 +29644,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.5
   classDMultiplier: 0.5
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classCMultiplier: 0.5
+  classBMultiplier: 0.5
+  classAMultiplier: 0.5
+  classSMultiplier: 0.5
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 1460620089}
@@ -31710,10 +31710,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.8
   classDMultiplier: 0.8
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classCMultiplier: 0.8
+  classBMultiplier: 0.8
+  classAMultiplier: 0.8
+  classSMultiplier: 0.8
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 2136569366}
@@ -32656,10 +32656,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.1
   classDMultiplier: 0.1
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classCMultiplier: 0.1
+  classBMultiplier: 0.1
+  classAMultiplier: 0.1
+  classSMultiplier: 0.1
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 1361543302}
@@ -33454,10 +33454,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.6
   classDMultiplier: 0.6
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classCMultiplier: 0.6
+  classBMultiplier: 0.6
+  classAMultiplier: 0.6
+  classSMultiplier: 0.6
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 1758912483}
@@ -33844,11 +33844,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.6
-  classDMultiplier: 1
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classDMultiplier: 0.6
+  classCMultiplier: 0.6
+  classBMultiplier: 0.6
+  classAMultiplier: 0.6
+  classSMultiplier: 0.6
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 1951295575}
@@ -35631,10 +35631,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.5
   classDMultiplier: 0.5
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classCMultiplier: 0.5
+  classBMultiplier: 0.5
+  classAMultiplier: 0.5
+  classSMultiplier: 0.5
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 228130361}
@@ -36970,10 +36970,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.4
   classDMultiplier: 0.4
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classCMultiplier: 0.4
+  classBMultiplier: 0.4
+  classAMultiplier: 0.4
+  classSMultiplier: 0.4
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 319135657}
@@ -38795,11 +38795,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.8
-  classDMultiplier: 1
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classDMultiplier: 0.8
+  classCMultiplier: 0.8
+  classBMultiplier: 0.8
+  classAMultiplier: 0.8
+  classSMultiplier: 0.8
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 161941430}
@@ -39101,10 +39101,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.1
   classDMultiplier: 0.1
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classCMultiplier: 0.1
+  classBMultiplier: 0.1
+  classAMultiplier: 0.1
+  classSMultiplier: 0.1
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 2124049130}
@@ -40595,11 +40595,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.6
-  classDMultiplier: 1
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classDMultiplier: 0.6
+  classCMultiplier: 0.6
+  classBMultiplier: 0.6
+  classAMultiplier: 0.6
+  classSMultiplier: 0.6
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 1232701870}
@@ -41781,10 +41781,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.4
   classDMultiplier: 0.4
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classCMultiplier: 0.4
+  classBMultiplier: 0.4
+  classAMultiplier: 0.4
+  classSMultiplier: 0.4
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 321142821}
@@ -42171,11 +42171,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.8
-  classDMultiplier: 1
-  classCMultiplier: 1
-  classBMultiplier: 1
-  classAMultiplier: 1
-  classSMultiplier: 1
+  classDMultiplier: 0.8
+  classCMultiplier: 0.8
+  classBMultiplier: 0.8
+  classAMultiplier: 0.8
+  classSMultiplier: 0.8
   minDistanceToReachWaypoint: 20
   nextWaypointNode:
   - {fileID: 2018688402}
