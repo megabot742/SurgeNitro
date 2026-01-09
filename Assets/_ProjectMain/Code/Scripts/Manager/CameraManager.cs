@@ -39,6 +39,10 @@ public class CameraManager : BaseManager<CameraManager>
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;  //Unsub to avoid leaks
     }
+    void Start()
+    {
+        OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+    }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         ResetAllStates();

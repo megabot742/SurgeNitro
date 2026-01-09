@@ -4,7 +4,10 @@ using UnityEngine;
 public class CarClassContainerSO : ScriptableObject
 {
     public CarClass carClass;
+    [Header("Visual Settings")] 
+    [SerializeField] private Color classColor = Color.white; //default white
     public List<CarParam> cars = new List<CarParam>(); //Car list
+
     private void OnValidate() //Auto sync in Inspector or Load
     {
         SyncCarClassToAllCars();
@@ -54,4 +57,7 @@ public class CarClassContainerSO : ScriptableObject
         }
         return null;
     }
+
+    //Get color
+    public Color ClassColor => classColor;
 }

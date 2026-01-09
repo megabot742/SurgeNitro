@@ -6,7 +6,7 @@ public class CarDatabaseSO : ScriptableObject
 {
     [Header("Class Containers")]
     [SerializeField] private List<CarClassContainerSO> classContainersList = new List<CarClassContainerSO>();
-
+    public static CarDatabaseSO Instance;
     // Cache CarClass
     private Dictionary<CarClass, CarClassContainerSO> classContainers;
     // Cache allcar
@@ -117,7 +117,7 @@ public class CarDatabaseSO : ScriptableObject
         CarParam best = cars[0];
         foreach (var car in cars)
         {
-            if (car.carRank > best.carRank)
+            if (car.carCurrentRank > best.carCurrentRank)
                 best = car;
         }
         return best;
@@ -126,5 +126,26 @@ public class CarDatabaseSO : ScriptableObject
     public List<CarClass> GetAvailableClasses()
     {
         return new List<CarClass>(classContainers.Keys);
+    }
+    //Get all car
+    public int TotalCarCount
+    {
+        get
+        {
+            if (!cacheBuilt) BuildAllCarsCache();
+            return allCarsCache.Count;
+        }
+    }
+    public Color GetClassColor(CarClass carClass)
+    {
+        var container = GetContainer(carClass);
+        if (container != null)
+        {
+            return container.ClassColor;
+        }
+        else
+        {
+            return Color.white;
+        }
     }
 }

@@ -2,6 +2,14 @@ using System;
 
 public static class GameEvent
 {
+    #region ToggleButton
+    public static event Action<int> OnFilterButtonSelected; //button toggle select
+
+    public static void FilterButtonSelected(int index)
+    {
+        OnFilterButtonSelected?.Invoke(index);
+    }
+    #endregion
     #region SrceenRace
     public static event Action<int, int> OnLap; //currentLap, totalLaps
     public static event Action<int, int> OnPosition; //currentPosition, totalPosition

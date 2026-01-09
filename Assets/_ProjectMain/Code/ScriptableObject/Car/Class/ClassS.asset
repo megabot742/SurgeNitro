@@ -13,67 +13,82 @@ MonoBehaviour:
   m_Name: ClassS
   m_EditorClassIdentifier: 
   carClass: 5
+  classColor: {r: 0.99215686, g: 0.18039216, b: 0.18039216, a: 1}
   cars:
   - carClass: 5
-    carRank: 0
+    carCurrentRank: 3700
+    carMaxRank: 3900
     carName: Thalassa
     carPrefab: {fileID: 6204919463886204087, guid: 1db52d5f794ce2349b8d3df099bed753, type: 3}
+    carShowModel: {fileID: 974089036829431163, guid: c65c6ce6eee93394fb13863555fac726, type: 3}
     carSprite: {fileID: 21300000, guid: c3253649d2575944fa9fc9e0870c33c2, type: 3}
-    topSpeed: 0
-    acceleration: 0
-    handling: 0
-    nitro: 0
+    topSpeed: 320
+    acceleration: 4
+    handling: 0.4
+    nitro: 4
   - carClass: 5
-    carRank: 0
+    carCurrentRank: 3800
+    carMaxRank: 4000
     carName: Azzurro
     carPrefab: {fileID: 6204919463886204087, guid: 94397a0bafb2ba741b1e91463ff30a06, type: 3}
+    carShowModel: {fileID: 2203244959892147561, guid: 24f1655bf31f95a47aabf44efdf19760, type: 3}
     carSprite: {fileID: 21300000, guid: 4116db194bc6f7743835be59eba7a8a8, type: 3}
-    topSpeed: 0
-    acceleration: 0
-    handling: 0
-    nitro: 0
+    topSpeed: 380
+    acceleration: 4
+    handling: 0.4
+    nitro: 4
   - carClass: 5
-    carRank: 0
+    carCurrentRank: 3900
+    carMaxRank: 4100
     carName: Atlas
     carPrefab: {fileID: 6204919463886204087, guid: 33f33f46d71bc0040b700c0935e575f7, type: 3}
+    carShowModel: {fileID: 4713798393289483875, guid: f6f37847864f2fb48b928f00988699ef, type: 3}
     carSprite: {fileID: 21300000, guid: f253d07e5f1982549a63a657b88102c8, type: 3}
-    topSpeed: 0
-    acceleration: 0
-    handling: 0
-    nitro: 0
+    topSpeed: 290
+    acceleration: 4
+    handling: 0.4
+    nitro: 4
   - carClass: 5
-    carRank: 0
+    carCurrentRank: 4000
+    carMaxRank: 4200
     carName: Chronos
     carPrefab: {fileID: 6204919463886204087, guid: dc2f5ea8a44c08140ad899726446b3de, type: 3}
+    carShowModel: {fileID: 2605791471153487068, guid: d92acb4f9f7266644be544f9bd7a61c5, type: 3}
     carSprite: {fileID: 21300000, guid: f490152237954d040b1599cc22af4aed, type: 3}
-    topSpeed: 0
-    acceleration: 0
-    handling: 0
-    nitro: 0
+    topSpeed: 320
+    acceleration: 4
+    handling: 0.4
+    nitro: 4
   - carClass: 5
-    carRank: 0
+    carCurrentRank: 4100
+    carMaxRank: 4300
     carName: Aphrodite
     carPrefab: {fileID: 6204919463886204087, guid: 32b7b785ce56c044ea05b9c3219d5e0c, type: 3}
+    carShowModel: {fileID: 5044335344596779326, guid: d8d70c0d7840b3641a41c2ac04e363a5, type: 3}
     carSprite: {fileID: 21300000, guid: b293ef74cdc756741a7a864cc9fd8582, type: 3}
-    topSpeed: 0
-    acceleration: 0
-    handling: 0
-    nitro: 0
+    topSpeed: 350
+    acceleration: 4
+    handling: 0.4
+    nitro: 4
   - carClass: 5
-    carRank: 0
+    carCurrentRank: 4200
+    carMaxRank: 4400
     carName: Electra
     carPrefab: {fileID: 6204919463886204087, guid: e473c9e9a5ae14549b8e5af5859d1d56, type: 3}
+    carShowModel: {fileID: 1631510705996944169, guid: 603259ba6b2bc8d418f6819e2e69fb77, type: 3}
     carSprite: {fileID: 21300000, guid: 8563c9a02134ec347be4a925d3fa3be3, type: 3}
-    topSpeed: 0
-    acceleration: 0
-    handling: 0
-    nitro: 0
+    topSpeed: 380
+    acceleration: 4
+    handling: 0.4
+    nitro: 4
   - carClass: 5
-    carRank: 0
+    carCurrentRank: 4300
+    carMaxRank: 4500
     carName: Fireburst
     carPrefab: {fileID: 6204919463886204087, guid: a4606d98906301345878ab19ef3caa90, type: 3}
+    carShowModel: {fileID: 2895366653195247318, guid: 416cd7953b52eb44eade2813b1318b1f, type: 3}
     carSprite: {fileID: 21300000, guid: 54e4ef47181cb514ca09ccdb5f60f189, type: 3}
-    topSpeed: 0
-    acceleration: 0
-    handling: 0
-    nitro: 0
+    topSpeed: 390
+    acceleration: 4
+    handling: 0.4
+    nitro: 4

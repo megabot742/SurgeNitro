@@ -722,6 +722,7 @@ GameObject:
   - component: {fileID: 4183087812934098312}
   - component: {fileID: 1531804387117976979}
   - component: {fileID: 3985973301429289318}
+  - component: {fileID: 531201055860321624}
   m_Layer: 0
   m_Name: BaseItemBtn
   m_TagString: Untagged
@@ -835,3 +836,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &531201055860321624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8755629209118985350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a0f59b944bee0d449e03ec4f8bd8e24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carNameTxt: {fileID: 305482750908509908}
+  classColorImg: {fileID: 1824194572952466943}
+  classTxt: {fileID: 587083745174271442}
+  rankTxt: {fileID: 2372567954278866901}
+  carImg: {fileID: 4470500739353747003}
+  itemButton: {fileID: 3985973301429289318}

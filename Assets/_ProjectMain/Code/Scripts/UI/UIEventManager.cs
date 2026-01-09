@@ -14,19 +14,22 @@ public class UIEventManager : BaseManager<UIEventManager>
     [Header("Pause")]
     public bool isPaused = false;
 
+    [Header ("Toggle button index")]
+    public int currentFilterIndexGarage = 0; //default 0
+
     private Stack<Type> screenHistory = new Stack<Type>();
-    private Dictionary<Type, Action<object>> _showScreenMap = new Dictionary<Type, Action<object>>();
+    private Dictionary<Type, Action<object>> showScreenMap = new Dictionary<Type, Action<object>>();
     protected override void Awake()
     {
         base.Awake();
         currentSceneName = "Garage";
 
-        _showScreenMap.Add(typeof(ScreenHome), data => UIManager.Instance.ShowScreen<ScreenHome>(data));
-        _showScreenMap.Add(typeof(ScreenGarage), data => UIManager.Instance.ShowScreen<ScreenGarage>(data));
-        _showScreenMap.Add(typeof(ScreenShop), data => UIManager.Instance.ShowScreen<ScreenShop>(data));
-        _showScreenMap.Add(typeof(ScreenRaceSetup), data => UIManager.Instance.ShowScreen<ScreenRaceSetup>(data));
-        _showScreenMap.Add(typeof(ScreenCarInfo), data => UIManager.Instance.ShowScreen<ScreenCarInfo>(data));
-        _showScreenMap.Add(typeof(ScreenCarView), data => UIManager.Instance.ShowScreen<ScreenCarView>());
+        showScreenMap.Add(typeof(ScreenHome), data => UIManager.Instance.ShowScreen<ScreenHome>(data));
+        showScreenMap.Add(typeof(ScreenGarage), data => UIManager.Instance.ShowScreen<ScreenGarage>(data));
+        showScreenMap.Add(typeof(ScreenShop), data => UIManager.Instance.ShowScreen<ScreenShop>(data));
+        showScreenMap.Add(typeof(ScreenRaceSetup), data => UIManager.Instance.ShowScreen<ScreenRaceSetup>(data));
+        showScreenMap.Add(typeof(ScreenCarInfo), data => UIManager.Instance.ShowScreen<ScreenCarInfo>(data));
+        showScreenMap.Add(typeof(ScreenCarView), data => UIManager.Instance.ShowScreen<ScreenCarView>());
         // _showScreenMap.Add(typeof(ScreenCarUpgrade), data => UIManager.Instance.ShowScreen<ScreenCarUpgrade>(data));
     }
     void OnEnable()
@@ -98,9 +101,9 @@ public class UIEventManager : BaseManager<UIEventManager>
 
         // Pop và show target screen
         Type targetType = screenHistory.Pop();
-        if (_showScreenMap.ContainsKey(targetType))
+        if (showScreenMap.TryGetValue(targetType, out var showAction))
         {
-            _showScreenMap[targetType](data); // Gọi show với data (có thể null)
+            showAction(data);
         }
         else
         {
@@ -197,6 +200,7 @@ public class UIEventManager : BaseManager<UIEventManager>
             if (data == null)
             {
                 data = new CarInfoData { Mode = CarInfoMode.View };
+                currentFilterIndexGarage = 0;
             }
             ShowScreenWithHistory<ScreenGarage>(data);
         }

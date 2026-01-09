@@ -16,8 +16,7 @@ public enum CarInfoMode
 public class CarInfoData
 {
     public CarInfoMode Mode { get; set; }
-    public string CarId { get; set; } // Optional: ID xe để load data
-    // Thêm nếu cần: Action onConfirm, onBack (nhưng dùng event tốt hơn)
+    public CarParam Car {get; set;} 
 }
 //Camera setting
 public enum MenuCameraType

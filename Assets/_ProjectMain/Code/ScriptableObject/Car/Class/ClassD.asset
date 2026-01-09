@@ -13,67 +13,82 @@ MonoBehaviour:
   m_Name: ClassD
   m_EditorClassIdentifier: 
   carClass: 1
+  classColor: {r: 0.4509804, g: 0.4509804, b: 0.4509804, a: 1}
   cars:
   - carClass: 1
-    carRank: 0
+    carCurrentRank: 600
+    carMaxRank: 800
     carName: Supernova
     carPrefab: {fileID: 4093113105538447913, guid: 5304ce8142f971946a9975f34eefcf39, type: 3}
+    carShowModel: {fileID: 1693311213173235738, guid: b147e82de99d44d4b94b45b824788f46, type: 3}
     carSprite: {fileID: 21300000, guid: 07b630b872771054caf344fcf16ac769, type: 3}
-    topSpeed: 0
-    acceleration: 0
-    handling: 0
-    nitro: 0
+    topSpeed: 100
+    acceleration: 5
+    handling: 0.2
+    nitro: 4
   - carClass: 1
-    carRank: 0
+    carCurrentRank: 700
+    carMaxRank: 900
     carName: Coggia
     carPrefab: {fileID: 4093113105538447913, guid: 9295829ee8e103244bcf76d607d65578, type: 3}
+    carShowModel: {fileID: 3122180013604911470, guid: c66b89c07adc2e549a7c6ec5cdea68f7, type: 3}
     carSprite: {fileID: 21300000, guid: f1ed07b25bc892941a2b040a9b127698, type: 3}
-    topSpeed: 0
-    acceleration: 0
-    handling: 0
-    nitro: 0
+    topSpeed: 118
+    acceleration: 4.8
+    handling: 0.3
+    nitro: 4
   - carClass: 1
-    carRank: 0
+    carCurrentRank: 800
+    carMaxRank: 1000
     carName: Echo
     carPrefab: {fileID: 4093113105538447913, guid: cfe3b5a4e7d4af740912bc81b49809e5, type: 3}
+    carShowModel: {fileID: 8146461312952117605, guid: 4964f93c1c17a504d985493cecd51626, type: 3}
     carSprite: {fileID: 21300000, guid: 576085e0114276f44925b534899f6bb4, type: 3}
-    topSpeed: 0
-    acceleration: 0
-    handling: 0
-    nitro: 0
+    topSpeed: 125
+    acceleration: 4.6
+    handling: 0.3
+    nitro: 4
   - carClass: 1
-    carRank: 0
+    carCurrentRank: 900
+    carMaxRank: 1000
     carName: Castalia
     carPrefab: {fileID: 4093113105538447913, guid: 0a75a245320c0b042a892be4161affd6, type: 3}
+    carShowModel: {fileID: 5761500144667286721, guid: 5049d0e2af93fa943903423c4e0d9fbe, type: 3}
     carSprite: {fileID: 21300000, guid: 3a580f49e85f4464883b174c23557358, type: 3}
-    topSpeed: 0
-    acceleration: 0
-    handling: 0
-    nitro: 0
+    topSpeed: 120
+    acceleration: 4
+    handling: 0.5
+    nitro: 10
   - carClass: 1
-    carRank: 0
+    carCurrentRank: 1000
+    carMaxRank: 1200
     carName: Gaia
     carPrefab: {fileID: 4528110837461989515, guid: 02a99c0ef39ce674a85c2b0cd3918ad9, type: 3}
+    carShowModel: {fileID: 3296887649953032947, guid: 1adf7b65c0e75e042a605233b682e056, type: 3}
     carSprite: {fileID: 21300000, guid: 0f285ccef3d8f9541bfa4f937f988610, type: 3}
-    topSpeed: 0
-    acceleration: 0
-    handling: 0
-    nitro: 0
+    topSpeed: 135
+    acceleration: 4.4
+    handling: 0.4
+    nitro: 5
   - carClass: 1
-    carRank: 0
+    carCurrentRank: 1100
+    carMaxRank: 1300
     carName: Luna
     carPrefab: {fileID: 4528110837461989515, guid: 6c0dd3c300df785478cc5b0b7c07d25d, type: 3}
+    carShowModel: {fileID: 3545234468202372654, guid: b68b250801822b845b9e1deb96fff49d, type: 3}
     carSprite: {fileID: 21300000, guid: 15737420a49740940b5513d8fa0d0610, type: 3}
-    topSpeed: 0
-    acceleration: 0
-    handling: 0
-    nitro: 0
+    topSpeed: 150
+    acceleration: 4.3
+    handling: 0.3
+    nitro: 8
   - carClass: 1
-    carRank: 0
+    carCurrentRank: 1200
+    carMaxRank: 1400
     carName: Inari
     carPrefab: {fileID: 4528110837461989515, guid: 73793df97ca71df4d96078a149410a51, type: 3}
+    carShowModel: {fileID: 11830017780835333, guid: 777e38c4573ab6b439fd0c8971bf8e0e, type: 3}
     carSprite: {fileID: 21300000, guid: 9a32d9491d5b3774e8d313af40e69586, type: 3}
-    topSpeed: 0
-    acceleration: 0
-    handling: 0
-    nitro: 0
+    topSpeed: 160
+    acceleration: 4.1
+    handling: 0.4
+    nitro: 4

@@ -21,10 +21,11 @@ public class PopupCurrency : BasePopup
     //Button
     public void OnClickGoHome()
     {
-        if (UIManager.HasInstance)
+        if (UIManager.HasInstance && UIEventManager.HasInstance)
         {
             UIManager.Instance.HideAllScreens();
             UIManager.Instance.ShowScreen<ScreenHome>();
+            UIEventManager.Instance.currentFilterIndexGarage = 0; //reset to default
         }
     }
 }
