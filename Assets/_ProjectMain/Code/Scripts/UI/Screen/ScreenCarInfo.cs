@@ -40,10 +40,6 @@ public class ScreenCarInfo : BaseScreen
     {
         base.Init();
     }
-    public override void Hide()
-    {
-        base.Hide();
-    }
     public override void Show(object data)
     {
         base.Show(data);
@@ -91,6 +87,10 @@ public class ScreenCarInfo : BaseScreen
                 // coinTxt.text = GiáXe(infoData.CarId);
                 break;
         }
+    }
+    public override void Hide()
+    {
+        base.Hide();
     }
     public override void Clear()
     {
@@ -209,6 +209,10 @@ public class ScreenCarInfo : BaseScreen
         if (UIEventManager.HasInstance)
         {
             UIEventManager.Instance.GoBack();
+        }
+        if (CameraManager.HasInstance)
+        {
+            CameraManager.Instance.SwitchMenuCamera(MenuCameraType.Home);
         }
         this.Hide();
     }

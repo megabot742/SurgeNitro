@@ -35,13 +35,16 @@ public class ScreenGarage : BaseScreen
     public override void Show(object data)
     {
         base.Show(data);
-        garageData = data as CarInfoData; //Save data
+        if (data != null)
+        {
+            garageData = data as CarInfoData; //Save data
+        }
         //Show last filter index from screenCarInfo go back screenGarage
         if (filterToggleGroup != null && UIEventManager.HasInstance)
         {
             filterToggleGroup.SelectSilent(UIEventManager.Instance.currentFilterIndexGarage); // Khôi phục toggle state/colors mà không trigger event
         }
-       //ShowAllCars(); //Show item in garage
+        //ShowAllCars(); //Show item in garage
         OnFilterButtonSelected(UIEventManager.Instance.currentFilterIndexGarage);
         GameEvent.OnFilterButtonSelected += OnFilterButtonSelected; //Subscribe events
 
@@ -51,12 +54,10 @@ public class ScreenGarage : BaseScreen
     {
         base.Hide();
         DeactivateAllItems(); //Hide item in garage
-        //Reset filter button
-        
         GameEvent.OnFilterButtonSelected -= OnFilterButtonSelected; //Unsubscribe to avoid memory leak
 
     }
-    
+
     #region Object Pooling 
     public void ShowAllCars()
     {
@@ -97,9 +98,18 @@ public class ScreenGarage : BaseScreen
         int index = 0;
         foreach (var car in carsToShow)
         {
-            if (index >= itemPool.Count) break; //Check safe without out pool
-
-            ScrollItem item = itemPool[index];
+            if (index >= itemPool.Count)
+            {
+                Debug.Log("Pool out slot");
+                break; //Check safe without out pool
+            }
+            ;
+            var item = itemPool[index];
+            if (ReferenceEquals(item, null) || item == null || item.gameObject == null)
+            {
+                index++;
+                continue;
+            }
             item.gameObject.SetActive(true);
             item.SetData(car, carDatabase); //Set data car for item.
 
@@ -120,9 +130,14 @@ public class ScreenGarage : BaseScreen
     private void DeactivateAllItems()
     {
         //Loop pool and inactive each item.
-        foreach (ScrollItem item in itemPool)
+        for (int i = itemPool.Count - 1; i >= 0; i--)
         {
-            if(item == null) return;
+            ScrollItem item = itemPool[i];
+            if (ReferenceEquals(item, null) || item == null || item.gameObject == null)
+            {
+                itemPool[i] = null;
+                continue;
+            }
             item.gameObject.SetActive(false);
             item.ResetItem(); //reset data for reuse
         }
@@ -164,7 +179,7 @@ public class ScreenGarage : BaseScreen
     //Handling when the filter button is selected from toggle button 
     private void OnFilterButtonSelected(int selectedIndex)
     {
-        if(UIEventManager.HasInstance)
+        if (UIEventManager.HasInstance)
         {
             UIEventManager.Instance.currentFilterIndexGarage = selectedIndex;
         }
@@ -270,7 +285,7 @@ public class ScreenGarage : BaseScreen
         if (filterToggleGroup != null && UIEventManager.HasInstance)
         {
             UIEventManager.Instance.currentFilterIndexGarage = 0;//reset to default
-            filterToggleGroup.SelectSilent( UIEventManager.Instance.currentFilterIndexGarage);
+            filterToggleGroup.SelectSilent(UIEventManager.Instance.currentFilterIndexGarage);
         }
         //ShowAllCars(); //reset all car screenGarage
         //Hide this screen

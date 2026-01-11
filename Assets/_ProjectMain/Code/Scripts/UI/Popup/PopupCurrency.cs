@@ -26,6 +26,7 @@ public class PopupCurrency : BasePopup
             UIManager.Instance.HideAllScreens();
             UIManager.Instance.ShowScreen<ScreenHome>();
             UIEventManager.Instance.currentFilterIndexGarage = 0; //reset to default
+            UIEventManager.Instance.currentFilterIndexShop = 0; //reset to default
         }
     }
 }

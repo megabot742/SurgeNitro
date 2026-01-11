@@ -16,7 +16,7 @@ public class UIEventManager : BaseManager<UIEventManager>
 
     [Header ("Toggle button index")]
     public int currentFilterIndexGarage = 0; //default 0
-
+    public int currentFilterIndexShop = 0; //default 0
     private Stack<Type> screenHistory = new Stack<Type>();
     private Dictionary<Type, Action<object>> showScreenMap = new Dictionary<Type, Action<object>>();
     protected override void Awake()
@@ -193,15 +193,15 @@ public class UIEventManager : BaseManager<UIEventManager>
             ShowScreenWithHistory<ScreenRaceSetup>();
         }
     }
-    public void GarageBtn(object data = null)
+    public void GarageBtn(object data = null) //null = View
     {
         if (UIManager.HasInstance)
         {
             if (data == null)
             {
                 data = new CarInfoData { Mode = CarInfoMode.View };
-                currentFilterIndexGarage = 0;
             }
+            currentFilterIndexGarage = 0;
             ShowScreenWithHistory<ScreenGarage>(data);
         }
     }
@@ -210,6 +210,7 @@ public class UIEventManager : BaseManager<UIEventManager>
         if (UIManager.HasInstance)
         {
             var data = new CarInfoData { Mode = CarInfoMode.Buy };
+            currentFilterIndexShop = 0;
             ShowScreenWithHistory<ScreenShop>(data);
         }
     }
