@@ -73,6 +73,7 @@ public class RaceManager : BaseManager<RaceManager>
     {
         return sceneName == "R&D" || sceneName.StartsWith("Track");
     }
+    #region Setup Race
     private void ResetRaceState()
     {
         // Reset countdown to default
@@ -93,6 +94,19 @@ public class RaceManager : BaseManager<RaceManager>
     }
     void InitRace()
     {
+        //Check data PlayerPrefs
+        if (PlayerManager.HasInstance)
+        {
+            totalLaps = PlayerManager.Instance.GetCurrentLap();
+            aiNumberToSpawn = PlayerManager.Instance.GetCurrentAISpawn();
+            playerCarPrefab = PlayerManager.Instance.GetCurrentCarPrefab();
+            if (playerCarPrefab == null)
+            {
+                Debug.LogError("Player car prefab not set! Fallback to default.");
+                // Optional: Fallback load default từ database
+            }
+        }
+        
         FindCheckPoint();
         FindStartPoint();
         spawnCarParent = GameObject.FindGameObjectWithTag(SPAWN_POINT_PARENT);
@@ -283,7 +297,7 @@ public class RaceManager : BaseManager<RaceManager>
             GameEvent.ShowCountDownTime(countDownCurrent);
         }
     }
-
+    #endregion
     void SpawnCarWithStartPoint()
     {
         #region Spawnplayer

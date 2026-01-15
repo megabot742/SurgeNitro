@@ -61,4 +61,22 @@ public static class GameEvent
         OnRaceFinished?.Invoke(position, bestTime);
     }
     #endregion
+    #region Currency / Player Data
+    public static event Action<long> OnCoinChanged;
+    public static event Action<string> OnCarPurchased;  // Truyền carName để biết xe nào được mua
+    public static event Action<string> OnCarUpgraded;  // Truyền carName
+
+    public static void CoinChanged(long newCoinAmount)
+    {
+        OnCoinChanged?.Invoke(newCoinAmount);
+    }
+    public static void CarPurchased(string carName)
+    {
+        OnCarPurchased?.Invoke(carName);
+    }
+    public static void CarUpgraded(string carName)
+    {
+        OnCarUpgraded?.Invoke(carName);
+    }
+    #endregion
 }

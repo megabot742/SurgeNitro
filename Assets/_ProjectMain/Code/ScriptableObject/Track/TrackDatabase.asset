@@ -14,14 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tracksSO:
   - idTrack: Track1
-    idTrackUnlock: 
     trackName: Northern Wind
-    trackImg: {fileID: 0}
+    trackImg: {fileID: 21300000, guid: 056526f92c5aa894a88eedf908f3118b, type: 3}
   - idTrack: Track2
-    idTrackUnlock: Track1
     trackName: City Megapoly
-    trackImg: {fileID: 0}
+    trackImg: {fileID: 21300000, guid: 5f81288194e67204cbc5f07b21dcd3b9, type: 3}
   - idTrack: Track3
-    idTrackUnlock: Track3
     trackName: Wild West
-    trackImg: {fileID: 0}
+    trackImg: {fileID: 21300000, guid: 8d14b01c66d450946850d04195551e96, type: 3}

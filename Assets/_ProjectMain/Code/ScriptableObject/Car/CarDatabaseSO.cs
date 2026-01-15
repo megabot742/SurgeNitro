@@ -148,4 +148,33 @@ public class CarDatabaseSO : ScriptableObject
             return Color.white;
         }
     }
+    public CarParam GetCarByName(string carName)
+    {
+        if (string.IsNullOrEmpty(carName)) return null;
+
+        // Duyệt qua classContainersList (public, dễ truy cập)
+        foreach (var container in classContainersList)
+        {
+            if (container == null || container.cars == null) continue;
+
+            foreach (var car in container.cars)
+            {
+                if (car != null && car.carName == carName)
+                {
+                    return car;
+                }
+            }
+        }
+
+        Debug.LogWarning($"Car with name '{carName}' not found in any class container!");
+        return null;
+    }
+    public List<CarParam> AllCars
+    {
+        get
+        {
+            if (!cacheBuilt) BuildAllCarsCache();
+            return allCarsCache;
+        }
+    }
 }

@@ -8,15 +8,30 @@ public class PopupCurrency : BasePopup
     {
         base.Init();
     }
-
     public override void Show(object data)
     {
         base.Show(data);
+        GameEvent.OnCoinChanged += UpdateCoinText;
+        if(PlayerManager.HasInstance)
+        {
+            UpdateCoinText(PlayerManager.Instance.GetCoin());
+        }
     }
-
     public override void Hide()
     {
         base.Hide();
+        GameEvent.OnCoinChanged -= UpdateCoinText;
+    }
+    public override void Clear()
+    {
+        coinTxt.text = "";
+    }
+    private void UpdateCoinText(long newCoin)
+    {
+        if (coinTxt != null)
+        {
+            coinTxt.text = newCoin.ToString("N0");
+        }
     }
     //Button
     public void OnClickGoHome()

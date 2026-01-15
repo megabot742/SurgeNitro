@@ -16,79 +16,268 @@ MonoBehaviour:
   classColor: {r: 0.19215687, g: 0.6745098, b: 0.7921569, a: 1}
   cars:
   - carClass: 2
+    carBaseRank: 1100
     carCurrentRank: 1100
-    carMaxRank: 1300
+    carMaxRankAuto: 1300
     carName: Elara
     carPrefab: {fileID: 5530049109844808183, guid: aa026f753f3cd64428dd2ec3d208e8f6, type: 3}
     carShowModel: {fileID: 1439922760953626569, guid: 3c6c684192454504f9e413cf3a0b4184, type: 3}
     carSprite: {fileID: 21300000, guid: 406b23ae35dc28f40b8be31571ca5ca4, type: 3}
-    topSpeed: 100
-    acceleration: 4
-    handling: 0.3
-    nitro: 4
+    priceCar: 24000
+    stats:
+    - statType: 0
+      baseValue: 140
+      maxValue: 165
+      baseGold: 7000
+      currentLevel: 0
+      currentValue: 140
+      goldUpgrade: 7700
+    - statType: 1
+      baseValue: 4.4
+      maxValue: 4
+      baseGold: 7000
+      currentLevel: 0
+      currentValue: 4.4
+      goldUpgrade: 7700
+    - statType: 2
+      baseValue: 0.4
+      maxValue: 0.5
+      baseGold: 7000
+      currentLevel: 0
+      currentValue: 0.4
+      goldUpgrade: 7700
+    - statType: 3
+      baseValue: 4
+      maxValue: 8
+      baseGold: 7000
+      currentLevel: 0
+      currentValue: 4
+      goldUpgrade: 7700
   - carClass: 2
+    carBaseRank: 1200
     carCurrentRank: 1200
-    carMaxRank: 1400
+    carMaxRankAuto: 1400
     carName: Juno
     carPrefab: {fileID: 5530049109844808183, guid: bd07e22c19b405b4e97be0ffdf5487b7, type: 3}
     carShowModel: {fileID: 4076241832962972236, guid: df559f0e0aad67a4fb32096b0b0545cc, type: 3}
     carSprite: {fileID: 21300000, guid: e9801add246f3ad46a9c71a1653cb29a, type: 3}
-    topSpeed: 100
-    acceleration: 4
-    handling: 0.4
-    nitro: 4
+    priceCar: 28000
+    stats:
+    - statType: 0
+      baseValue: 150
+      maxValue: 170
+      baseGold: 10000
+      currentLevel: 0
+      currentValue: 150
+      goldUpgrade: 11000
+    - statType: 1
+      baseValue: 4.2
+      maxValue: 3.8
+      baseGold: 10000
+      currentLevel: 0
+      currentValue: 4.2
+      goldUpgrade: 11000
+    - statType: 2
+      baseValue: 0.35
+      maxValue: 0.45
+      baseGold: 10000
+      currentLevel: 0
+      currentValue: 0.35
+      goldUpgrade: 11000
+    - statType: 3
+      baseValue: 4
+      maxValue: 10
+      baseGold: 10000
+      currentLevel: 0
+      currentValue: 4
+      goldUpgrade: 11000
   - carClass: 2
+    carBaseRank: 1400
     carCurrentRank: 1400
-    carMaxRank: 1600
+    carMaxRankAuto: 1600
     carName: Pysche
     carPrefab: {fileID: 5530049109844808183, guid: 4838d4ec65b37de4cae4c89205619588, type: 3}
     carShowModel: {fileID: 1630833953111323190, guid: c38f7bf825e99694883be17afdd07677, type: 3}
     carSprite: {fileID: 21300000, guid: eb3abe49014ee5f4a9fdc35b34499728, type: 3}
-    topSpeed: 100
-    acceleration: 4
-    handling: 0.4
-    nitro: 4
+    priceCar: 30000
+    stats:
+    - statType: 0
+      baseValue: 150
+      maxValue: 170
+      baseGold: 12000
+      currentLevel: 0
+      currentValue: 150
+      goldUpgrade: 13200
+    - statType: 1
+      baseValue: 4
+      maxValue: 3.8
+      baseGold: 12000
+      currentLevel: 0
+      currentValue: 4
+      goldUpgrade: 13200
+    - statType: 2
+      baseValue: 0.5
+      maxValue: 0.6
+      baseGold: 12000
+      currentLevel: 0
+      currentValue: 0.5
+      goldUpgrade: 13200
+    - statType: 3
+      baseValue: 3
+      maxValue: 7
+      baseGold: 12000
+      currentLevel: 0
+      currentValue: 3
+      goldUpgrade: 13200
   - carClass: 2
+    carBaseRank: 1500
     carCurrentRank: 1500
-    carMaxRank: 1700
+    carMaxRankAuto: 1700
     carName: Callisto
     carPrefab: {fileID: 5530049109844808183, guid: 3663a1ac74c4be544b2b5e2bc4ce3ab0, type: 3}
     carShowModel: {fileID: 4583007543512389133, guid: 88ff6f5c30189ee4ab8efb4efde898cd, type: 3}
     carSprite: {fileID: 21300000, guid: 2a720d8983c235340bb454a542396246, type: 3}
-    topSpeed: 100
-    acceleration: 4
-    handling: 0.4
-    nitro: 4
+    priceCar: 35000
+    stats:
+    - statType: 0
+      baseValue: 160
+      maxValue: 185
+      baseGold: 15000
+      currentLevel: 0
+      currentValue: 160
+      goldUpgrade: 16500
+    - statType: 1
+      baseValue: 3.9
+      maxValue: 3.7
+      baseGold: 15000
+      currentLevel: 0
+      currentValue: 3.9
+      goldUpgrade: 16500
+    - statType: 2
+      baseValue: 0.4
+      maxValue: 0.6
+      baseGold: 15000
+      currentLevel: 0
+      currentValue: 0.4
+      goldUpgrade: 16500
+    - statType: 3
+      baseValue: 4
+      maxValue: 8
+      baseGold: 15000
+      currentLevel: 0
+      currentValue: 4
+      goldUpgrade: 16500
   - carClass: 2
+    carBaseRank: 1600
     carCurrentRank: 1600
-    carMaxRank: 1800
+    carMaxRankAuto: 1800
     carName: Rhea
     carPrefab: {fileID: 5530049109844808183, guid: f4c01dd01e6fa0f468b76c26008bef62, type: 3}
     carShowModel: {fileID: 4709882709999444715, guid: 23d2364b2ad8f634eb23b80ac2a98dd2, type: 3}
     carSprite: {fileID: 21300000, guid: cfbeff1ebe76e6e4e8e8d79cec75a04b, type: 3}
-    topSpeed: 140
-    acceleration: 4
-    handling: 0.4
-    nitro: 4
+    priceCar: 38000
+    stats:
+    - statType: 0
+      baseValue: 180
+      maxValue: 200
+      baseGold: 15000
+      currentLevel: 0
+      currentValue: 180
+      goldUpgrade: 16500
+    - statType: 1
+      baseValue: 3.8
+      maxValue: 3.6
+      baseGold: 15000
+      currentLevel: 0
+      currentValue: 3.8
+      goldUpgrade: 16500
+    - statType: 2
+      baseValue: 0.5
+      maxValue: 0.6
+      baseGold: 15000
+      currentLevel: 0
+      currentValue: 0.5
+      goldUpgrade: 16500
+    - statType: 3
+      baseValue: 5
+      maxValue: 8
+      baseGold: 15000
+      currentLevel: 0
+      currentValue: 5
+      goldUpgrade: 16500
   - carClass: 2
+    carBaseRank: 1700
     carCurrentRank: 1700
-    carMaxRank: 1900
+    carMaxRankAuto: 1900
     carName: Mercurio
     carPrefab: {fileID: 5530049109844808183, guid: 7f6578f375578204d9b840c2e8735a7f, type: 3}
     carShowModel: {fileID: 1000527093121521114, guid: 2d57ed8c151a1ae42a288afc558512af, type: 3}
     carSprite: {fileID: 21300000, guid: 2a714d07b4f441145b5702e19e0adcf2, type: 3}
-    topSpeed: 140
-    acceleration: 4
-    handling: 0.4
-    nitro: 4
+    priceCar: 42000
+    stats:
+    - statType: 0
+      baseValue: 175
+      maxValue: 205
+      baseGold: 18000
+      currentLevel: 0
+      currentValue: 175
+      goldUpgrade: 19800
+    - statType: 1
+      baseValue: 3.6
+      maxValue: 3.4
+      baseGold: 18000
+      currentLevel: 0
+      currentValue: 3.6
+      goldUpgrade: 19800
+    - statType: 2
+      baseValue: 0.4
+      maxValue: 0.6
+      baseGold: 18000
+      currentLevel: 0
+      currentValue: 0.4
+      goldUpgrade: 19800
+    - statType: 3
+      baseValue: 6
+      maxValue: 10
+      baseGold: 18000
+      currentLevel: 0
+      currentValue: 6
+      goldUpgrade: 19800
   - carClass: 2
-    carCurrentRank: 1900
-    carMaxRank: 2100
+    carBaseRank: 1800
+    carCurrentRank: 1800
+    carMaxRankAuto: 2000
     carName: Frostbite
     carPrefab: {fileID: 5530049109844808183, guid: 4507a949b00fe8545a25f62e70aa8ab6, type: 3}
     carShowModel: {fileID: 2882158064505818478, guid: c31d74fa6aa4003488c7a81cdcef112c, type: 3}
     carSprite: {fileID: 21300000, guid: e633274cf3919bb4288143f6c467e804, type: 3}
-    topSpeed: 140
-    acceleration: 4
-    handling: 0.4
-    nitro: 4
+    priceCar: 45000
+    stats:
+    - statType: 0
+      baseValue: 200
+      maxValue: 220
+      baseGold: 18000
+      currentLevel: 0
+      currentValue: 200
+      goldUpgrade: 19800
+    - statType: 1
+      baseValue: 3.5
+      maxValue: 3.2
+      baseGold: 18000
+      currentLevel: 0
+      currentValue: 3.5
+      goldUpgrade: 19800
+    - statType: 2
+      baseValue: 0.5
+      maxValue: 0.7
+      baseGold: 18000
+      currentLevel: 0
+      currentValue: 0.5
+      goldUpgrade: 19800
+    - statType: 3
+      baseValue: 6
+      maxValue: 11
+      baseGold: 18000
+      currentLevel: 0
+      currentValue: 6
+      goldUpgrade: 19800

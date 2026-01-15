@@ -45,6 +45,13 @@ public class ScreenHome : BaseScreen
         }
         this.Hide();
     }
+    public void OnClickTutorial()
+    {
+        if(UIManager.HasInstance)
+        {
+            UIManager.Instance.ShowOverlap<OverlapTutorial>();
+        }
+    }
     public void OnClickToSetting()
     {
         if (UIEventManager.HasInstance)

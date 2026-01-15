@@ -16,79 +16,268 @@ MonoBehaviour:
   classColor: {r: 0.60784316, g: 0.30588236, b: 0.8392157, a: 1}
   cars:
   - carClass: 3
-    carCurrentRank: 1900
-    carMaxRank: 2100
+    carBaseRank: 1800
+    carCurrentRank: 1800
+    carMaxRankAuto: 2000
     carName: Set
     carPrefab: {fileID: 6022285759035876821, guid: 7dbcf2d5ac5a5aa42917720408823ebb, type: 3}
     carShowModel: {fileID: 4656330880618364961, guid: 2fd1ba91661c55f44bccdecfe1eecd2a, type: 3}
     carSprite: {fileID: 21300000, guid: 834a471e25106bc4c812c0de566e9618, type: 3}
-    topSpeed: 150
-    acceleration: 4
-    handling: 0.4
-    nitro: 4
+    priceCar: 48000
+    stats:
+    - statType: 0
+      baseValue: 190
+      maxValue: 200
+      baseGold: 20000
+      currentLevel: 0
+      currentValue: 190
+      goldUpgrade: 22000
+    - statType: 1
+      baseValue: 3.6
+      maxValue: 3.4
+      baseGold: 20000
+      currentLevel: 0
+      currentValue: 3.6
+      goldUpgrade: 22000
+    - statType: 2
+      baseValue: 0.6
+      maxValue: 0.7
+      baseGold: 20000
+      currentLevel: 0
+      currentValue: 0.6
+      goldUpgrade: 22000
+    - statType: 3
+      baseValue: 6
+      maxValue: 10
+      baseGold: 20000
+      currentLevel: 0
+      currentValue: 6
+      goldUpgrade: 22000
   - carClass: 3
-    carCurrentRank: 2000
-    carMaxRank: 2200
+    carBaseRank: 1900
+    carCurrentRank: 1900
+    carMaxRankAuto: 2100
     carName: Metis
     carPrefab: {fileID: 6022285759035876821, guid: 948536a009ae4e548886c8837a1f8d3d, type: 3}
     carShowModel: {fileID: 5939888216106907075, guid: bbaeb9cba250aef4798a7f0db5a68ab2, type: 3}
     carSprite: {fileID: 21300000, guid: 9a7fb8587f94d7b4f86d41dfb5282cd5, type: 3}
-    topSpeed: 150
-    acceleration: 4
-    handling: 0.4
-    nitro: 4
+    priceCar: 54000
+    stats:
+    - statType: 0
+      baseValue: 210
+      maxValue: 230
+      baseGold: 20000
+      currentLevel: 0
+      currentValue: 210
+      goldUpgrade: 22000
+    - statType: 1
+      baseValue: 3.5
+      maxValue: 3.2
+      baseGold: 20000
+      currentLevel: 0
+      currentValue: 3.5
+      goldUpgrade: 22000
+    - statType: 2
+      baseValue: 0.7
+      maxValue: 0.8
+      baseGold: 20000
+      currentLevel: 0
+      currentValue: 0.7
+      goldUpgrade: 22000
+    - statType: 3
+      baseValue: 6
+      maxValue: 9
+      baseGold: 20000
+      currentLevel: 0
+      currentValue: 6
+      goldUpgrade: 22000
   - carClass: 3
-    carCurrentRank: 2100
-    carMaxRank: 2200
+    carBaseRank: 2000
+    carCurrentRank: 2000
+    carMaxRankAuto: 2200
     carName: Nordic
     carPrefab: {fileID: 6022285759035876821, guid: 57674f848cec8e14eaddcbffa6b5c3fb, type: 3}
     carShowModel: {fileID: 3536437271549602632, guid: 6fd8d24caaf2da14989722058fc63e91, type: 3}
     carSprite: {fileID: 21300000, guid: 7d30e92984980c74aafdc4b594e3ea48, type: 3}
-    topSpeed: 160
-    acceleration: 4
-    handling: 0.4
-    nitro: 4
+    priceCar: 60000
+    stats:
+    - statType: 0
+      baseValue: 225
+      maxValue: 245
+      baseGold: 24000
+      currentLevel: 0
+      currentValue: 225
+      goldUpgrade: 26400
+    - statType: 1
+      baseValue: 3.4
+      maxValue: 3.2
+      baseGold: 24000
+      currentLevel: 0
+      currentValue: 3.4
+      goldUpgrade: 26400
+    - statType: 2
+      baseValue: 0.65
+      maxValue: 0.7
+      baseGold: 0
+      currentLevel: 0
+      currentValue: 0.65
+      goldUpgrade: 0
+    - statType: 3
+      baseValue: 6
+      maxValue: 12
+      baseGold: 24000
+      currentLevel: 0
+      currentValue: 6
+      goldUpgrade: 26400
   - carClass: 3
-    carCurrentRank: 2300
-    carMaxRank: 2500
+    carBaseRank: 2200
+    carCurrentRank: 2200
+    carMaxRankAuto: 2400
     carName: Azura
     carPrefab: {fileID: 6022285759035876821, guid: 3be3430e7cfc02d4e907292ece0dd5c4, type: 3}
     carShowModel: {fileID: 2071497977254431734, guid: 3bf219c70db12a44fb1d044611e39a2e, type: 3}
     carSprite: {fileID: 21300000, guid: 8ce11653ad216014f818a6b227e033bb, type: 3}
-    topSpeed: 170
-    acceleration: 4
-    handling: 0.4
-    nitro: 4
+    priceCar: 63000
+    stats:
+    - statType: 0
+      baseValue: 230
+      maxValue: 250
+      baseGold: 24000
+      currentLevel: 0
+      currentValue: 230
+      goldUpgrade: 26400
+    - statType: 1
+      baseValue: 3.6
+      maxValue: 3.2
+      baseGold: 24000
+      currentLevel: 0
+      currentValue: 3.6
+      goldUpgrade: 26400
+    - statType: 2
+      baseValue: 0.6
+      maxValue: 0.7
+      baseGold: 0
+      currentLevel: 0
+      currentValue: 0.6
+      goldUpgrade: 0
+    - statType: 3
+      baseValue: 4
+      maxValue: 10
+      baseGold: 24000
+      currentLevel: 0
+      currentValue: 4
+      goldUpgrade: 26400
   - carClass: 3
-    carCurrentRank: 2500
-    carMaxRank: 2700
+    carBaseRank: 2300
+    carCurrentRank: 2300
+    carMaxRankAuto: 2500
     carName: Belenus
     carPrefab: {fileID: 6022285759035876821, guid: fc02ddeb9482bfd4b8e6a6e842cf285e, type: 3}
     carShowModel: {fileID: 6253156547631799059, guid: 48e2f65e046874640ace2d2eb7f59f35, type: 3}
     carSprite: {fileID: 21300000, guid: 06e7b969a64f6f04a9ff60637ecb5db6, type: 3}
-    topSpeed: 140
-    acceleration: 4
-    handling: 0.4
-    nitro: 4
+    priceCar: 68000
+    stats:
+    - statType: 0
+      baseValue: 240
+      maxValue: 260
+      baseGold: 27000
+      currentLevel: 0
+      currentValue: 240
+      goldUpgrade: 29700
+    - statType: 1
+      baseValue: 3.5
+      maxValue: 3.1
+      baseGold: 27000
+      currentLevel: 0
+      currentValue: 3.5
+      goldUpgrade: 29700
+    - statType: 2
+      baseValue: 0.53
+      maxValue: 0.7
+      baseGold: 27000
+      currentLevel: 0
+      currentValue: 0.53
+      goldUpgrade: 29700
+    - statType: 3
+      baseValue: 8
+      maxValue: 12
+      baseGold: 27000
+      currentLevel: 0
+      currentValue: 8
+      goldUpgrade: 29700
   - carClass: 3
-    carCurrentRank: 2600
-    carMaxRank: 2800
+    carBaseRank: 2500
+    carCurrentRank: 2500
+    carMaxRankAuto: 2700
     carName: Khepri
     carPrefab: {fileID: 6022285759035876821, guid: f07a5d1198d79894c861c47ddb06b2e7, type: 3}
     carShowModel: {fileID: 3593731647285965047, guid: dd38996769ae6034ea4d1279f77571fe, type: 3}
     carSprite: {fileID: 21300000, guid: fded586635f38b14b9617d70440ff827, type: 3}
-    topSpeed: 120
-    acceleration: 4
-    handling: 0.4
-    nitro: 4
+    priceCar: 70000
+    stats:
+    - statType: 0
+      baseValue: 240
+      maxValue: 260
+      baseGold: 27000
+      currentLevel: 0
+      currentValue: 240
+      goldUpgrade: 29700
+    - statType: 1
+      baseValue: 3.5
+      maxValue: 3.2
+      baseGold: 27000
+      currentLevel: 0
+      currentValue: 3.5
+      goldUpgrade: 29700
+    - statType: 2
+      baseValue: 0.5
+      maxValue: 0.7
+      baseGold: 27000
+      currentLevel: 0
+      currentValue: 0.5
+      goldUpgrade: 29700
+    - statType: 3
+      baseValue: 6
+      maxValue: 12
+      baseGold: 27000
+      currentLevel: 0
+      currentValue: 6
+      goldUpgrade: 29700
   - carClass: 3
-    carCurrentRank: 2700
-    carMaxRank: 2900
+    carBaseRank: 2600
+    carCurrentRank: 2600
+    carMaxRankAuto: 2800
     carName: Nemean
     carPrefab: {fileID: 6022285759035876821, guid: 0eeae077cd330f44fb6d40be55fa6140, type: 3}
     carShowModel: {fileID: 8067055015798883665, guid: 2317a45f2d5cd1042bb858aeb90a0b89, type: 3}
     carSprite: {fileID: 21300000, guid: 9eac2861eafb3d54fa7bb02ac2d27d46, type: 3}
-    topSpeed: 200
-    acceleration: 4
-    handling: 0.4
-    nitro: 4
+    priceCar: 72000
+    stats:
+    - statType: 0
+      baseValue: 245
+      maxValue: 265
+      baseGold: 30000
+      currentLevel: 0
+      currentValue: 245
+      goldUpgrade: 33000
+    - statType: 1
+      baseValue: 3.4
+      maxValue: 3
+      baseGold: 30000
+      currentLevel: 0
+      currentValue: 3.4
+      goldUpgrade: 33000
+    - statType: 2
+      baseValue: 0.5
+      maxValue: 0.7
+      baseGold: 30000
+      currentLevel: 0
+      currentValue: 0.5
+      goldUpgrade: 33000
+    - statType: 3
+      baseValue: 7
+      maxValue: 13
+      baseGold: 30000
+      currentLevel: 0
+      currentValue: 7
+      goldUpgrade: 33000

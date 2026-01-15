@@ -32,7 +32,7 @@ public class ScreenShop : BaseScreen
         if (data != null)
         {
             shopData = data as CarInfoData; //Save data
-        } 
+        }
         //Show last filter index from screenCarInfo go back screenGarage
         if (filterToggleGroup != null && UIEventManager.HasInstance)
         {
@@ -65,17 +65,25 @@ public class ScreenShop : BaseScreen
     }
     private void InitializePool()
     {
-        if (itemPool.Count > 0) return; //Check pool
+        if (itemPool.Count > 0) return;
 
-        //Loop and creat item with pool size
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject obj = Instantiate(itemPrefab, content); // Instantiate to parent Content
-            obj.SetActive(false); // Inactive first
+            GameObject obj = Instantiate(itemPrefab, content);  // Giữ nguyên
+            obj.SetActive(false);
+
             ScrollItem item = obj.GetComponent<ScrollItem>();
             if (item != null)
             {
+                item.ResetItem();  // Giữ nguyên
                 itemPool.Add(item);
+
+                // BỔ SUNG: Add listener cho button ở đây (fix nếu button mất hoặc crash add listener)
+                Button btn = obj.GetComponent<Button>();  // Giả sử button ở item root
+                if (btn != null)
+                {
+                    btn.onClick.AddListener(() => OnClickItemCarInfo(item.carData));  // carData cần public ở ScrollItem
+                }
             }
         }
     }
@@ -89,13 +97,16 @@ public class ScreenShop : BaseScreen
         int index = 0;
         foreach (var car in carsToShow)
         {
+            if (PlayerManager.HasInstance && PlayerManager.Instance.IsOwned(car.carName))
+            {
+                continue;  // Ẩn xe đã owned
+            }
             if (index >= itemPool.Count)
             {
                 Debug.Log("Pool out slot");
                 break; //Check safe without out pool
             }
-            ;
-            var item = itemPool[index];
+            ScrollItem item = itemPool[index];
             if (ReferenceEquals(item, null) || item == null || item.gameObject == null)
             {
                 index++;
@@ -105,13 +116,13 @@ public class ScreenShop : BaseScreen
             item.SetData(car, carDatabase); //Set data car for item.
 
             // Step 2: Attach listener for the item's button.
-            Button itemButton = item.GetComponent<Button>();
-            if (itemButton != null)
-            {
-                item.GetComponent<Button>().onClick.RemoveAllListeners(); //Clear old listener, avoid duplicate
-                CarParam localCar = car; // Capture to avoid closure issue in loop
-                item.GetComponent<Button>().onClick.AddListener(() => OnClickItemCarInfo(localCar)); // Attach listener calls OnItemSelected with the specified car
-            }
+            // Button itemButton = item.GetComponent<Button>();
+            // if (itemButton != null)
+            // {
+            //     item.GetComponent<Button>().onClick.RemoveAllListeners(); //Clear old listener, avoid duplicate
+            //     CarParam localCar = car; // Capture to avoid closure issue in loop
+            //     item.GetComponent<Button>().onClick.AddListener(() => OnClickItemCarInfo(localCar)); // Attach listener calls OnItemSelected with the specified car
+            // }
 
             // Step 3: increase the next value
             index++;

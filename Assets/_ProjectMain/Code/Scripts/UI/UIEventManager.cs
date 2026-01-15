@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -30,6 +29,9 @@ public class UIEventManager : BaseManager<UIEventManager>
         showScreenMap.Add(typeof(ScreenRaceSetup), data => UIManager.Instance.ShowScreen<ScreenRaceSetup>(data));
         showScreenMap.Add(typeof(ScreenCarInfo), data => UIManager.Instance.ShowScreen<ScreenCarInfo>(data));
         showScreenMap.Add(typeof(ScreenCarView), data => UIManager.Instance.ShowScreen<ScreenCarView>());
+        showScreenMap.Add(typeof(ScreenCarUpgrade), data => UIManager.Instance.ShowScreen<ScreenCarUpgrade>(data));
+        showScreenMap.Add(typeof(ScreenSelectTrack), data => UIManager.Instance.ShowScreen<ScreenSelectTrack>(data));
+        
         // _showScreenMap.Add(typeof(ScreenCarUpgrade), data => UIManager.Instance.ShowScreen<ScreenCarUpgrade>(data));
     }
     void OnEnable()
@@ -55,7 +57,7 @@ public class UIEventManager : BaseManager<UIEventManager>
                 UIManager.Instance.ShowPopup<PopupCurrency>();
                 UIManager.Instance.ShowScreen<ScreenHome>();
             }
-            else if (scene.name == "R&D")
+            else if (scene.name.StartsWith("Track") || scene.name == "R&D")
             {
                 UIManager.Instance.HideAllPopups();
                 UIManager.Instance.ShowScreen<ScreenGame>();
@@ -249,8 +251,13 @@ public class UIEventManager : BaseManager<UIEventManager>
     }
     public void RaceBtn()
     {
-        LoadSceneWithLoading("R&D");
-
+        if(PlayerManager.HasInstance)
+        {
+            string sceneName = PlayerManager.Instance.GetCurrentTrack();
+            //string sceneName = "R&D";
+            LoadSceneWithLoading(sceneName);
+            PlayerManager.Instance.UpdateMusicForScene(sceneName);
+        }
     }
     public void PauseBtn()
     {
@@ -289,13 +296,15 @@ public class UIEventManager : BaseManager<UIEventManager>
     }
     public void BackGarageBtn()
     {
-        if (UIManager.HasInstance)
+        if (UIManager.HasInstance && PlayerManager.HasInstance)
         {
             Time.timeScale = 1f;
             isPaused = false;
             AudioListener.pause = false;
             UIManager.Instance.HideAllScreens();
             LoadSceneWithLoading("Garage");
+            PlayerManager.Instance.UpdateMusicForScene("Garage");
+            
         }
     }
     public void QuitGameBtn()

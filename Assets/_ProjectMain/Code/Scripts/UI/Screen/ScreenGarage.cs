@@ -21,6 +21,9 @@ public class ScreenGarage : BaseScreen
     [Header("Toggle Group")]
     [SerializeField] private ToggleButtonGroup filterToggleGroup;
 
+
+    [Header("BugItem")]
+    [SerializeField] private bool showAllForDebug = false; //default false
     private CarInfoData garageData;
     private List<ScrollItem> itemPool = new List<ScrollItem>(); // Pool
     private int poolSize = 10;
@@ -47,7 +50,7 @@ public class ScreenGarage : BaseScreen
         //ShowAllCars(); //Show item in garage
         OnFilterButtonSelected(UIEventManager.Instance.currentFilterIndexGarage);
         GameEvent.OnFilterButtonSelected += OnFilterButtonSelected; //Subscribe events
-
+        GameEvent.OnCarPurchased += OnCarPurchasedHandler;
     }
 
     public override void Hide()
@@ -55,6 +58,7 @@ public class ScreenGarage : BaseScreen
         base.Hide();
         DeactivateAllItems(); //Hide item in garage
         GameEvent.OnFilterButtonSelected -= OnFilterButtonSelected; //Unsubscribe to avoid memory leak
+        GameEvent.OnCarPurchased -= OnCarPurchasedHandler;
 
     }
 
@@ -74,17 +78,26 @@ public class ScreenGarage : BaseScreen
     }
     private void InitializePool()
     {
-        if (itemPool.Count > 0) return; //Check pool
+        if (itemPool.Count > 0) return;
 
-        //Loop and creat item with pool size
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject obj = Instantiate(itemPrefab, content); // Instantiate to parent Content
-            obj.SetActive(false); // Inactive first
+            GameObject obj = Instantiate(itemPrefab, content);  // Giữ nguyên
+            obj.SetActive(false);
+
             ScrollItem item = obj.GetComponent<ScrollItem>();
             if (item != null)
             {
+                item.ResetItem();  // Giữ nguyên
                 itemPool.Add(item);
+
+                //Add listener cho button ở đây
+                Button btn = obj.GetComponent<Button>();  // Giả sử button ở item root
+                if (btn != null)
+                {
+                    btn.GetComponent<Button>().onClick.RemoveAllListeners();
+                    btn.onClick.AddListener(() => OnClickItemCarInfo(item.carData));  // carData cần public ở ScrollItem
+                }
             }
         }
     }
@@ -94,17 +107,30 @@ public class ScreenGarage : BaseScreen
     {
         DeactivateAllItems(); //Clear first
 
+        List<CarParam> filteredCars = new List<CarParam>();
+        foreach (var car in carsToShow)
+        {
+            bool isOwned = PlayerManager.Instance.IsOwned(car.carName);
+            if (showAllForDebug || isOwned)  //If debug thì show all, else chỉ owned
+            {
+                filteredCars.Add(car);
+            }
+        }
         // Step 1: Loop through the vehicle list and activate the corresponding item.
         int index = 0;
-        foreach (var car in carsToShow)
+        foreach (var car in filteredCars)
         {
             if (index >= itemPool.Count)
             {
                 Debug.Log("Pool out slot");
                 break; //Check safe without out pool
             }
-            ;
-            var item = itemPool[index];
+            PlayerCarData playerData = PlayerManager.Instance.GetPlayerCarData(car.carName);
+            if (playerData != null)
+            {
+                car.carCurrentRank = playerData.currentRank;  // Chỉ override nếu owned (null-safe)
+            }
+            ScrollItem item = itemPool[index];
             if (ReferenceEquals(item, null) || item == null || item.gameObject == null)
             {
                 index++;
@@ -113,14 +139,15 @@ public class ScreenGarage : BaseScreen
             item.gameObject.SetActive(true);
             item.SetData(car, carDatabase); //Set data car for item.
 
-            // Step 2: Attach listener for the item's button.
-            Button itemButton = item.GetComponent<Button>();
-            if (itemButton != null)
-            {
-                item.GetComponent<Button>().onClick.RemoveAllListeners(); //Clear old listener, avoid duplicate
-                CarParam localCar = car; // Capture to avoid closure issue in loop
-                item.GetComponent<Button>().onClick.AddListener(() => OnClickItemCarInfo(localCar)); // Attach listener calls OnItemSelected with the specified car
-            }
+
+            // // Step 2: Attach listener for the item's button.
+            // Button itemButton = item.GetComponent<Button>();
+            // if (itemButton != null)
+            // {
+            //     item.GetComponent<Button>().onClick.RemoveAllListeners(); //Clear old listener, avoid duplicate
+            //     CarParam localCar = car; // Capture to avoid closure issue in loop
+            //     item.GetComponent<Button>().onClick.AddListener(() => OnClickItemCarInfo(localCar)); // Attach listener calls OnItemSelected with the specified car
+            // }
 
             // Step 3: increase the next value
             index++;
@@ -211,6 +238,11 @@ public class ScreenGarage : BaseScreen
                 FilterAndUpdate(CarClass.classS, "S");
                 break;
         }
+    }
+    private void OnCarPurchasedHandler(string carName)
+    {
+        // Refresh list khi có xe mới mua (nếu đang filter phù hợp)
+        OnFilterButtonSelected(UIEventManager.Instance.currentFilterIndexGarage);
     }
     //-----Button item fuction-----
     public void OnClickFilterByClass(string classFilter)

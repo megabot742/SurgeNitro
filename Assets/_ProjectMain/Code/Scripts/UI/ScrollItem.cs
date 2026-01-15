@@ -11,7 +11,7 @@ public class ScrollItem : MonoBehaviour
     [SerializeField] private TMP_Text rankTxt;
     [SerializeField] private Image carImg;
     
-    private CarParam carData; //Data car
+    public CarParam carData; //Data car
     private CarDatabaseSO database; //Data get class color
 
     public void SetData(CarParam car, CarDatabaseSO db)

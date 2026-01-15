@@ -31,3 +31,21 @@ public class ResultData
     public int position;
     public float bestTime;
 }
+//CarStatType
+public enum CarStatType
+{
+    TopSpeed,     // Km/h
+    Acceleration, // Seconds (thời gian tăng tốc 0-100)
+    Handling,     // Power (0-1 hoặc độ bám đường)
+    Nitro         // Seconds (thời gian nitro)
+}
+public class UpgradeData
+{
+    public CarStatType StatType { get; set; }  // Enum để biết tab nào
+    public CarParam Car { get; set; }  // Xe đang nâng cấp
+}
+public class UpgradePayload
+{
+    public CarInfoData InfoData;         // Chứa Mode + Car đầy đủ
+    public CarStatType InitialStatType;  // Tab nào sẽ mở đầu tiên
+}
