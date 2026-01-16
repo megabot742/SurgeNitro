@@ -9,7 +9,7 @@ public class UpgradeStat
     public float maxValue;
     public int baseGold; 
     [SerializeField, Range(0,10)] private int currentLevel; // Chỉ editor, runtime dùng PlayerCarData
-    [SerializeField, ReadOnly] private float currentValue; 
+    //[SerializeField, ReadOnly] private float currentValue; 
     [SerializeField, ReadOnly] private float goldUpgrade; 
 
     private static readonly float[] coefficients = { 0.1f, 0.2f, 0.3f, 0.4f, 0.5f, 0.6f, 1.0f, 1.1f, 1.2f, 1.3f }; //level 0 -> level 10
@@ -23,7 +23,7 @@ public class UpgradeStat
     }
     public float CurrentValue ////Getter current Value for UI
     {
-        get  => currentValue; 
+        get  => GetCurrentValue(); 
     }  
     public float GoldUpgrade ////Getter current Gold for UI
     {
@@ -64,7 +64,7 @@ public class UpgradeStat
 
         currentLevel++;
         newValue = GetCurrentValue();  // Tính mới
-        currentValue = newValue;  // Update field
+        //currentValue = newValue;  // Update field
         return true;
     }
     public int GetNextUpgradeCost()
@@ -83,9 +83,9 @@ public class UpgradeStat
     public void OnValidate()
     {
 #if UNITY_EDITOR
-        currentValue = GetCurrentValue();
-        GetNextUpgradeCost();
-        Debug.Log("Level changed: " + currentLevel + " -> Value: " + currentValue + " Next cost: " + GetNextUpgradeCost());
+        //currentValue = GetCurrentValue();
+        //GetNextUpgradeCost();
+        Debug.Log($"Level: {currentLevel} -> Value: {CurrentValue:F2} | Next cost: {GetNextUpgradeCost()}");
 #endif
     }
 }

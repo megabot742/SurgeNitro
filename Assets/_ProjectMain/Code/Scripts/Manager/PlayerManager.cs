@@ -273,7 +273,7 @@ public class PlayerManager : BaseManager<PlayerManager>
     {
         // Tìm CarParam từ database
         CarParam originalCar = carDatabase.GetCarByName(carName);
-        if (originalCar == null)
+        if (originalCar == null || GetPlayerCarData(carName) != null)
         {
             Debug.LogError($"Car '{carName}' not found in database!");
             return;
@@ -536,7 +536,7 @@ public class PlayerManager : BaseManager<PlayerManager>
         if (musicPlayer != null && currentClipList != null && currentClipList.Length > 0)
         {
             // Set volume linear cho source (nếu không route full qua Mixer, hoặc set=1f ở Inspector)
-            musicPlayer.volume = musicVolume;
+            //musicPlayer.volume = musicVolume;
 
             if (musicPlayer.isPlaying)
             {

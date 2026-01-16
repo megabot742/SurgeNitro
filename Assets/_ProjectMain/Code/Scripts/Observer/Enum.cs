@@ -49,3 +49,13 @@ public class UpgradePayload
     public CarInfoData InfoData;         // Chứa Mode + Car đầy đủ
     public CarStatType InitialStatType;  // Tab nào sẽ mở đầu tiên
 }
+public class RaceResultData
+{
+    public int position;           // 1, 2, 3,...
+    public float bestLapTime;      // thời gian lap tốt nhất
+    public int totalLaps;          // để tính lại nếu cần
+
+    public long baseReward;        // tiền cơ bản (thứ hạng + lap)
+    public long randomBonus;       // tiền bonus ngẫu nhiên
+    public long totalReward;
+}

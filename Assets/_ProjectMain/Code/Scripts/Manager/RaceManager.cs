@@ -43,11 +43,16 @@ public class RaceManager : BaseManager<RaceManager>
     [SerializeField] private CarDatabaseSO carDatabase;  //CarDatabaseS Param
     [SerializeField] private bool allowCarResemblePlayer = true;  //True: AI can be like a player; False: AI must be different from player (but AI can be the same)
 
+    [Header("Race completed")]
     [SerializeField] public bool raceCompleted;
+    [SerializeField] RaceRewardConfig rewardConfig; // kéo từ inspector hoặc load từ Resources
+
+    //private RaceRewardCalculator rewardCalculator;
 
     protected override void Awake()
     {
         base.Awake();
+        //rewardCalculator = new RaceRewardCalculator(rewardConfig);
     }
     private void OnEnable()
     {
@@ -106,7 +111,7 @@ public class RaceManager : BaseManager<RaceManager>
                 // Optional: Fallback load default từ database
             }
         }
-        
+
         FindCheckPoint();
         FindStartPoint();
         spawnCarParent = GameObject.FindGameObjectWithTag(SPAWN_POINT_PARENT);
@@ -415,34 +420,58 @@ public class RaceManager : BaseManager<RaceManager>
 
     }
     #region Finish Race
+    private long CalculateBaseReward(int position, int laps)
+    {
+        long positionReward = position switch
+        {
+            1 => rewardConfig.reward1st,
+            2 => rewardConfig.reward2nd,
+            3 => rewardConfig.reward3rd,
+            _ => rewardConfig.rewardDefault
+        };
+
+        // Nhân với số lap (có thể chỉnh hệ số nếu muốn)
+        long lapMultiplier = Mathf.Max(1, laps); // ít nhất là 1
+        return positionReward * lapMultiplier;
+    }
     public void FinishRace()
     {
-        if (!raceCompleted)
+        if (raceCompleted) return;
+        raceCompleted = true;
+
+        int finalPosition = playerPos; // vị trí cuối cùng của player
+        int lapsCompleted = PlayerManager.Instance.GetCurrentLap();
+
+        // Tính thưởng chi tiết
+        long baseReward = CalculateBaseReward(finalPosition, lapsCompleted);
+        long randomBonus = Random.Range(rewardConfig.bonusMin, rewardConfig.bonusMax + 1);
+        long totalReward = baseReward + randomBonus;
+
+        // Cộng tiền NGAY LẬP TỨC (trước khi hiện popup)
+        PlayerManager.Instance.ReceiveCoin(totalReward);
+
+        // Chuẩn bị dữ liệu hiển thị
+        var resultData = new RaceResultData
         {
-            raceCompleted = true;
-            if (UIManager.HasInstance) //RaceInfoManager.HasInstance
-            {
-                UIManager.Instance.StopCountdown(); // Stop countdown when race ends
-                float bestTime = playerCarController?.bestLapTime ?? 0f;
+            position = finalPosition,
+            bestLapTime = playerCarController?.bestLapTime ?? 0f,
+            totalLaps = lapsCompleted,
 
-                UIManager.Instance.HideAllScreens();
-                UIManager.Instance.ShowPopup<PopupResult>();
-                GameEvent.ShowRaceFinished(playerPos, bestTime);
+            baseReward = baseReward,
+            randomBonus = randomBonus,
+            totalReward = totalReward
+        };
 
-                inputCarController.SetupPlayerInput(false); //Change Player in to AI after finish race
+        // Hiện popup và truyền data
+        if (UIManager.HasInstance)
+        {
+            UIManager.Instance.HideAllScreens();
+            UIManager.Instance.ShowPopup<PopupResult>(resultData);
 
-                //Unlock new track
-                // if (playerPosition < 4 && !string.IsNullOrEmpty(RaceInfoManager.Instance.raceToUnlock))
-                // {
-                //     // if (!PlayerPrefs.HasKey(RaceInfoManager.Instance.raceToUnlock + "_unlocked"))
-                //     // {
-                //     //     PlayerPrefs.SetInt(RaceInfoManager.Instance.raceToUnlock + "_unlocked", 1);
-                //     //     PlayerPrefs.Save();
-                //     //UIManager.Instance.hUDPanel.unlockRaceText.gameObject.SetActive(true);
-                //     // }
-                // }
-            }
+            GameEvent.ShowRaceFinished(finalPosition, resultData.bestLapTime);
         }
+
+        inputCarController.SetupPlayerInput(false);
 
     }
 

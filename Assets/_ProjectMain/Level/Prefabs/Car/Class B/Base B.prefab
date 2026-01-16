@@ -1216,6 +1216,10 @@ PrefabInstance:
       value: 0.37
       objectReference: {fileID: 0}
     - target: {fileID: 1057948511500882188, guid: 7801a0b281811714fb6a34f54df3141f, type: 3}
+      propertyPath: nitro.maxTankCapacity
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1057948511500882188, guid: 7801a0b281811714fb6a34f54df3141f, type: 3}
       propertyPath: 'steerableWheels.Array.data[0]'
       value: 
       objectReference: {fileID: 831691059753296004}

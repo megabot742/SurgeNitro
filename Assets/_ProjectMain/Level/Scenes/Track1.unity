@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 6bfab16f387f95e4bb60f866299be241, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -1641,7 +1641,7 @@ GameObject:
   - component: {fileID: 42822514}
   m_Layer: 0
   m_Name: SCutL14
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2259,7 +2259,7 @@ GameObject:
   - component: {fileID: 59223276}
   m_Layer: 0
   m_Name: SCutR5
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2369,7 +2369,7 @@ GameObject:
   - component: {fileID: 63495786}
   m_Layer: 0
   m_Name: SCutR13
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3567,7 +3567,7 @@ GameObject:
   - component: {fileID: 108552184}
   m_Layer: 0
   m_Name: RoadCut2
-  m_TagString: Untagged
+  m_TagString: Dirt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4240,7 +4240,7 @@ GameObject:
   - component: {fileID: 136065630}
   m_Layer: 0
   m_Name: RoadMesh
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5130,7 +5130,7 @@ GameObject:
   - component: {fileID: 173054718}
   m_Layer: 0
   m_Name: RoadCut8
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6425,7 +6425,7 @@ GameObject:
   - component: {fileID: 210592013}
   m_Layer: 0
   m_Name: ShoulderR
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6503,7 +6503,23 @@ PrefabInstance:
       value: RoadMaterialList
       objectReference: {fileID: 0}
     - target: {fileID: 7694161467291051917, guid: 801e0572163a9a347909518433b0efd9, type: 3}
+      propertyPath: _tag.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694161467291051917, guid: 801e0572163a9a347909518433b0efd9, type: 3}
+      propertyPath: _tag.Array.data[0]._tag
+      value: Asphalt
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694161467291051917, guid: 801e0572163a9a347909518433b0efd9, type: 3}
+      propertyPath: _tag.Array.data[1]._tag
+      value: Dirt
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694161467291051917, guid: 801e0572163a9a347909518433b0efd9, type: 3}
       propertyPath: _terrainLayer.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694161467291051917, guid: 801e0572163a9a347909518433b0efd9, type: 3}
+      propertyPath: _tag.Array.data[1]._roadMaterialIndex
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7694161467291051917, guid: 801e0572163a9a347909518433b0efd9, type: 3}
@@ -7546,7 +7562,7 @@ GameObject:
   - component: {fileID: 234018058}
   m_Layer: 0
   m_Name: RoadCut0
-  m_TagString: Untagged
+  m_TagString: Dirt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9388,7 +9404,7 @@ GameObject:
   - component: {fileID: 287356864}
   m_Layer: 0
   m_Name: RoadCut1
-  m_TagString: Untagged
+  m_TagString: Dirt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10103,7 +10119,7 @@ GameObject:
   - component: {fileID: 308752014}
   m_Layer: 0
   m_Name: SCutR7
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10313,7 +10329,7 @@ GameObject:
   - component: {fileID: 317432999}
   m_Layer: 0
   m_Name: RoadCut10
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10490,7 +10506,7 @@ GameObject:
   - component: {fileID: 333551561}
   m_Layer: 0
   m_Name: RoadCut0
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10601,7 +10617,7 @@ GameObject:
   - component: {fileID: 347584717}
   m_Layer: 0
   m_Name: RoadCut0
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10712,7 +10728,7 @@ GameObject:
   - component: {fileID: 347761272}
   m_Layer: 0
   m_Name: RoadCut5
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10860,7 +10876,7 @@ GameObject:
   - component: {fileID: 361305434}
   m_Layer: 0
   m_Name: SCutL9
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11691,7 +11707,7 @@ GameObject:
   - component: {fileID: 384218723}
   m_Layer: 0
   m_Name: SCutR0
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11863,7 +11879,7 @@ GameObject:
   - component: {fileID: 397272735}
   m_Layer: 0
   m_Name: SCutL13
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12633,7 +12649,7 @@ GameObject:
   - component: {fileID: 417121666}
   m_Layer: 0
   m_Name: RoadCut0
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13215,7 +13231,7 @@ GameObject:
   - component: {fileID: 436603914}
   m_Layer: 0
   m_Name: ShoulderL
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13623,7 +13639,7 @@ GameObject:
   - component: {fileID: 459029975}
   m_Layer: 0
   m_Name: RoadCut6
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13796,7 +13812,7 @@ GameObject:
   - component: {fileID: 472614745}
   m_Layer: 0
   m_Name: SCutR12
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14071,7 +14087,7 @@ GameObject:
   - component: {fileID: 481703459}
   m_Layer: 0
   m_Name: SCutR9
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15243,7 +15259,7 @@ GameObject:
   - component: {fileID: 516220874}
   m_Layer: 0
   m_Name: Markers2
-  m_TagString: Untagged
+  m_TagString: Dirt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15739,7 +15755,7 @@ GameObject:
   - component: {fileID: 523171474}
   m_Layer: 0
   m_Name: SCutR0
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15979,7 +15995,7 @@ GameObject:
   - component: {fileID: 529345757}
   m_Layer: 0
   m_Name: SCutL1
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16753,7 +16769,7 @@ GameObject:
   - component: {fileID: 547420656}
   m_Layer: 0
   m_Name: RoadCut11
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17028,7 +17044,7 @@ GameObject:
   - component: {fileID: 550383973}
   m_Layer: 0
   m_Name: Markers4
-  m_TagString: Untagged
+  m_TagString: Dirt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17524,7 +17540,7 @@ GameObject:
   - component: {fileID: 578814565}
   m_Layer: 0
   m_Name: SCutR14
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17687,7 +17703,7 @@ GameObject:
   - component: {fileID: 586578196}
   m_Layer: 0
   m_Name: SCutR10
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18252,7 +18268,7 @@ GameObject:
   - component: {fileID: 617713463}
   m_Layer: 0
   m_Name: RoadCut2
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19444,7 +19460,7 @@ GameObject:
   - component: {fileID: 659941358}
   m_Layer: 0
   m_Name: SCutR2
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19957,7 +19973,7 @@ GameObject:
   - component: {fileID: 672622485}
   m_Layer: 0
   m_Name: RoadCut3
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20130,7 +20146,7 @@ GameObject:
   - component: {fileID: 680026218}
   m_Layer: 0
   m_Name: RoadCut3
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20328,7 +20344,7 @@ GameObject:
   - component: {fileID: 682406201}
   m_Layer: 0
   m_Name: RoadCut4
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20439,7 +20455,7 @@ GameObject:
   - component: {fileID: 683479994}
   m_Layer: 0
   m_Name: RoadCut3
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20677,7 +20693,7 @@ GameObject:
   - component: {fileID: 697396136}
   m_Layer: 0
   m_Name: SCutR8
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21313,7 +21329,7 @@ GameObject:
   - component: {fileID: 720016008}
   m_Layer: 0
   m_Name: RoadCut2
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22250,7 +22266,7 @@ GameObject:
   - component: {fileID: 789402263}
   m_Layer: 0
   m_Name: RoadCut9
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22361,7 +22377,7 @@ GameObject:
   - component: {fileID: 790351333}
   m_Layer: 0
   m_Name: SCutR4
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23319,7 +23335,7 @@ Transform:
   m_GameObject: {fileID: 835868758}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.14, y: 107.75, z: 210.19}
+  m_LocalPosition: {x: -4.82, y: 107.75, z: 201.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -23339,7 +23355,7 @@ GameObject:
   - component: {fileID: 837215740}
   m_Layer: 0
   m_Name: SCutR2
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25548,7 +25564,7 @@ GameObject:
   - component: {fileID: 912124266}
   m_Layer: 0
   m_Name: RoadCut14
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27223,7 +27239,7 @@ GameObject:
   - component: {fileID: 954232367}
   m_Layer: 0
   m_Name: SCutR3
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27783,7 +27799,7 @@ GameObject:
   - component: {fileID: 973136624}
   m_Layer: 0
   m_Name: SCutR6
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27893,7 +27909,7 @@ GameObject:
   - component: {fileID: 980126212}
   m_Layer: 0
   m_Name: RoadCut7
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28180,7 +28196,7 @@ GameObject:
   - component: {fileID: 994802361}
   m_Layer: 0
   m_Name: RoadMesh
-  m_TagString: Untagged
+  m_TagString: Dirt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28616,7 +28632,7 @@ GameObject:
   - component: {fileID: 1018772882}
   m_Layer: 0
   m_Name: SCutL1
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30674,7 +30690,7 @@ MonoBehaviour:
   isMultithreaded: 1
   isSavingMeshes: 0
   isAllowingRoadUpdates: 1
-  editorPlayCamera: {fileID: 0}
+  editorPlayCamera: {fileID: 31771829}
 --- !u!4 &1097711328
 Transform:
   m_ObjectHideFlags: 0
@@ -30812,7 +30828,7 @@ GameObject:
   - component: {fileID: 1108447610}
   m_Layer: 0
   m_Name: SCutL4
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31235,7 +31251,7 @@ GameObject:
   - component: {fileID: 1130200233}
   m_Layer: 0
   m_Name: SCutR11
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32176,7 +32192,7 @@ MonoBehaviour:
   editorConstructionID: 0
   isEditorSelected: 1
   isEditorMouseHittingTerrain: 0
-  editorMousePos: {x: 62.86139, y: 112.5618, z: 140.88052}
+  editorMousePos: {x: -18.186554, y: 116.803604, z: -90.2939}
   defaultNodeColor: {r: 0, g: 1, b: 1, a: 0.75}
   selectedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   newNodePreviewColor: {r: 1, g: 0, b: 0, a: 1}
@@ -32273,7 +32289,7 @@ GameObject:
   - component: {fileID: 1174022905}
   m_Layer: 0
   m_Name: RoadCut13
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32384,7 +32400,7 @@ GameObject:
   - component: {fileID: 1174262982}
   m_Layer: 0
   m_Name: SCutR16
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33019,7 +33035,7 @@ GameObject:
   - component: {fileID: 1193747639}
   m_Layer: 0
   m_Name: SCutL5
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34116,7 +34132,7 @@ GameObject:
   - component: {fileID: 1221431858}
   m_Layer: 0
   m_Name: SCutL0
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35592,7 +35608,7 @@ GameObject:
   - component: {fileID: 1274534279}
   m_Layer: 0
   m_Name: SCutL4
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36830,7 +36846,7 @@ GameObject:
   - component: {fileID: 1343118536}
   m_Layer: 0
   m_Name: SCutL0
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37423,7 +37439,7 @@ GameObject:
   - component: {fileID: 1385063156}
   m_Layer: 0
   m_Name: RoadCut1
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37786,7 +37802,7 @@ GameObject:
   - component: {fileID: 1398889991}
   m_Layer: 0
   m_Name: SCutR0
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37896,7 +37912,7 @@ GameObject:
   - component: {fileID: 1400914944}
   m_Layer: 0
   m_Name: SCutL12
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39745,7 +39761,7 @@ GameObject:
   - component: {fileID: 1438605663}
   m_Layer: 0
   m_Name: RoadCut6
-  m_TagString: Untagged
+  m_TagString: Dirt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39899,7 +39915,7 @@ GameObject:
   - component: {fileID: 1448569573}
   m_Layer: 0
   m_Name: RoadCut16
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40340,7 +40356,7 @@ GameObject:
   - component: {fileID: 1459048012}
   m_Layer: 0
   m_Name: RoadCut12
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40794,7 +40810,7 @@ GameObject:
   - component: {fileID: 1463522045}
   m_Layer: 0
   m_Name: SCutL16
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41311,7 +41327,7 @@ GameObject:
   - component: {fileID: 1489126953}
   m_Layer: 0
   m_Name: SCutL2
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41482,7 +41498,7 @@ GameObject:
   - component: {fileID: 1497549526}
   m_Layer: 0
   m_Name: SCutR2
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41591,7 +41607,7 @@ GameObject:
   - component: {fileID: 1500594765}
   m_Layer: 0
   m_Name: RoadCut3
-  m_TagString: Untagged
+  m_TagString: Dirt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41698,7 +41714,7 @@ GameObject:
   - component: {fileID: 1504189530}
   m_Layer: 0
   m_Name: ShoulderL
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42858,7 +42874,7 @@ GameObject:
   - component: {fileID: 1542254838}
   m_Layer: 0
   m_Name: Markers6
-  m_TagString: Untagged
+  m_TagString: Dirt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42944,7 +42960,7 @@ GameObject:
   - component: {fileID: 1543558102}
   m_Layer: 0
   m_Name: Markers0
-  m_TagString: Untagged
+  m_TagString: Dirt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43835,8 +43851,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isClosed: 0
-  distance: 593.5182
-  mousePos: {x: 140.76663, y: 122.78964, z: 160.75656}
+  distance: 415.7695
+  mousePos: {x: -228.38197, y: 117.131355, z: -12.320842}
   spline: {fileID: 1565514816}
   isDrawingGizmos: 1
 --- !u!114 &1565514818
@@ -44280,7 +44296,7 @@ GameObject:
   - component: {fileID: 1581295931}
   m_Layer: 0
   m_Name: RoadCut4
-  m_TagString: Untagged
+  m_TagString: Dirt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44555,7 +44571,7 @@ GameObject:
   - component: {fileID: 1588347936}
   m_Layer: 0
   m_Name: SCutR4
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44952,7 +44968,7 @@ GameObject:
   - component: {fileID: 1606518456}
   m_Layer: 0
   m_Name: SCutR1
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45962,7 +45978,7 @@ GameObject:
   - component: {fileID: 1639909429}
   m_Layer: 0
   m_Name: SCutR1
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46539,7 +46555,7 @@ GameObject:
   - component: {fileID: 1677726867}
   m_Layer: 0
   m_Name: SCutL11
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46649,7 +46665,7 @@ GameObject:
   - component: {fileID: 1679660213}
   m_Layer: 0
   m_Name: SCutL15
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46771,7 +46787,7 @@ GameObject:
   - component: {fileID: 1682242885}
   m_Layer: 0
   m_Name: Markers1
-  m_TagString: Untagged
+  m_TagString: Dirt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46858,7 +46874,7 @@ GameObject:
   - component: {fileID: 1685520176}
   m_Layer: 0
   m_Name: SCutL3
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46984,11 +47000,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeedMultiplier: 0.4
-  classDMultiplier: 0.4
-  classCMultiplier: 0.4
-  classBMultiplier: 0.4
-  classAMultiplier: 0.4
-  classSMultiplier: 0.4
+  classDMultiplier: 0.1
+  classCMultiplier: 0.1
+  classBMultiplier: 0.1
+  classAMultiplier: 0.1
+  classSMultiplier: 0.1
   minDistanceToReachWaypoint: 30
   nextWaypointNode:
   - {fileID: 835868759}
@@ -47377,7 +47393,7 @@ MonoBehaviour:
   editorConstructionID: 0
   isEditorSelected: 1
   isEditorMouseHittingTerrain: 1
-  editorMousePos: {x: 140.76663, y: 122.78964, z: 160.75656}
+  editorMousePos: {x: -228.38197, y: 117.131355, z: -12.320842}
   defaultNodeColor: {r: 0, g: 1, b: 1, a: 0.75}
   selectedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   newNodePreviewColor: {r: 1, g: 0, b: 0, a: 1}
@@ -47860,7 +47876,7 @@ GameObject:
   - component: {fileID: 1732731387}
   m_Layer: 0
   m_Name: SCutL2
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48388,7 +48404,7 @@ GameObject:
   - component: {fileID: 1760464573}
   m_Layer: 0
   m_Name: SCutL8
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49471,7 +49487,7 @@ GameObject:
   - component: {fileID: 1797280675}
   m_Layer: 0
   m_Name: RoadCut5
-  m_TagString: Untagged
+  m_TagString: Dirt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50382,7 +50398,7 @@ GameObject:
   - component: {fileID: 1816102528}
   m_Layer: 0
   m_Name: SCutL1
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52338,7 +52354,7 @@ GameObject:
   - component: {fileID: 1876781351}
   m_Layer: 0
   m_Name: SCutR1
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52447,7 +52463,7 @@ GameObject:
   - component: {fileID: 1877089219}
   m_Layer: 0
   m_Name: RoadCut4
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52558,7 +52574,7 @@ GameObject:
   - component: {fileID: 1877831449}
   m_Layer: 0
   m_Name: SCutL0
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53168,8 +53184,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isClosed: 0
-  distance: 273.19266
-  mousePos: {x: 62.86139, y: 112.5618, z: 140.88052}
+  distance: 656.6793
+  mousePos: {x: -18.186554, y: 116.803604, z: -90.2939}
   spline: {fileID: 1882840265}
   isDrawingGizmos: 0
 --- !u!114 &1882840267
@@ -53607,7 +53623,7 @@ GameObject:
   - component: {fileID: 1898622772}
   m_Layer: 0
   m_Name: SCutL3
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53716,7 +53732,7 @@ GameObject:
   - component: {fileID: 1902075467}
   m_Layer: 0
   m_Name: RoadCut2
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53900,7 +53916,7 @@ GameObject:
   - component: {fileID: 1903272543}
   m_Layer: 0
   m_Name: SCutL10
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55250,7 +55266,7 @@ GameObject:
   - component: {fileID: 1958392336}
   m_Layer: 0
   m_Name: SCutL3
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55413,7 +55429,7 @@ GameObject:
   - component: {fileID: 1964689620}
   m_Layer: 0
   m_Name: SCutL2
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55755,7 +55771,7 @@ GameObject:
   - component: {fileID: 1976222115}
   m_Layer: 0
   m_Name: SCutR15
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56067,7 +56083,7 @@ GameObject:
   - component: {fileID: 2004912065}
   m_Layer: 0
   m_Name: SCutL7
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56524,7 +56540,7 @@ GameObject:
   - component: {fileID: 2018571081}
   m_Layer: 0
   m_Name: RoadCut1
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56797,7 +56813,7 @@ GameObject:
   - component: {fileID: 2028215596}
   m_Layer: 0
   m_Name: RoadMesh
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57370,7 +57386,7 @@ GameObject:
   - component: {fileID: 2054854874}
   m_Layer: 0
   m_Name: ShoulderR
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57704,7 +57720,7 @@ GameObject:
   - component: {fileID: 2070053832}
   m_Layer: 0
   m_Name: SCutR3
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -57935,7 +57951,7 @@ GameObject:
   - component: {fileID: 2075384287}
   m_Layer: 0
   m_Name: SCutR3
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58371,7 +58387,7 @@ GameObject:
   - component: {fileID: 2091527596}
   m_Layer: 0
   m_Name: Markers5
-  m_TagString: Untagged
+  m_TagString: Dirt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58471,7 +58487,7 @@ GameObject:
   - component: {fileID: 2093075925}
   m_Layer: 0
   m_Name: RoadCut1
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58939,7 +58955,7 @@ GameObject:
   - component: {fileID: 2106859207}
   m_Layer: 0
   m_Name: RoadCut15
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59215,7 +59231,7 @@ GameObject:
   - component: {fileID: 2129071690}
   m_Layer: 0
   m_Name: SCutL6
-  m_TagString: Untagged
+  m_TagString: Asphalt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59386,7 +59402,7 @@ GameObject:
   - component: {fileID: 2131016002}
   m_Layer: 0
   m_Name: Markers3
-  m_TagString: Untagged
+  m_TagString: Dirt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
