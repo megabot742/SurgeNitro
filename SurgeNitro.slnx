@@ -1,0 +1,21 @@
+﻿<Solution>
+  <Project Path="Tayx.Graphy.csproj" />
+  <Project Path="Digger.AdvancedOperations.csproj" />
+  <Project Path="RoadArchitect.csproj" />
+  <Project Path="Digger.Core.csproj" />
+  <Project Path="sc.terrain.painter.runtime.csproj" />
+  <Project Path="Assembly-CSharp-Editor.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="sc.vegetationspawner.runtime.csproj" />
+  <Project Path="Digger.Core.Editor.csproj" />
+  <Project Path="sc.modeling.splines.editor.csproj" />
+  <Project Path="sc.modeling.splines.runtime.csproj" />
+  <Project Path="Tayx.Graphy.Editor.csproj" />
+  <Project Path="Digger.Splines.csproj" />
+  <Project Path="sc.terrain.painter.editor.csproj" />
+  <Project Path="VHierarchy.csproj" />
+  <Project Path="Digger.Splines.Editor.csproj" />
+  <Project Path="Polyperfect.Common.csproj" />
+  <Project Path="sc.vegetationspawner.editor.csproj" />
+  <Project Path="Digger.AdvancedOperations.Editor.csproj" />
+</Solution>
